@@ -3,6 +3,7 @@ package pl.edu.pw.infstos.szsdsr.payments.penalty;
 import pl.edu.pw.infstos.szsdsr.payments.passing.Passing;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Penalty {
@@ -11,13 +12,16 @@ public class Penalty {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private Long userId;
 
     @OneToOne
+    @NotNull
     private Passing passing;
 
     private String description;
 
+    @NotNull
     private boolean paid;
 
     public Long getId() {

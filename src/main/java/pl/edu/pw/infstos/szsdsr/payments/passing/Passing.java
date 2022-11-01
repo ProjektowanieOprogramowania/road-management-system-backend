@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,13 +14,15 @@ public class Passing {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private boolean payable;
 
+    @NotNull
     private LocalDateTime dateTime;
 
-    private String localization; // TODO Localization localization
+    private String localization; // TODO @NotNull Localization localization
 
-    private String vehicle; // TODO Vehicle vehicle
+    private String vehicle; // TODO @NotNull Vehicle vehicle
 
     public Long getId() {
         return id;
