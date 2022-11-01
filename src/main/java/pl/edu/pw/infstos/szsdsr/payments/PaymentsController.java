@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pw.infstos.szsdsr.payments.penalty.Penalty;
+import pl.edu.pw.infstos.szsdsr.payments.penalty.PenaltyService;
 import pl.edu.pw.infstos.szsdsr.payments.tariff.Tariff;
 import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffDTO;
 import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffService;
@@ -18,11 +19,14 @@ import java.util.Optional;
 public class PaymentsController implements IPaymentsAPI {
 
     private final TariffService tariffService;
+    private final PenaltyService penaltyService;
 
     public PaymentsController(
-            @Autowired TariffService tariffService
-    ) {
+            @Autowired TariffService tariffService,
+            @Autowired PenaltyService penaltyService
+            ) {
         this.tariffService = tariffService;
+        this.penaltyService = penaltyService;
     }
 
     @Override
@@ -64,9 +68,9 @@ public class PaymentsController implements IPaymentsAPI {
     }
 
     @Override
-    public List<Penalty> getAllPenalties(Long userId) {
-        // TODO
-        return null;
+    @GetMapping("penalty/{userId}")
+    public List<Penalty> getAllPenalties(@PathVariable Long userId) {
+        return penaltyService.getAllPenalties(userId);
     }
 
 }
