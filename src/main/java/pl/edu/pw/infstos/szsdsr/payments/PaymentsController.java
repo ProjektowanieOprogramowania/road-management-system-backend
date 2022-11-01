@@ -49,7 +49,7 @@ public class PaymentsController implements IPaymentsAPI {
     @DeleteMapping("tariff/{id}")
     public ResponseEntity<Tariff> deleteTariff(@PathVariable Long id) {
         boolean removed = tariffService.deleteTariff(id);
-        return new ResponseEntity<>(removed ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(removed ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
 
     @Override
