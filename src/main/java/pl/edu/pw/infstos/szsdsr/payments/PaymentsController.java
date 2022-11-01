@@ -11,8 +11,7 @@ import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffService;
 
 import javax.validation.Valid;
 import java.util.List;
-
-// TODO: dodać możliwość dodawania cen do Tariff
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/payments")
@@ -40,9 +39,15 @@ public class PaymentsController implements IPaymentsAPI {
 
     @Override
     @PutMapping("tariff/{id}")
-    public ResponseEntity<Tariff> updateTariff(Tariff tariff) {
-        // TODO
-        return null;
+    public ResponseEntity<Tariff> updateTariff(@PathVariable Long id, @RequestBody @Valid Tariff tariff) {
+        tariff.setId(id);
+
+        Optional<Tariff> updatedTariff = tariffService.updateTariff(tariff);
+        if (updatedTariff.isPresent()) {
+            return ResponseEntity.of(updatedTariff);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

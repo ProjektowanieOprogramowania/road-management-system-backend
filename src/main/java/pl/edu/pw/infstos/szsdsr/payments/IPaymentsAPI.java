@@ -11,7 +11,7 @@ public interface IPaymentsAPI {
 
     List<TariffDTO> getAllTariffs();
     Tariff addTariff(Tariff tariff);
-    ResponseEntity<Tariff> updateTariff(Tariff tariff);
+    ResponseEntity<Tariff> updateTariff(Long id, Tariff tariff);
     ResponseEntity<Tariff> deleteTariff(Long id);
     ResponseEntity<Tariff> getTariff(Long id);
 

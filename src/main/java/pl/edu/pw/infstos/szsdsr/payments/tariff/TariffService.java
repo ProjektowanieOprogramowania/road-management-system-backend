@@ -34,9 +34,12 @@ public class TariffService {
         return tariffRepository.save(tariff);
     }
 
-    public Tariff updateTariff(Tariff tariff) {
-        // TODO
-        return null;
+    public Optional<Tariff> updateTariff(Tariff tariff) {
+        if (tariffRepository.existsById(tariff.getId())) {
+            return Optional.of(tariffRepository.save(tariff));
+        } else {
+            return Optional.empty();
+        }
     }
 
     public boolean deleteTariff(Long id) {
