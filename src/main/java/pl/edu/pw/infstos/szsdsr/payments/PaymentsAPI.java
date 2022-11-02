@@ -7,7 +7,7 @@ import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffSimplifiedDTO;
 
 import java.util.List;
 
-public interface IPaymentsAPI {
+public interface PaymentsAPI {
 
     List<TariffSimplifiedDTO> getAllTariffs();
     TariffDTO addTariff(TariffDTO tariff);

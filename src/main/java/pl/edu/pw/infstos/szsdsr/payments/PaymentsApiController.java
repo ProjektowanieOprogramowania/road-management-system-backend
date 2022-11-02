@@ -16,12 +16,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/payments")
-public class PaymentsController implements IPaymentsAPI {
+public class PaymentsApiController implements PaymentsAPI {
 
     private final TariffService tariffService;
     private final PenaltyService penaltyService;
 
-    public PaymentsController(
+    public PaymentsApiController(
             @Autowired TariffService tariffService,
             @Autowired PenaltyService penaltyService
             ) {
