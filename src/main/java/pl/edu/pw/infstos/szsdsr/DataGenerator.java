@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import pl.edu.pw.infstos.szsdsr.payments.passing.Passing;
 import pl.edu.pw.infstos.szsdsr.payments.passing.PassingService;
-import pl.edu.pw.infstos.szsdsr.payments.penalty.Penalty;
+import pl.edu.pw.infstos.szsdsr.payments.penalty.PenaltyDTO;
 import pl.edu.pw.infstos.szsdsr.payments.penalty.PenaltyService;
-import pl.edu.pw.infstos.szsdsr.payments.tariff.Tariff;
+import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffDTO;
 import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffService;
 
 import java.time.LocalDateTime;
@@ -30,14 +30,14 @@ public class DataGenerator {
             passing1.setVehicle("WA6642E");
             passingService.addPassing(passing1);
 
-            Penalty penalty1 = new Penalty();
+            PenaltyDTO penalty1 = new PenaltyDTO();
             penalty1.setPassing(passing1);
             penalty1.setUserId(123L);
             penalty1.setPaid(true);
             penalty1.setDescription("Kara za nieopłacony przejazd");
             penaltyService.addPenalty(penalty1);
 
-            Tariff tariff1 = new Tariff();
+            TariffDTO tariff1 = new TariffDTO();
             tariff1.setActive(true);
             tariff1.setName("Taryfikator opłat za przejazd autostradami");
             Map<String, Double> prices1 = new HashMap<>();

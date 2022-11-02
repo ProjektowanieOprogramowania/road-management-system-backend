@@ -1,33 +1,52 @@
 package pl.edu.pw.infstos.szsdsr.payments.tariff;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TariffDTO {
 
-    private Long id;
-    private Boolean active;
-    private String name;
+	private Long id;
 
-    public Long getId() {
-        return id;
-    }
+	@NotNull
+	private Boolean active;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@NotBlank
+	private String name;
 
-    public Boolean getActive() {
-        return active;
-    }
+	@NotNull
+	private Map<String, Double> prices = new HashMap<>();
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Boolean getActive() {
+		return active;
+	}
 
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Map<String, Double> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Map<String, Double> prices) {
+		this.prices = prices;
+	}
 }

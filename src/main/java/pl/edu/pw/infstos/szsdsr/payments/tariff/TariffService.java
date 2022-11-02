@@ -24,19 +24,23 @@ public class TariffService {
         this.modelMapper = modelMapper;
     }
 
-    public List<TariffDTO> getAllTariffs() {
+    public List<TariffSimplifiedDTO> getAllTariffs() {
         List<Tariff> tariffs = tariffRepository.findAll();
-        return tariffs.stream().map(t -> modelMapper.map(t, TariffDTO.class)).collect(Collectors.toList());
+        return tariffs.stream().map(this::tariffToSimplifiedDto).collect(Collectors.toList());
     }
 
-    public Tariff addTariff(Tariff tariff) {
+    public TariffDTO addTariff(TariffDTO tariffDto) {
+        Tariff tariff = dtoToTariff(tariffDto);
         tariff.setId(null);
-        return tariffRepository.save(tariff);
+        Tariff newTariff = tariffRepository.save(tariff);
+        return tariffToDto(newTariff);
     }
 
-    public Optional<Tariff> updateTariff(Tariff tariff) {
+    public Optional<TariffDTO> updateTariff(TariffDTO tariffDto) {
+        Tariff tariff = dtoToTariff(tariffDto);
         if (tariffRepository.existsById(tariff.getId())) {
-            return Optional.of(tariffRepository.save(tariff));
+            Tariff newTariff = tariffRepository.save(tariff);
+            return Optional.of(tariffToDto(newTariff));
         } else {
             return Optional.empty();
         }
@@ -51,8 +55,19 @@ public class TariffService {
         }
     }
 
-    public Optional<Tariff> getTariff(Long id) {
-        return tariffRepository.findById(id);
+    public Optional<TariffDTO> getTariff(Long id) {
+        return tariffRepository.findById(id).map(this::tariffToDto);
     }
 
+    private TariffSimplifiedDTO tariffToSimplifiedDto(Tariff tariff) {
+        return modelMapper.map(tariff, TariffSimplifiedDTO.class);
+    }
+
+    private TariffDTO tariffToDto(Tariff tariff) {
+        return modelMapper.map(tariff, TariffDTO.class);
+    }
+
+    private Tariff dtoToTariff(TariffDTO tariffDto) {
+        return modelMapper.map(tariffDto, Tariff.class);
+    }
 }
