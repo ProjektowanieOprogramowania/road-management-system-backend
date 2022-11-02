@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Read management system Frontend API
+  description: Read management system Frontend API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /tolls/{userUUID}:
+    get:
+      operationId: getNotPaidTolls
+      tags:
+        - Toll
+      summary: Get users not payed tolls
+      description: Get users not payed tolls
+      parameters:
+        - name: userUUID
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotPayedToll'
+  /tolls/{tollId}/payments:
+    post:
+      operationId: payToll
+      tags:
+        - Toll
+      summary: Pay toll
+      description: Pay toll
+      parameters:
+        - name: tollId
+          description: toll id
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/URL'
+
+  /tolls/subscription:
+    get:
+      operationId: getSubscriptionInfo
+      tags:
+        - Subscription
+      summary: Get subscription info
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref:
+                  '#/components/schemas/Subscription'
+components:
+  schemas:
+    NotPayedToll:
+      type: object
+      properties:
+        tollId:
+          type: integer
+          format: int64
+    Subscription:
+      type: object
+    URL:
+      type: object
+
