@@ -1,0 +1,25 @@
+### pobranie listy taryfikatorów
+GET http://localhost:8080/api/v1/payments/tariff
+
+### wyświetlenie szczegółów taryfikatora o ID 3
+GET http://localhost:8080/api/v1/payments/tariff/3
+
+### utworzenie nowego taryfikatora
+POST http://localhost:8080/api/v1/payments/tariff
+Content-Type: application/json
+
+{"name": "Nowy taryfikator", "active": false, "prices": {"samochód": 3.50}}
+
+### modyfikacja taryfikatora o ID 3
+PUT http://localhost:8080/api/v1/payments/tariff/3
+Content-Type: application/json
+
+{"name": "Nowa nazwa", "active": false, "prices": {"cena": 3.00}}
+
+### usunięcie taryfikatora o ID 3
+DELETE http://localhost:8080/api/v1/payments/tariff/3
+
+
+
+### pobranie listy kar użytkownika o ID 123
+GET http://localhost:8080/api/v1/payments/penalty/123
