@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import pl.edu.pw.infstos.szsdsr.fees.services.FeeService;
 import pl.edu.pw.infstos.szsdsr.generated.api.FeesApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.FeeDTO;
-import pl.edu.pw.infstos.szsdsr.tolls.services.TollService;
 
 import java.util.List;
 import java.util.UUID;

@@ -19,12 +19,13 @@ public class SubscriptionApiController implements SubscriptionApi {
         this.tollService = tollService;
     }
     @Override
-    public ResponseEntity<List<SubscriptionInfoDTO>> getSubscriptionInfo() {
+    public ResponseEntity<SubscriptionDTO> getSubscriptionInfo() {
 
-        return (ResponseEntity<List<SubscriptionInfoDTO>>) tollService.getSubscriptionInfo();
+        //return (ResponseEntity<SubscriptionDTO>) tollService.getSubscriptionInfo();
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    @Override
+    /*@Override
     public ResponseEntity purchaseSubsription(SubscriptionDTO subscriptionDTO) {
         try{
             tollService.purchaseSubscription(subscriptionDTO);
@@ -32,6 +33,6 @@ public class SubscriptionApiController implements SubscriptionApi {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
-    }
+    }*/
 
 }
