@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/v1/tolls")
 public class TollApiController implements TollApi {
     private final TollService tollService;
     public TollApiController(@Autowired TollService tollService) {
