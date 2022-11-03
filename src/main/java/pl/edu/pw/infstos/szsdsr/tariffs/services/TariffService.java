@@ -1,8 +1,12 @@
-package pl.edu.pw.infstos.szsdsr.payments.tariff;
+package pl.edu.pw.infstos.szsdsr.tariffs.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.infstos.szsdsr.generated.models.TariffDTO;
+import pl.edu.pw.infstos.szsdsr.generated.models.TariffSimplifiedDTO;
+import pl.edu.pw.infstos.szsdsr.tariffs.repositories.TariffRepository;
+import pl.edu.pw.infstos.szsdsr.tariffs.Tariff;
 
 import java.util.List;
 import java.util.Optional;

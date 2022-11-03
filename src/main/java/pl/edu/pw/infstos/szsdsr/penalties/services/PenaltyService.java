@@ -1,11 +1,15 @@
-package pl.edu.pw.infstos.szsdsr.payments.penalty;
+package pl.edu.pw.infstos.szsdsr.penalties.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyDTO;
+import pl.edu.pw.infstos.szsdsr.penalties.Penalty;
+import pl.edu.pw.infstos.szsdsr.penalties.repositories.PenaltyRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,8 +20,8 @@ public class PenaltyService {
     private final ModelMapper modelMapper;
 
     public PenaltyService(
-        @Autowired PenaltyRepository penaltyRepository,
-        @Autowired ModelMapper modelMapper
+            @Autowired PenaltyRepository penaltyRepository,
+            @Autowired ModelMapper modelMapper
     ) {
         this.penaltyRepository = penaltyRepository;
 
@@ -31,7 +35,7 @@ public class PenaltyService {
         return penaltyToDto(newPenalty);
     }
 
-    public List<PenaltyDTO> getAllPenalties(Long userId) {
+    public List<PenaltyDTO> getAllPenalties(UUID userId) {
         List<Penalty> penalties = penaltyRepository.findAllByUserId(userId);
         return penalties.stream().map(this::penaltyToDto).collect(Collectors.toList());
     }

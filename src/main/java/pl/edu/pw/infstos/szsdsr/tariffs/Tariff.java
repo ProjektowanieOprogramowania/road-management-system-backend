@@ -1,10 +1,15 @@
-package pl.edu.pw.infstos.szsdsr.payments.tariff;
+package pl.edu.pw.infstos.szsdsr.tariffs;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
-public class TariffSimplifiedDTO {
+@Entity
+public class Tariff {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull
@@ -12,6 +17,10 @@ public class TariffSimplifiedDTO {
 
     @NotBlank
     private String name;
+
+    @ElementCollection
+    @NotNull
+    private Map<String, Double> prices;
 
     public Long getId() {
         return id;
@@ -37,4 +46,11 @@ public class TariffSimplifiedDTO {
         this.name = name;
     }
 
+    public Map<String, Double> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Map<String, Double> prices) {
+        this.prices = prices;
+    }
 }

@@ -90,6 +90,148 @@ paths:
                 items:
                   $ref: '#/components/schemas/Fee'
 
+
+
+  /penalty/{userUUID}:
+    get:
+      operationId: getAllPenalties
+      tags:
+        - Penalties
+      summary: Get user's penalties
+      description: Get user's penalties
+      parameters:
+        - name: userUUID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Penalty'
+        404:
+          description: Not found
+
+  /tariff:
+    get:
+      operationId: getAllTariffs
+      tags:
+        - Tariffs
+      summary: Get all tariffs
+      description: Get all tariffs
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TariffSimplified'
+
+    post:
+      operationId: addTariff
+      tags:
+        - Tariffs
+      summary: Add tariff
+      description: Add tariff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tariff'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        400:
+          description: Bad request
+
+  /tariff/{tariffId}:
+    get:
+      operationId: getTariff
+      tags:
+        - Tariffs
+      summary: Get particular tariff
+      description: Get particular tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateTariff
+      tags:
+        - Tariffs
+      summary: Update tariff
+      description: Update tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tariff'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteTariff
+      tags:
+        - Tariffs
+      summary: Delete tariff
+      description: Delete tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
+
+
 components:
   schemas:
     NotPayedToll:
@@ -150,3 +292,150 @@ components:
     URL:
       type: object
 
+    Localization:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        latitude:
+          type: string
+        longitude:
+          type: string
+      required:
+        - id
+        - latitude
+        - longitude
+
+    VehicleType:
+      type: string
+      enum: [car, truck, motorcycle, other]
+
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        vehicleType:
+          type: string
+          format: VehicleType
+        make:
+          type: string
+        model:
+          type: string
+        productionYear:
+          type: integer
+          minimum: 1800
+          maximum: 2050
+        registrationNumber:
+          type: string
+        length:
+          description: Length in meters
+          type: number
+          format: double
+          minimum: 0.0
+        width:
+          description: Width in meters
+          type: number
+          format: double
+          minimum: 0.0
+        height:
+          description: Height in meters
+          type: number
+          format: double
+          minimum: 0.0
+        weight:
+          description: Weight in kilograms
+          type: number
+          format: double
+          minimum: 0.0
+        engineVolumeCm3:
+          type: integer
+          minimum: 0
+      required:
+        - id
+        - vehicleType
+        - make
+
+    Passing:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        payable:
+          type: boolean
+        dateTime:
+          type: string
+          format: date-time
+        localization:
+          type: object
+          format: Localization
+        vehicle:
+          type: object
+          format: Vehicle
+      required:
+        - id
+        - payable
+        - dateTime
+        - localization
+        - vehicle
+
+    Penalty:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        passing:
+          type: object
+          format: Passing
+        paid:
+          type: boolean
+      required:
+        - id
+        - passing
+        - paid
+
+    Tariff:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+        prices:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+            minimum: 0.0
+      required:
+        - id
+        - active
+        - name
+        - prices
+
+    TariffSimplified:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+      required:
+        - id
+        - active
+        - name

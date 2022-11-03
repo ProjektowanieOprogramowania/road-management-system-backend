@@ -1,9 +1,9 @@
-package pl.edu.pw.infstos.szsdsr.payments.passing;
+package pl.edu.pw.infstos.szsdsr.passings;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import pl.edu.pw.infstos.szsdsr.localization.Localization;
+import pl.edu.pw.infstos.szsdsr.vehicle.Vehicle;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -20,9 +20,13 @@ public class Passing {
     @NotNull
     private LocalDateTime dateTime;
 
-    private String localization; // TODO @NotNull Localization localization
+    @NotNull
+    @ManyToOne
+    private Localization localization;
 
-    private String vehicle; // TODO @NotNull Vehicle vehicle
+    @NotNull
+    @OneToOne
+    private Vehicle vehicle;
 
     public Long getId() {
         return id;
@@ -48,19 +52,19 @@ public class Passing {
         this.dateTime = dateTime;
     }
 
-    public String getLocalization() {
+    public Localization getLocalization() {
         return localization;
     }
 
-    public void setLocalization(String localization) {
+    public void setLocalization(Localization localization) {
         this.localization = localization;
     }
 
-    public String getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(String vehicle) {
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 }

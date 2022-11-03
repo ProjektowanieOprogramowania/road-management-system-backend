@@ -1,9 +1,10 @@
-package pl.edu.pw.infstos.szsdsr.payments.penalty;
+package pl.edu.pw.infstos.szsdsr.penalties;
 
-import pl.edu.pw.infstos.szsdsr.payments.passing.Passing;
+import pl.edu.pw.infstos.szsdsr.passings.Passing;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 public class Penalty {
@@ -13,7 +14,7 @@ public class Penalty {
     private Long id;
 
     @NotNull
-    private Long userId;
+    private UUID userId;
 
     @OneToOne
     @NotNull
@@ -32,11 +33,11 @@ public class Penalty {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

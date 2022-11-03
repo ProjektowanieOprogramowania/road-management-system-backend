@@ -4,16 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import pl.edu.pw.infstos.szsdsr.payments.passing.Passing;
-import pl.edu.pw.infstos.szsdsr.payments.passing.PassingService;
-import pl.edu.pw.infstos.szsdsr.payments.penalty.PenaltyDTO;
-import pl.edu.pw.infstos.szsdsr.payments.penalty.PenaltyService;
-import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffDTO;
-import pl.edu.pw.infstos.szsdsr.payments.tariff.TariffService;
+import pl.edu.pw.infstos.szsdsr.generated.models.*;
+import pl.edu.pw.infstos.szsdsr.localization.Localization;
+import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
+import pl.edu.pw.infstos.szsdsr.passings.Passing;
+import pl.edu.pw.infstos.szsdsr.passings.services.PassingService;
+import pl.edu.pw.infstos.szsdsr.penalties.services.PenaltyService;
+import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
+import pl.edu.pw.infstos.szsdsr.vehicle.Vehicle;
+import pl.edu.pw.infstos.szsdsr.vehicle.services.VehicleService;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class DataGenerator {
@@ -21,18 +27,30 @@ public class DataGenerator {
     @Bean
     public CommandLineRunner loadData(@Autowired TariffService tariffService,
                                       @Autowired PenaltyService penaltyService,
-                                      @Autowired PassingService passingService) {
+                                      @Autowired PassingService passingService,
+                                      @Autowired LocalizationService localizationService,
+                                      @Autowired VehicleService vehicleService) {
         return args -> {
-            Passing passing1 = new Passing();
-            passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
-            passing1.setLocalization("52°25'18.0\"N 21°13'21.3\"E");
+            PassingDTO passing1 = new PassingDTO();
+            LocalDateTime ldt = LocalDateTime.of(2022, 10, 15, 15, 55, 7);
+            passing1.setDateTime(OffsetDateTime.of(ldt, ZoneOffset.UTC));
+            LocalizationDTO localization1 = new LocalizationDTO();
+            localization1.setLatitude("52°25'18.0\"N");
+            localization1.setLongitude("21°13'21.3\"E");
+            localizationService.addLocalization(localization1);
+            passing1.setLocalization(localization1);
             passing1.setPayable(true);
-            passing1.setVehicle("WA6642E");
+            VehicleDTO vehicle1 = new VehicleDTO();
+            vehicle1.setRegistrationNumber("WA6642E");
+            vehicle1.setVehicleType("car");
+            vehicle1.setMake("Skoda");
+            vehicleService.addVehicle(vehicle1);
+            passing1.setVehicle(vehicle1);
             passingService.addPassing(passing1);
 
             PenaltyDTO penalty1 = new PenaltyDTO();
             penalty1.setPassing(passing1);
-            penalty1.setUserId(123L);
+            penalty1.setUserId(UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002"));
             penalty1.setPaid(true);
             penalty1.setDescription("Kara za nieopłacony przejazd");
             penaltyService.addPenalty(penalty1);
