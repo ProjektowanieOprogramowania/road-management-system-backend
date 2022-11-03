@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.fees.repositories.FeeRepository;
+import pl.edu.pw.infstos.szsdsr.generated.models.NotPayedTollDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionInfoDTO;
 import pl.edu.pw.infstos.szsdsr.tolls.Subscription;
@@ -48,13 +49,13 @@ public class TollService {
                 .collect(Collectors.toList());
     }
 
-    public TollDTO payToll(Long tollId) {
+    public NotPayedTollDTO payToll(Long tollId) {
         Optional<Toll> tollOptional = tollRepository.findById(tollId);
         if(tollOptional.isPresent()) {
             Toll toll = tollOptional.get();
             toll.setPaid(true);
             tollRepository.save(toll);
-            return modelMapper.map(toll, TollDTO.class);
+            return modelMapper.map(toll, NotPayedTollDTO.class);
         } else {
             throw new IllegalArgumentException();
         }
