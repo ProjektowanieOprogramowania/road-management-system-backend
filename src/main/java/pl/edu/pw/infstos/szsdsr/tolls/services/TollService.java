@@ -1,8 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.tolls.services;
 
-import org.modelmapper.ModelMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.fees.repositories.FeeRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.NotPayedTollDTO;
@@ -26,26 +25,26 @@ public class TollService {
     private final FeeRepository feeRepository;
 
     private final SubscriptionInfoRepository subscriptionInfoRepository;
-    private final ModelMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
     public TollService(
             @Autowired TollRepository tollRepository,
             @Autowired FeeRepository feeRepository,
             @Autowired SubscriptionRepository subscriptionRepository,
             @Autowired SubscriptionInfoRepository subscriptionInfoRepository,
-            @Autowired ModelMapper modelMapper
+            @Autowired ObjectMapper objectMapper
     ) {
         this.tollRepository = tollRepository;
         this.feeRepository = feeRepository;
         this.subscriptionRepository = subscriptionRepository;
         this.subscriptionInfoRepository = subscriptionInfoRepository;
-        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
     public List<TollDTO> getNotPaidTolls(UUID userId) {
         List<Toll> notPaidTollList = tollRepository.findByIsPaidFalseAndUserId(userId);
         return notPaidTollList.stream()
-                .map(toll -> modelMapper.map(toll, TollDTO.class))
+                .map(toll -> objectMapper.convertValue(toll, TollDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -55,14 +54,14 @@ public class TollService {
             Toll toll = tollOptional.get();
             toll.setPaid(true);
             tollRepository.save(toll);
-            return modelMapper.map(toll, NotPayedTollDTO.class);
+            return objectMapper.convertValue(toll, NotPayedTollDTO.class);
         } else {
             throw new IllegalArgumentException();
         }
     }
 
     public String purchaseSubscription(SubscriptionDTO subscriptionDTO) {
-        Subscription subscription = modelMapper.map(subscriptionDTO, Subscription.class);
+        Subscription subscription = objectMapper.convertValue(subscriptionDTO, Subscription.class);
         subscriptionRepository.save(subscription);
         return "url?";
     }
@@ -71,7 +70,7 @@ public class TollService {
         return subscriptionInfoRepository
                 .findAll()
                 .stream()
-                .map(subscriptionInfo -> modelMapper.map(subscriptionInfo, SubscriptionInfoDTO.class))
+                .map(subscriptionInfo -> objectMapper.convertValue(subscriptionInfo, SubscriptionInfoDTO.class))
                 .collect(Collectors.toList());
     }
 }

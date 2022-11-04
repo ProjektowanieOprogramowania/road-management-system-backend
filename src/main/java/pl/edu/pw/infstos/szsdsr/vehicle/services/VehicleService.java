@@ -1,9 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.vehicle.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.VehicleDTO;
@@ -17,16 +14,12 @@ import java.util.Optional;
 public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
-    private final ModelMapper modelMapper;
-
-    private final ObjectMapper objectMapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private final ObjectMapper objectMapper;
 
     public VehicleService(@Autowired VehicleRepository vehicleRepository,
-                          @Autowired ModelMapper modelMapper) {
+                          @Autowired ObjectMapper objectMapper) {
         this.vehicleRepository = vehicleRepository;
-        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
     public VehicleDTO addVehicle(VehicleDTO vehicleDto) {
@@ -73,12 +66,10 @@ public class VehicleService {
     }
 
     private VehicleDTO vehicleToDto(Vehicle vehicle) {
-        return modelMapper.map(vehicle, VehicleDTO.class);
+        return objectMapper.convertValue(vehicle, VehicleDTO.class);
     }
 
     private Vehicle dtoToVehicle(VehicleDTO vehicleDto) {
-        //Vehicle vehicle = modelMapper.map(vehicleDto, Vehicle.class);
-        //vehicle.setVehicleType(vehicleTypeStringToEnum(vehicleDto.getVehicleType()));
         return objectMapper.convertValue(vehicleDto, Vehicle.class);
     }
 }

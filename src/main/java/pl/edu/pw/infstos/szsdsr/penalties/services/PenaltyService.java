@@ -1,9 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.penalties.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyDTO;
@@ -20,19 +17,12 @@ public class PenaltyService {
 
     private final PenaltyRepository penaltyRepository;
 
-    private final ModelMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
-    private final ObjectMapper objectMapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
-
-    public PenaltyService(
-            @Autowired PenaltyRepository penaltyRepository,
-            @Autowired ModelMapper modelMapper
-    ) {
+    public PenaltyService(@Autowired PenaltyRepository penaltyRepository,
+                          @Autowired ObjectMapper objectMapper) {
         this.penaltyRepository = penaltyRepository;
-
-        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
     public PenaltyDTO addPenalty(PenaltyDTO penaltyDto) {

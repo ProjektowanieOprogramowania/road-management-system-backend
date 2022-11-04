@@ -1,6 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.localization.services;
 
-import org.modelmapper.ModelMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.LocalizationDTO;
@@ -13,12 +13,12 @@ import java.util.Optional;
 public class LocalizationService {
 
     private final LocalizationRepository localizationRepository;
-    private final ModelMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
     public LocalizationService(@Autowired LocalizationRepository localizationRepository,
-                               @Autowired ModelMapper modelMapper) {
+                               @Autowired ObjectMapper objectMapper) {
         this.localizationRepository = localizationRepository;
-        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
     public LocalizationDTO addLocalization(LocalizationDTO localizationDto) {
@@ -52,10 +52,10 @@ public class LocalizationService {
     }
 
     private LocalizationDTO localizationToDto(Localization localization) {
-        return modelMapper.map(localization, LocalizationDTO.class);
+        return objectMapper.convertValue(localization, LocalizationDTO.class);
     }
 
     private Localization dtoToLocalization(LocalizationDTO localizationDto) {
-        return modelMapper.map(localizationDto, Localization.class);
+        return objectMapper.convertValue(localizationDto, Localization.class);
     }
 }

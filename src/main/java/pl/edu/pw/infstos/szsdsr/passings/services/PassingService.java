@@ -1,9 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.passings.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.PassingDTO;
@@ -16,16 +13,12 @@ import java.util.Optional;
 public class PassingService {
 
     private final PassingRepository passingRepository;
-    private final ModelMapper modelMapper;
-
-    private final ObjectMapper objectMapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private final ObjectMapper objectMapper;
 
     public PassingService(@Autowired PassingRepository passingRepository,
-                          @Autowired ModelMapper modelMapper) {
+                          @Autowired ObjectMapper objectMapper) {
         this.passingRepository = passingRepository;
-        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
     public PassingDTO addPassing(PassingDTO passingDto) {
@@ -59,7 +52,7 @@ public class PassingService {
     }
 
     private PassingDTO passingToDto(Passing passing) {
-        return modelMapper.map(passing, PassingDTO.class);
+        return objectMapper.convertValue(passing, PassingDTO.class);
     }
 
     private Passing dtoToPassing(PassingDTO passingDto) {

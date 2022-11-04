@@ -2,15 +2,12 @@ package pl.edu.pw.infstos.szsdsr.tariffs.services;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.TariffDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.TariffSimplifiedDTO;
-import pl.edu.pw.infstos.szsdsr.tariffs.repositories.TariffRepository;
 import pl.edu.pw.infstos.szsdsr.tariffs.Tariff;
+import pl.edu.pw.infstos.szsdsr.tariffs.repositories.TariffRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,18 +18,12 @@ public class TariffService {
 
     private final TariffRepository tariffRepository;
 
-    private final ModelMapper modelMapper;
-
-    private final ObjectMapper objectMapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private final ObjectMapper objectMapper;
 
     public TariffService(@Autowired TariffRepository tariffRepository,
-                         @Autowired ModelMapper modelMapper) {
+                         @Autowired ObjectMapper objectMapper) {
         this.tariffRepository = tariffRepository;
-        this.modelMapper = modelMapper;
-
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // To be able to map Tariff do SimplifiedTariffDTO
+        this.objectMapper = objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // To be able to map Tariff do SimplifiedTariffDTO
     }
 
     public List<TariffSimplifiedDTO> getAllTariffs() {
@@ -44,8 +35,7 @@ public class TariffService {
         Tariff tariff = dtoToTariff(tariffDto);
         tariff.setId(null);
         Tariff newTariff = tariffRepository.save(tariff);
-        TariffDTO tdto = tariffToDto(newTariff);
-        return tdto;
+        return tariffToDto(newTariff);
     }
 
     public Optional<TariffDTO> updateTariff(TariffDTO tariffDto) {
