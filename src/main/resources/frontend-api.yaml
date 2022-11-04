@@ -372,7 +372,6 @@ components:
           format: Localization
         vehicle:
           type: object
-          format: Vehicle
       required:
         - payable
         - dateTime
@@ -392,7 +391,6 @@ components:
           type: string
         passing:
           type: object
-          format: Passing
         paid:
           type: boolean
       required:
