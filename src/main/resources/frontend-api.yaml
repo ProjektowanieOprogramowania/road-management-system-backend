@@ -303,7 +303,6 @@ components:
         longitude:
           type: string
       required:
-        - id
         - latitude
         - longitude
 
@@ -354,7 +353,6 @@ components:
           type: integer
           minimum: 0
       required:
-        - id
         - vehicleType
         - make
 
@@ -376,7 +374,6 @@ components:
           type: object
           format: Vehicle
       required:
-        - id
         - payable
         - dateTime
         - localization
@@ -399,7 +396,6 @@ components:
         paid:
           type: boolean
       required:
-        - id
         - passing
         - paid
 
@@ -420,7 +416,6 @@ components:
             format: double
             minimum: 0.0
       required:
-        - id
         - active
         - name
         - prices
@@ -436,6 +431,5 @@ components:
         name:
           type: string
       required:
-        - id
         - active
         - name

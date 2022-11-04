@@ -57,6 +57,7 @@ public class TariffApiController implements TariffsApi {
     @Override
     public ResponseEntity<TariffDTO> updateTariff(Long tariffId, TariffDTO tariffDTO) {
         try {
+            tariffDTO.setId(tariffId);
             Optional<TariffDTO> tdto = tariffService.updateTariff(tariffDTO);
             if (tdto.isPresent()) {
                 return ResponseEntity.status(HttpStatus.OK).body(tdto.get());

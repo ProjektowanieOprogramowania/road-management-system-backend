@@ -1,5 +1,9 @@
 package pl.edu.pw.infstos.szsdsr.tariffs.services;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +23,16 @@ public class TariffService {
 
     private final ModelMapper modelMapper;
 
-    public TariffService(
-            @Autowired TariffRepository tariffRepository,
-            @Autowired ModelMapper modelMapper
-    ) {
-        this.tariffRepository = tariffRepository;
+    private final ObjectMapper objectMapper = JsonMapper.builder()
+            .addModule(new JavaTimeModule())
+            .build();
 
+    public TariffService(@Autowired TariffRepository tariffRepository,
+                         @Autowired ModelMapper modelMapper) {
+        this.tariffRepository = tariffRepository;
         this.modelMapper = modelMapper;
+
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // To be able to map Tariff do SimplifiedTariffDTO
     }
 
     public List<TariffSimplifiedDTO> getAllTariffs() {
@@ -37,7 +44,8 @@ public class TariffService {
         Tariff tariff = dtoToTariff(tariffDto);
         tariff.setId(null);
         Tariff newTariff = tariffRepository.save(tariff);
-        return tariffToDto(newTariff);
+        TariffDTO tdto = tariffToDto(newTariff);
+        return tdto;
     }
 
     public Optional<TariffDTO> updateTariff(TariffDTO tariffDto) {
@@ -64,14 +72,14 @@ public class TariffService {
     }
 
     private TariffSimplifiedDTO tariffToSimplifiedDto(Tariff tariff) {
-        return modelMapper.map(tariff, TariffSimplifiedDTO.class);
+        return objectMapper.convertValue(tariff, TariffSimplifiedDTO.class);
     }
 
     private TariffDTO tariffToDto(Tariff tariff) {
-        return modelMapper.map(tariff, TariffDTO.class);
+        return objectMapper.convertValue(tariff, TariffDTO.class);
     }
 
     private Tariff dtoToTariff(TariffDTO tariffDto) {
-        return modelMapper.map(tariffDto, Tariff.class);
+        return objectMapper.convertValue(tariffDto, Tariff.class);
     }
 }

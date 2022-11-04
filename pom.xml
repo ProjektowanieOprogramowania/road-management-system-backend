@@ -93,10 +93,11 @@
                             <modelPackage>pl.edu.pw.infstos.szsdsr.generated.models</modelPackage>
                             <apiPackage>pl.edu.pw.infstos.szsdsr.generated.api</apiPackage>
                             <configOptions>
-<!--                                <sourceFolder>/generated</sourceFolder>-->
+                                <!--                                <sourceFolder>/generated</sourceFolder>-->
                                 <requestMappingMode>api_interface</requestMappingMode>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useTags>true</useTags>
+                                <dateLibrary>java8-localdatetime</dateLibrary>
                             </configOptions>
                         </configuration>
                     </execution>

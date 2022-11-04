@@ -18,6 +18,10 @@ public class PassingService {
     private final PassingRepository passingRepository;
     private final ModelMapper modelMapper;
 
+    private final ObjectMapper objectMapper = JsonMapper.builder()
+            .addModule(new JavaTimeModule())
+            .build();
+
     public PassingService(@Autowired PassingRepository passingRepository,
                           @Autowired ModelMapper modelMapper) {
         this.passingRepository = passingRepository;
@@ -59,10 +63,6 @@ public class PassingService {
     }
 
     private Passing dtoToPassing(PassingDTO passingDto) {
-        // TODO nie działa
-        ObjectMapper objectMapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
-                .build();
         return objectMapper.convertValue(passingDto, Passing.class);
     }
 

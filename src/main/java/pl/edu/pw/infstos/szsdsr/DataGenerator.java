@@ -5,18 +5,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
-import pl.edu.pw.infstos.szsdsr.localization.Localization;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
-import pl.edu.pw.infstos.szsdsr.passings.Passing;
 import pl.edu.pw.infstos.szsdsr.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.penalties.services.PenaltyService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
-import pl.edu.pw.infstos.szsdsr.vehicle.Vehicle;
 import pl.edu.pw.infstos.szsdsr.vehicle.services.VehicleService;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,28 +27,27 @@ public class DataGenerator {
                                       @Autowired VehicleService vehicleService) {
         return args -> {
             PassingDTO passing1 = new PassingDTO();
-            LocalDateTime ldt = LocalDateTime.of(2022, 10, 15, 15, 55, 7);
-            passing1.setDateTime(OffsetDateTime.of(ldt, ZoneOffset.UTC));
+            passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
             LocalizationDTO localization1 = new LocalizationDTO();
             localization1.setLatitude("52°25'18.0\"N");
             localization1.setLongitude("21°13'21.3\"E");
-            localizationService.addLocalization(localization1);
+            localization1 = localizationService.addLocalization(localization1);
             passing1.setLocalization(localization1);
             passing1.setPayable(true);
             VehicleDTO vehicle1 = new VehicleDTO();
             vehicle1.setRegistrationNumber("WA6642E");
             vehicle1.setVehicleType("car");
             vehicle1.setMake("Skoda");
-            vehicleService.addVehicle(vehicle1);
+            vehicle1 = vehicleService.addVehicle(vehicle1);
             passing1.setVehicle(vehicle1);
-            passingService.addPassing(passing1);
+            passing1 = passingService.addPassing(passing1);
 
             PenaltyDTO penalty1 = new PenaltyDTO();
             penalty1.setPassing(passing1);
             penalty1.setUserId(UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002"));
             penalty1.setPaid(true);
             penalty1.setDescription("Kara za nieopłacony przejazd");
-            penaltyService.addPenalty(penalty1);
+            penalty1 = penaltyService.addPenalty(penalty1);
 
             TariffDTO tariff1 = new TariffDTO();
             tariff1.setActive(true);
@@ -66,7 +60,7 @@ public class DataGenerator {
             prices1.put("A4, Osobowe", 0.12);
             prices1.put("A4, Ciężarowe", 0.17);
             tariff1.setPrices(prices1);
-            tariffService.addTariff(tariff1);
+            tariff1 = tariffService.addTariff(tariff1);
         };
     }
 
