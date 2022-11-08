@@ -1,13 +1,8 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
-import pl.edu.pw.infstos.szsdsr.fees.Fee;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 public class PassingCharge {

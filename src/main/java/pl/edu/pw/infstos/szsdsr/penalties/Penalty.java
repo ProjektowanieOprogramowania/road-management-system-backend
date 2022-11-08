@@ -17,6 +17,7 @@ public class Penalty {
     private UUID userId;
 
     @OneToOne
+    @JoinColumn(name = "passing_id", nullable = false)
     @NotNull
     private Passing passing;
 

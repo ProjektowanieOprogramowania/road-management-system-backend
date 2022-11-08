@@ -10,12 +10,12 @@ import java.util.UUID;
 public interface PassingChargeRepository extends JpaRepository<PassingCharge, Long> {
 
     @Query(value = """
-        SELECT pc
-        FROM PassingCharge pc
-        JOIN pc.charge c
-        JOIN c.user u
-        WHERE c.isPayed = true AND u.uuid = :userUUID
-        """)
+            SELECT pc
+            FROM PassingCharge pc
+            JOIN pc.charge c
+            JOIN c.user u
+            WHERE c.isPayed = true AND u.uuid = :userUUID
+            """)
     List<PassingCharge> findNotPaidCharges(UUID userUUID);
 
 }

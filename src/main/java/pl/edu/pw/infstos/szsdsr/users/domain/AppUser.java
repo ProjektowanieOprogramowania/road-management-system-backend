@@ -1,8 +1,11 @@
 package pl.edu.pw.infstos.szsdsr.users.domain;
 
+import pl.edu.pw.infstos.szsdsr.charges.passings.domain.Subscription;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.UUID;
 
 @Entity
@@ -12,6 +15,8 @@ public class AppUser {
     @GeneratedValue
     private Long id;
     private UUID uuid = UUID.randomUUID();
+//    @OneToOne(mappedBy = "user")
+//    private Subscription subscription;
 
     public AppUser(Long id, UUID uuid) {
         this.id = id;
@@ -36,4 +41,5 @@ public class AppUser {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
 }

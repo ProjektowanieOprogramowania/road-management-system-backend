@@ -65,6 +65,27 @@ paths:
             application/json:
               schema:
                 $ref:
+                  '#/components/schemas/SubscriptionInfo'
+  /charges/passing/subscription/{userUUID}:
+    get:
+      operationId: getSubscription
+      tags:
+        - Subscriptions
+      summary: Get subscription info
+      parameters:
+        - name: userUUID
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref:
                   '#/components/schemas/Subscription'
   /charges/passing/subscribtion/payment:
     post:
