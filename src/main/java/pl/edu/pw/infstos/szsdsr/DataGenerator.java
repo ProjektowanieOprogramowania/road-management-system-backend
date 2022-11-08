@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
+import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
 import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.penalties.services.PenaltyService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
+import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
+import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
 import pl.edu.pw.infstos.szsdsr.vehicle.services.VehicleService;
 
 import java.time.LocalDateTime;
@@ -27,13 +31,19 @@ public class DataGenerator {
     }
 
     @Bean
-    public CommandLineRunner loadData(@Autowired TariffService tariffService,
+    public CommandLineRunner loadData(@Autowired AppUserService appUserService,
+                                      @Autowired TariffService tariffService,
                                       @Autowired PenaltyService penaltyService,
                                       @Autowired PassingService passingService,
                                       @Autowired LocalizationService localizationService,
-                                      @Autowired VehicleService vehicleService) {
+                                      @Autowired VehicleService vehicleService,
+                                      @Autowired ChargeService chargeService,
+                                      @Autowired PassingChargeService passingChargeService) {
         return args -> {
-            appUserGenerator.generateDefault();
+            AppUser user1 = new AppUser("JanKowalski");
+            UUID user1Uuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
+            user1.setUuid(user1Uuid);
+            user1 = appUserService.create(user1);
 
             PassingDTO passing1 = new PassingDTO();
             passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
@@ -51,10 +61,21 @@ public class DataGenerator {
             passing1.setVehicle(vehicle1);
             passing1 = passingService.addPassing(passing1);
 
+            ChargeDTO charge1 = new ChargeDTO();
+            charge1.setAmount(19.50);
+            charge1.setPaid(false);
+            charge1 = chargeService.addCharge(charge1);
+
+            PassingChargeDTO passingCharge1 = new PassingChargeDTO();
+            passingCharge1.setPassing(passing1);
+            passingCharge1.setCharge(charge1);
+            passingCharge1 = passingChargeService.addPassingCharge(passingCharge1);
+
             PenaltyChargeDTO penalty1 = new PenaltyChargeDTO();
             penalty1.setPassing(passing1);
-            penalty1.setUserId(UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002"));
-            penalty1.setPaid(true);
+            penalty1.setUserId(user1Uuid);
+            penalty1.setCharge(charge1);
+            penalty1.setPaid(false);
             penalty1.setDescription("Kara za nieopłacony przejazd");
             penalty1 = penaltyService.addPenalty(penalty1);
 
