@@ -1,22 +1,15 @@
 package pl.edu.pw.infstos.szsdsr.tolls.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionApi;
+import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionInfoDTO;
-import pl.edu.pw.infstos.szsdsr.tolls.services.TollService;
-
-import java.util.List;
 
 @RestController
-public class SubscriptionApiController implements SubscriptionApi {
-    private final TollService tollService;
+public class SubscriptionApiController implements SubscriptionsApi {
 
-    public SubscriptionApiController(@Autowired TollService tollService) {
-        this.tollService = tollService;
+    public SubscriptionApiController() {
     }
     @Override
     public ResponseEntity<SubscriptionDTO> getSubscriptionInfo() {

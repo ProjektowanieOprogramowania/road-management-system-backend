@@ -1,11 +1,8 @@
 package pl.edu.pw.infstos.szsdsr.fees;
 
-import pl.edu.pw.infstos.szsdsr.tolls.Toll;
+import pl.edu.pw.infstos.szsdsr.charges.passings.domain.PassingCharge;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.UUID;
 
 @Entity
 public class Fee {
@@ -16,10 +13,6 @@ public class Fee {
     private Double amount;
 
     private String type;
-
-    @ManyToOne
-    @JoinColumn(name="toll_id", nullable=false)
-    private Toll toll;
 
     public Double getAmount() {
         return amount;

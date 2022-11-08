@@ -6,13 +6,13 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  /tolls/{userUUID}:
+  /charges/passing/{userUUID}:
     get:
-      operationId: getNotPaidTolls
+      operationId: getNotPaidPassingCharges
       tags:
-        - Toll
-      summary: Get users not payed tolls
-      description: Get users not payed tolls
+        - PassingCharges
+      summary: Get users not payed passing charges
+      description: Get users not payed passing charges
       parameters:
         - name: userUUID
           in: path
@@ -28,17 +28,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/NotPayedToll'
-  /tolls/{tollId}/payments:
+                  $ref: '#/components/schemas/PassingCharge'
+  /charges/passing/{passingChargeId}/payment:
     post:
-      operationId: payToll
+      operationId: payPassingCharge
       tags:
-        - Toll
-      summary: Pay toll
-      description: Pay toll
+        - PassingCharges
+      summary: Pay PassingCharge
+      description: Pay PassingCharge
       parameters:
-        - name: tollId
-          description: toll id
+        - name: passingChargeId
+          description: PassingCharge id
           in: path
           schema:
             type: integer
@@ -52,11 +52,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/URL'
 
-  /tolls/subscription:
+  /charges/passing/subscription:
     get:
       operationId: getSubscriptionInfo
       tags:
-        - Subscription
+        - Subscriptions
       summary: Get subscription info
       responses:
         200:
@@ -66,11 +66,25 @@ paths:
               schema:
                 $ref:
                   '#/components/schemas/Subscription'
-  /fees/history/{userUUID}:
-    get:
-      operationId: getUsersFee
+  /charges/passing/subscribtion/payment:
+    post:
+      operationId: paySubscription
       tags:
-        - Fees
+        - Subscriptions
+      summary: Pay subscription
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/URL'
+
+  /charges/history/{userUUID}:
+    get:
+      operationId: getUsersCharges
+      tags:
+        - Charges
       summary: Get fees history
       description: Get fees history
       parameters:
@@ -88,7 +102,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Fee'
+                  $ref: '#/components/schemas/Charge'
 
 
 
@@ -234,15 +248,47 @@ paths:
 
 components:
   schemas:
-    NotPayedToll:
+    PassingCharge:
       type: object
       properties:
-        tollId:
+        passingChargeId:
           type: integer
           format: int64
+        passing:
+          $ref: '#/components/schemas/Passing'
+        charge:
+          $ref: '#/components/schemas/Charge'
 
-    PayedToll:
+    Charge:
       type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        isPayed:
+          type: boolean
+        payment:
+          $ref: '#/components/schemas/Payment'
+      required:
+        - id
+        - amount
+        - isPayed
+
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date-time
 
     SubscriptionInfo:
       type: object
@@ -273,21 +319,6 @@ components:
         - subscriberId
         - from
         - to
-    Fee:
-      properties:
-        id:
-          type: integer
-          format: int64
-        paymentDate:
-          type: string
-          format: date
-        feeAmount:
-          type: number
-          format: double
-      required:
-        - id
-        - paymentDate
-        - feeAmount
 
     URL:
       type: object
