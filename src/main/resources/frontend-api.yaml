@@ -447,7 +447,7 @@ components:
         - localization
         - vehicle
 
-    PenaltyCharge:
+    Penalty:
       type: object
       properties:
         id:
