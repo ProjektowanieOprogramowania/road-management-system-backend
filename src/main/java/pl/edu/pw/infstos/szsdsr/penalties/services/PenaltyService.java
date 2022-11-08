@@ -3,7 +3,7 @@ package pl.edu.pw.infstos.szsdsr.penalties.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyDTO;
+import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyChargeDTO;
 import pl.edu.pw.infstos.szsdsr.penalties.Penalty;
 import pl.edu.pw.infstos.szsdsr.penalties.repositories.PenaltyRepository;
 
@@ -25,23 +25,23 @@ public class PenaltyService {
         this.objectMapper = objectMapper;
     }
 
-    public PenaltyDTO addPenalty(PenaltyDTO penaltyDto) {
+    public PenaltyChargeDTO addPenalty(PenaltyChargeDTO penaltyDto) {
         Penalty penalty = dtoToPenalty(penaltyDto);
         penalty.setId(null);
         Penalty newPenalty = penaltyRepository.save(penalty);
         return penaltyToDto(newPenalty);
     }
 
-    public List<PenaltyDTO> getAllPenalties(UUID userId) {
+    public List<PenaltyChargeDTO> getAllPenalties(UUID userId) {
         List<Penalty> penalties = penaltyRepository.findAllByUserId(userId);
         return penalties.stream().map(this::penaltyToDto).collect(Collectors.toList());
     }
 
-    public Optional<PenaltyDTO> getPenalty(Long id) {
+    public Optional<PenaltyChargeDTO> getPenalty(Long id) {
         return penaltyRepository.findById(id).map(this::penaltyToDto);
     }
 
-    public Optional<PenaltyDTO> updatePenalty(PenaltyDTO penaltyDto) {
+    public Optional<PenaltyChargeDTO> updatePenalty(PenaltyChargeDTO penaltyDto) {
         Penalty penalty = dtoToPenalty(penaltyDto);
         if (penaltyRepository.existsById(penalty.getId())) {
             Penalty newPenalty = penaltyRepository.save(penalty);
@@ -60,11 +60,11 @@ public class PenaltyService {
         }
     }
 
-    private PenaltyDTO penaltyToDto(Penalty penalty) {
-        return objectMapper.convertValue(penalty, PenaltyDTO.class);
+    private PenaltyChargeDTO penaltyToDto(Penalty penalty) {
+        return objectMapper.convertValue(penalty, PenaltyChargeDTO.class);
     }
 
-    private Penalty dtoToPenalty(PenaltyDTO penaltyDTO) {
+    private Penalty dtoToPenalty(PenaltyChargeDTO penaltyDTO) {
         return objectMapper.convertValue(penaltyDTO, Penalty.class);
     }
 

@@ -149,7 +149,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Penalty'
+                  $ref: '#/components/schemas/PenaltyCharge'
         404:
           description: Not found
 
@@ -447,7 +447,7 @@ components:
         - localization
         - vehicle
 
-    Penalty:
+    PenaltyCharge:
       type: object
       properties:
         id:

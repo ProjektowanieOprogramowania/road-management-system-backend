@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.PenaltiesApi;
-import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyDTO;
+import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyChargeDTO;
 import pl.edu.pw.infstos.szsdsr.penalties.services.PenaltyService;
 
 import java.util.List;
@@ -20,7 +20,8 @@ public class PenaltyApiController implements PenaltiesApi {
     }
 
     @Override
-    public ResponseEntity<List<PenaltyDTO>> getAllPenalties(UUID userUUID) {
+    public ResponseEntity<List<PenaltyChargeDTO>> getAllPenalties(UUID userUUID) {
         return ResponseEntity.ok(penaltyService.getAllPenalties(userUUID));
     }
+
 }

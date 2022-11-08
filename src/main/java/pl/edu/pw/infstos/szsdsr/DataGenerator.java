@@ -42,7 +42,7 @@ public class DataGenerator {
             passing1.setVehicle(vehicle1);
             passing1 = passingService.addPassing(passing1);
 
-            PenaltyDTO penalty1 = new PenaltyDTO();
+            PenaltyChargeDTO penalty1 = new PenaltyChargeDTO();
             penalty1.setPassing(passing1);
             penalty1.setUserId(UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002"));
             penalty1.setPaid(true);
