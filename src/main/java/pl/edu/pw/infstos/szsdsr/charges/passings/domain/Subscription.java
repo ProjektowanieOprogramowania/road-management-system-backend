@@ -1,11 +1,13 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +23,8 @@ public class Subscription {
     private LocalDate subscriptionFrom;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate subscriptionTo;
-
+    @ManyToMany
+    private Set<Road> roads;
 
     public Long getId() {
         return id;

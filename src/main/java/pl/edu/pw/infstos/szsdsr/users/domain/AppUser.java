@@ -2,10 +2,7 @@ package pl.edu.pw.infstos.szsdsr.users.domain;
 
 import pl.edu.pw.infstos.szsdsr.charges.passings.domain.Subscription;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -15,12 +12,13 @@ public class AppUser {
     @GeneratedValue
     private Long id;
     private UUID uuid = UUID.randomUUID();
+    @Column(name = "login", unique = true, nullable = false)
+    private String login;
 //    @OneToOne(mappedBy = "user")
 //    private Subscription subscription;
 
-    public AppUser(Long id, UUID uuid) {
-        this.id = id;
-        this.uuid = uuid;
+    public AppUser(String login) {
+        this.login = login;
     }
 
     protected AppUser() {

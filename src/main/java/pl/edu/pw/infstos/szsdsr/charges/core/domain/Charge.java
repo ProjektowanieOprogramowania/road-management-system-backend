@@ -23,11 +23,9 @@ public class Charge {
     protected Charge() {
     }
 
-    public Charge(Long id, BigDecimal amount, Boolean isPayed, Payment payment) {
-        this.id = id;
+    public Charge(AppUser user, BigDecimal amount) {
+        this.user = user;
         this.amount = amount;
-        this.isPayed = isPayed;
-        this.payment = payment;
     }
 
     public Long getId() {

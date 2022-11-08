@@ -52,20 +52,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/URL'
 
-  /charges/passing/subscription:
-    get:
-      operationId: getSubscriptionInfo
-      tags:
-        - Subscriptions
-      summary: Get subscription info
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref:
-                  '#/components/schemas/SubscriptionInfo'
   /charges/passing/subscription/{userUUID}:
     get:
       operationId: getSubscription
@@ -326,15 +312,6 @@ components:
         - dateTime
         - paymentMethod
 
-    SubscriptionInfo:
-      type: object
-      properties:
-        costPerMonth:
-          type:
-            number
-          format:
-            double
-
     Subscription:
       type: object
       properties:
@@ -350,6 +327,10 @@ components:
         to:
           type: string
           format: date
+        roads:
+          type: array
+          items:
+            $ref: '#/components/schemas/Road'
       required:
         - id
         - subscriberId
@@ -358,6 +339,12 @@ components:
 
     URL:
       type: object
+
+    Road:
+      type: object
+      properties:
+        id:
+          type: integer
 
     Localization:
       type: object
