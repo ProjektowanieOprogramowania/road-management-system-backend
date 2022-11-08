@@ -11,10 +11,10 @@ public class PassingCharge {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "charge_id", nullable = false)
     private Charge charge;
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "passing_id", nullable = false)
     private Passing passing;
 
