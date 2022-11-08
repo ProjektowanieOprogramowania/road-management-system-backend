@@ -272,13 +272,16 @@ components:
     PassingCharge:
       type: object
       properties:
-        passingChargeId:
+        id:
           type: integer
           format: int64
         passing:
           $ref: '#/components/schemas/Passing'
         charge:
           $ref: '#/components/schemas/Charge'
+      required:
+        - passing
+        - charge
 
     Charge:
       type: object
@@ -289,14 +292,18 @@ components:
         amount:
           type: number
           format: double
-        isPayed:
+          minimum: 0.0
+        paid:
           type: boolean
         payment:
           $ref: '#/components/schemas/Payment'
       required:
-        - id
         - amount
-        - isPayed
+        - paid
+
+    PaymentMethod:
+      type: string
+      enum: [ bank_transfer, blik, postal_order ]
 
     Payment:
       type: object
@@ -307,9 +314,17 @@ components:
         amount:
           type: number
           format: double
-        date:
+          minimum: 0.01
+        dateTime:
           type: string
           format: date-time
+        paymentMethod:
+          type: string
+          format: PaymentMethod
+      required:
+        - amount
+        - dateTime
+        - paymentMethod
 
     SubscriptionInfo:
       type: object
@@ -368,6 +383,9 @@ components:
         id:
           type: integer
           format: int64
+        ownerUserId:
+          type: string
+          format: uuid
         vehicleType:
           type: string
           format: VehicleType
@@ -420,17 +438,16 @@ components:
           type: string
           format: date-time
         localization:
-          type: object
-          format: Localization
+          $ref: '#/components/schemas/Localization'
         vehicle:
-          type: object
+          $ref: '#/components/schemas/Vehicle'
       required:
         - payable
         - dateTime
         - localization
         - vehicle
 
-    Penalty:
+    PenaltyCharge:
       type: object
       properties:
         id:
@@ -442,11 +459,15 @@ components:
         description:
           type: string
         passing:
-          type: object
+          $ref: '#/components/schemas/Passing'
+        charge:
+          $ref: '#/components/schemas/Charge'
         paid:
           type: boolean
       required:
+        - userId
         - passing
+        - charge
         - paid
 
     Tariff:
