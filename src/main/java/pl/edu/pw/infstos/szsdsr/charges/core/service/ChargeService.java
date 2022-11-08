@@ -7,30 +7,61 @@ import pl.edu.pw.infstos.szsdsr.charges.core.repo.ChargeRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.ChargeDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class ChargeService {
-    private final ChargeRepository chargeRepo;
+    private final ChargeRepository chargeRepository;
     private final ObjectMapper objectMapper;
 
-    public ChargeService(ChargeRepository chargeRepo, ObjectMapper objectMapper) {
-        this.chargeRepo = chargeRepo;
+    public ChargeService(ChargeRepository chargeRepository, ObjectMapper objectMapper) {
+        this.chargeRepository = chargeRepository;
         this.objectMapper = objectMapper;
     }
 
     public List<ChargeDTO> getUserCharges(UUID userUUID) {
-        return chargeRepo.findChargesByUser_Uuid(userUUID)
+        return chargeRepository.findChargesByUser_Uuid(userUUID)
                 .stream()
-                .map(this::mapToDTO)
+                .map(this::chargeToDto)
                 .toList();
     }
 
-    private ChargeDTO mapToDTO(Charge charge) {
+    public ChargeDTO addCharge(ChargeDTO chargeDto) {
+        Charge charge = dtoToCharge(chargeDto);
+        charge.setId(null);
+        Charge newCharge = chargeRepository.save(charge);
+        return chargeToDto(newCharge);
+    }
+
+    public Optional<ChargeDTO> getCharge(Long id) {
+        return chargeRepository.findById(id).map(this::chargeToDto);
+    }
+
+    public Optional<ChargeDTO> updateCharge(ChargeDTO chargeDto) {
+        Charge charge = dtoToCharge(chargeDto);
+        if (chargeRepository.existsById(charge.getId())) {
+            Charge newCharge = chargeRepository.save(charge);
+            return Optional.of(chargeToDto(newCharge));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public boolean deleteCharge(Long id) {
+        if (chargeRepository.existsById(id)) {
+            chargeRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private ChargeDTO chargeToDto(Charge charge) {
         return objectMapper.convertValue(charge, ChargeDTO.class);
     }
 
-    private Charge mapToDomain(ChargeDTO chargeDTO) {
+    private Charge dtoToCharge(ChargeDTO chargeDTO) {
         return objectMapper.convertValue(chargeDTO, Charge.class);
     }
 
