@@ -1,8 +1,7 @@
-package pl.edu.pw.infstos.szsdsr.utils;
+package pl.edu.pw.infstos.szsdsr.appshared.generators;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestComponent;
+import org.springframework.stereotype.Component;
 import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
 import pl.edu.pw.infstos.szsdsr.charges.passings.domain.PassingCharge;
 import pl.edu.pw.infstos.szsdsr.charges.passings.repository.PassingChargeRepository;
@@ -16,15 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@TestComponent
-public class PassingChargeUtils {
+@Component
+public class PassingChargeGenerator extends AbstractGenerator<PassingCharge> {
 
-    @Autowired
-    PassingChargeService passingChargeService;
-    @Autowired
-    PassingChargeRepository passingChargeRepo;
-    @Autowired
-    ObjectMapper objectMapper;
+
+    private final PassingChargeService passingChargeService;
+    private final PassingChargeRepository passingChargeRepo;
+    private final ObjectMapper objectMapper;
+
+    public PassingChargeGenerator(PassingChargeService passingChargeService, PassingChargeRepository passingChargeRepo, ObjectMapper objectMapper) {
+        this.passingChargeService = passingChargeService;
+        this.passingChargeRepo = passingChargeRepo;
+        this.objectMapper = objectMapper;
+    }
 
     public List<PassingChargeDTO> createPassingCharges(AppUser user, int chargeCount) {
         var rand = new Random(0);
@@ -44,4 +47,13 @@ public class PassingChargeUtils {
         return charges;
     }
 
+    @Override
+    protected List<PassingCharge> generateDefaultImpl() {
+        return null;
+    }
+
+    @Override
+    public PassingCharge generateRandom() {
+        return null;
+    }
 }

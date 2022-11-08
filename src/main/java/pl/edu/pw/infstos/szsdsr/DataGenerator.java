@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.passings.services.PassingService;
@@ -19,6 +20,12 @@ import java.util.UUID;
 @Component
 public class DataGenerator {
 
+    private final AppUserGenerator appUserGenerator;
+
+    public DataGenerator(AppUserGenerator appUserGenerator) {
+        this.appUserGenerator = appUserGenerator;
+    }
+
     @Bean
     public CommandLineRunner loadData(@Autowired TariffService tariffService,
                                       @Autowired PenaltyService penaltyService,
@@ -26,6 +33,8 @@ public class DataGenerator {
                                       @Autowired LocalizationService localizationService,
                                       @Autowired VehicleService vehicleService) {
         return args -> {
+            appUserGenerator.generateDefault();
+
             PassingDTO passing1 = new PassingDTO();
             passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
             LocalizationDTO localization1 = new LocalizationDTO();

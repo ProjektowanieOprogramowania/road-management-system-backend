@@ -28,6 +28,8 @@ public class Passing {
     @OneToOne
     private Vehicle vehicle;
 
+
+
     public Long getId() {
         return id;
     }
