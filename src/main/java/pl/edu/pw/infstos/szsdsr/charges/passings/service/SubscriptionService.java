@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.charges.passings.domain.Subscription;
 import pl.edu.pw.infstos.szsdsr.charges.passings.repository.SubscriptionRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionInfoDTO;
 
 import java.util.UUID;
 

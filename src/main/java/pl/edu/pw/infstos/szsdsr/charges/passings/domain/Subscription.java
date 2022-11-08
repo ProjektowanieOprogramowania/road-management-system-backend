@@ -5,10 +5,8 @@ import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 public class Subscription {

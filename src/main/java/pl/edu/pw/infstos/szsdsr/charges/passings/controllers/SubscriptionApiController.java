@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionInfoDTO;
 
 import java.util.UUID;
 

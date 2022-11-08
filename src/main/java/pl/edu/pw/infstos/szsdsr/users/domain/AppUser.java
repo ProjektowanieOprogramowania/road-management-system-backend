@@ -1,8 +1,9 @@
 package pl.edu.pw.infstos.szsdsr.users.domain;
 
-import pl.edu.pw.infstos.szsdsr.charges.passings.domain.Subscription;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
