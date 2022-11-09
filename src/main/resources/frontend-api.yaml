@@ -317,6 +317,8 @@ components:
         userId:
           type: string
           format: uuid
+        description:
+          type: string
         chargeType:
           type: string
           format: ChargeType

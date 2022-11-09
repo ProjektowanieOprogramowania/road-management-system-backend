@@ -25,6 +25,8 @@ public class Charge {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
+    private String description;
+
     protected Charge() {
     }
 
@@ -79,5 +81,13 @@ public class Charge {
 
     public void setChargeType(ChargeTypeDTO chargeType) {
         this.chargeType = chargeType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

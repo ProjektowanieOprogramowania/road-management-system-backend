@@ -72,6 +72,7 @@ public class DataGenerator {
             ChargeDTO charge1 = new ChargeDTO();
             charge1.setUserId(userWithPassingUuid);
             charge1.setChargeType(String.valueOf(ChargeTypeDTO.PASSING_CHARGE));
+            charge1.setDescription("Opłata za przejazd bramką A1");
             charge1.setAmount(19.50);
             charge1.setPaid(false);
             charge1 = chargeService.addCharge(charge1);
@@ -86,12 +87,13 @@ public class DataGenerator {
             ChargeDTO chargeForPenalty1 = new ChargeDTO();
             chargeForPenalty1.setUserId(userWithPassingUuid);
             chargeForPenalty1.setChargeType(String.valueOf(ChargeTypeDTO.PENALTY_CHARGE));
+            chargeForPenalty1.setDescription("Opłata karna za nieopłacenie opłaty za przejazd");
             chargeForPenalty1.setAmount(975.00);
             chargeForPenalty1.setPaid(false);
             chargeForPenalty1 = chargeService.addCharge(chargeForPenalty1);
             penalty1.setCharge(chargeForPenalty1);
             penalty1.setPaid(false);
-            penalty1.setDescription("Kara za nieopłacony przejazd");
+            penalty1.setDescription("Kara za nieopłacony przejazd bramką A1 (50-krotność)");
             penalty1 = penaltyService.addPenalty(penalty1);
 
             RoadDTO a1 = new RoadDTO();
@@ -102,9 +104,9 @@ public class DataGenerator {
             a2.setName("A2");
             a2 = roadService.addRoad(a2);
 
-            RoadDTO s8 = new RoadDTO();
-            s8.setName("S8");
-            s8 = roadService.addRoad(s8);
+            RoadDTO a4 = new RoadDTO();
+            a4.setName("A4");
+            a4 = roadService.addRoad(a4);
 
             SubscriptionDTO subscription1 = new SubscriptionDTO();
             subscription1.setSubscriberId(userWithSubscriptionUuid);
@@ -114,6 +116,7 @@ public class DataGenerator {
             ChargeDTO chargeForSubscription1 = new ChargeDTO();
             chargeForSubscription1.setUserId(userWithSubscriptionUuid);
             chargeForSubscription1.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
+            chargeForSubscription1.setDescription("Opłata za abonament A1/A2");
             chargeForSubscription1.setAmount(49.99);
             chargeForSubscription1.setPaid(false);
             chargeForSubscription1 = chargeService.addCharge(chargeForSubscription1);
