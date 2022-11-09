@@ -1,5 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.penalties;
 
+import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
 import pl.edu.pw.infstos.szsdsr.passings.Passing;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class Penalty {
     private Passing passing;
 
     private String description;
+
+    @OneToOne
+    @NotNull
+    private Charge charge;
 
     @NotNull
     private boolean paid;
@@ -64,5 +69,13 @@ public class Penalty {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public Charge getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Charge charge) {
+        this.charge = charge;
     }
 }
