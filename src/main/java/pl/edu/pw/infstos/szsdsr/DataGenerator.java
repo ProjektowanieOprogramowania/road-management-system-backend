@@ -98,14 +98,17 @@ public class DataGenerator {
 
             RoadDTO a1 = new RoadDTO();
             a1.setName("A1");
+            a1.setSubscriptionPriceForOneDay(4.99);
             a1 = roadService.addRoad(a1);
 
             RoadDTO a2 = new RoadDTO();
             a2.setName("A2");
+            a2.setSubscriptionPriceForOneDay(6.99);
             a2 = roadService.addRoad(a2);
 
             RoadDTO a4 = new RoadDTO();
             a4.setName("A4");
+            a4.setSubscriptionPriceForOneDay(3.65);
             a4 = roadService.addRoad(a4);
 
             SubscriptionDTO subscription1 = new SubscriptionDTO();

@@ -428,8 +428,13 @@ components:
           type: integer
         name:
           type: string
+        subscriptionPriceForOneDay:
+          type: number
+          format: double
+          minimum: 0.00
       required:
         - name
+        - subscriptionPriceForOneDay
 
     Localization:
       type: object

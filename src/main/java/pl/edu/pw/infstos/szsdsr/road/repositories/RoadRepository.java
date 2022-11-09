@@ -10,4 +10,7 @@ public interface RoadRepository extends JpaRepository<Road, Long> {
 
     @Query("select r.name from Road r where r.id in :ids")
     List<String> findNamesByIds(List<Long> ids);
+
+    @Query("select r from Road r where r.id in :ids")
+    List<Road> findByIds(List<Long> ids);
 }

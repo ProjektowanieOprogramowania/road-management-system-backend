@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Road {
@@ -14,6 +15,9 @@ public class Road {
 
     @NotBlank
     private String name;
+
+    @NotNull
+    private Double subscriptionPriceForOneDay = 0.0;
 
     public Long getId() {
         return id;
@@ -29,5 +33,13 @@ public class Road {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getSubscriptionPriceForOneDay() {
+        return subscriptionPriceForOneDay;
+    }
+
+    public void setSubscriptionPriceForOneDay(Double subscriptionPriceForOneDay) {
+        this.subscriptionPriceForOneDay = subscriptionPriceForOneDay;
     }
 }

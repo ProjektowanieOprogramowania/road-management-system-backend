@@ -10,12 +10,15 @@ import pl.edu.pw.infstos.szsdsr.charges.core.service.PaymentService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
+import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 import pl.edu.pw.infstos.szsdsr.road.services.RoadService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @RestController
 public class SubscriptionApiController implements SubscriptionsApi {
@@ -46,11 +49,25 @@ public class SubscriptionApiController implements SubscriptionsApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (subscriptionDTO.getRoadsIds().isEmpty()) {
+        if (subscriptionDTO.getRoadsIds().isEmpty()
+        || subscriptionDTO.getSubscriptionFrom().isAfter(subscriptionDTO.getSubscriptionTo())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        double amount = subscriptionDTO.getRoadsIds().size() * 23.99;
+        List<Long> ids = subscriptionDTO.getRoadsIds().stream().map(Long::valueOf).toList();
+        List<Road> roads = roadService.findByIds(ids);
+
+        if (roads.size() != ids.size()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        double days = DAYS.between(subscriptionDTO.getSubscriptionFrom(), subscriptionDTO.getSubscriptionTo());
+        double amount = roads.stream()
+                .map(r -> r.getSubscriptionPriceForOneDay() * days)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        amount = Math.round(amount * 100.0) / 100.0;
 
         PaymentDTO payment = new PaymentDTO();
         payment.setAmount(amount);
@@ -60,12 +77,8 @@ public class SubscriptionApiController implements SubscriptionsApi {
 
         ChargeDTO chargeDTO = new ChargeDTO();
         chargeDTO.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
-        List<Long> ids = subscriptionDTO.getRoadsIds().stream().map(Long::valueOf).toList();
-        List<String> roadsNames = roadService.findNamesByIds(ids);
 
-        if(roadsNames.size() != ids.size()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        List<String> roadsNames = roadService.findNamesByIds(ids);
 
         String roadsString = roadsNames
                 .stream()
