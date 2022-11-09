@@ -86,27 +86,33 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Subscription'
-  /charges/passing/subscription/{subscriptionId}/payment:
+  /charges/passing/subscription/payment/{paymentMethod}:
     post:
-      operationId: paySubscription
+      operationId: buySubscription
       tags:
         - Subscriptions
-      summary: Pay subscription
+      summary: Buy subscription
       parameters:
-        - name: subscriptionId
+        - name: paymentMethod
+          description: Payment method
           in: path
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: PaymentMethod
           required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
       responses:
-        200:
-          description: OK
+        201:
+          description: Created
           content:
             application/json:
               schema:
-                type: string
-                description: Payment URL
+                $ref: '#/components/schemas/Subscription'
         400:
           description: Bad request
 
@@ -408,13 +414,12 @@ components:
           items:
             $ref: '#/components/schemas/Road'
         charge:
-            $ref: '#/components/schemas/Charge'
+          $ref: '#/components/schemas/Charge'
       required:
-        - id
         - subscriberId
         - from
         - to
-        - charge
+        - roads
 
     Road:
       type: object
@@ -423,6 +428,8 @@ components:
           type: integer
         name:
           type: string
+      required:
+        - name
 
     Localization:
       type: object
@@ -440,7 +447,7 @@ components:
 
     VehicleType:
       type: string
-      enum: [car, truck, motorcycle, other]
+      enum: [ car, truck, motorcycle, other ]
 
     Vehicle:
       type: object

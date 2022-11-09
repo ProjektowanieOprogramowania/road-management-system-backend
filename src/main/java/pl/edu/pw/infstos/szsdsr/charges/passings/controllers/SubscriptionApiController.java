@@ -1,5 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.controllers;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,14 +9,12 @@ import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.PaymentService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
-import pl.edu.pw.infstos.szsdsr.generated.models.PaymentDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.PaymentMethodDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
+import pl.edu.pw.infstos.szsdsr.generated.models.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class SubscriptionApiController implements SubscriptionsApi {
@@ -37,29 +36,41 @@ public class SubscriptionApiController implements SubscriptionsApi {
     }
 
     @Override
-    public ResponseEntity<String> paySubscription(Long subscriptionId) {
-        Optional<SubscriptionDTO> maybeSubscription = subscriptionService.getSubscription(subscriptionId);
+    public ResponseEntity<SubscriptionDTO> buySubscription(String paymentMethod, SubscriptionDTO subscriptionDTO) {
 
-        if (maybeSubscription.isPresent()) {
-            SubscriptionDTO subscription = maybeSubscription.get();
-
-            if(subscription.getCharge().getPaid()) {
-                return ResponseEntity.badRequest().body("Already paid");
-            }
-
-            PaymentDTO payment = new PaymentDTO();
-            payment.setAmount(subscription.getCharge().getAmount());
-            payment.setPaymentMethod(String.valueOf(PaymentMethodDTO.BLIK));
-            payment.setDateTime(LocalDateTime.now());
-            payment = paymentService.addPayment(payment);
-
-            subscription.getCharge().setPaid(true);
-            subscription.getCharge().setPayment(payment);
-            chargeService.updateCharge(subscription.getCharge());
-
-            return ResponseEntity.ok("/charges/payment/" + payment.getId());
-        } else {
+        if (!EnumUtils.isValidEnum(PaymentMethodDTO.class, paymentMethod.toUpperCase())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        System.out.println(subscriptionDTO.getRoads().size());
+        if (subscriptionDTO.getRoads().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        double amount = subscriptionDTO.getRoads().size() * 23.99;
+
+        PaymentDTO payment = new PaymentDTO();
+        payment.setAmount(amount);
+        payment.setPaymentMethod(paymentMethod);
+        payment.setDateTime(LocalDateTime.now());
+        payment = paymentService.addPayment(payment);
+
+        ChargeDTO chargeDTO = new ChargeDTO();
+        chargeDTO.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
+        String roadsString = subscriptionDTO.getRoads().stream()
+                .map(RoadDTO::getName)
+                .collect(Collectors.joining("/", "[", "]"));
+        chargeDTO.setDescription("Opłata za abonament " + roadsString);
+        chargeDTO.setPaid(true);
+        chargeDTO.setAmount(amount);
+        chargeDTO.setUserId(subscriptionDTO.getSubscriberId());
+        chargeDTO.setPayment(payment);
+        chargeDTO = chargeService.addCharge(chargeDTO);
+
+        subscriptionDTO.setCharge(chargeDTO);
+        subscriptionDTO = subscriptionService.addSubscription(subscriptionDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionDTO);
     }
+
 }

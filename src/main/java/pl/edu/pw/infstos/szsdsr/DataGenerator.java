@@ -116,7 +116,7 @@ public class DataGenerator {
             ChargeDTO chargeForSubscription1 = new ChargeDTO();
             chargeForSubscription1.setUserId(userWithSubscriptionUuid);
             chargeForSubscription1.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
-            chargeForSubscription1.setDescription("Opłata za abonament A1/A2");
+            chargeForSubscription1.setDescription("Opłata za abonament [A1/A2]");
             chargeForSubscription1.setAmount(49.99);
             chargeForSubscription1.setPaid(false);
             chargeForSubscription1 = chargeService.addCharge(chargeForSubscription1);
