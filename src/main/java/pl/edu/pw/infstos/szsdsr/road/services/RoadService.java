@@ -52,6 +52,10 @@ public class RoadService {
         }
     }
 
+    public List<String> findNamesByIds(List<Long> ids) {
+        return roadRepository.findNamesByIds(ids);
+    }
+
     private RoadDTO roadToDto(Road road) {
         return objectMapper.convertValue(road, RoadDTO.class);
     }

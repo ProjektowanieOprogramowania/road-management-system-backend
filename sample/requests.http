@@ -51,12 +51,7 @@ Content-Type: application/json
     12,
     12
   ],
-  "roads": [
-    {
-      "id": 10,
-      "name": "A1"
-    }
-  ]
+  "roadsIds": [10]
 }
 
 ### UC: Wyświetl historię opłat

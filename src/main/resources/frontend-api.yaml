@@ -409,17 +409,17 @@ components:
         subscriptionTo:
           type: string
           format: date
-        roads:
+        roadsIds:
           type: array
           items:
-            $ref: '#/components/schemas/Road'
+            type: integer
         charge:
           $ref: '#/components/schemas/Charge'
       required:
         - subscriberId
         - from
         - to
-        - roads
+        - roadsIds
 
     Road:
       type: object

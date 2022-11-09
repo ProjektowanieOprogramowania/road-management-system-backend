@@ -2,11 +2,10 @@ package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
-import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,8 +20,9 @@ public class Subscription {
     private LocalDate subscriptionFrom;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate subscriptionTo;
-    @ManyToMany
-    private Set<Road> roads;
+
+    @ElementCollection
+    public List<Integer> roadsIds;
     @OneToOne
     private Charge charge;
 
@@ -58,12 +58,12 @@ public class Subscription {
         this.subscriptionTo = subscriptionTo;
     }
 
-    public Set<Road> getRoads() {
-        return roads;
+    public List<Integer> getRoadIds() {
+        return roadsIds;
     }
 
-    public void setRoads(Set<Road> roads) {
-        this.roads = roads;
+    public void setRoadIds(List<Integer> roadIds) {
+        this.roadsIds = roadIds;
     }
 
     public Charge getCharge() {

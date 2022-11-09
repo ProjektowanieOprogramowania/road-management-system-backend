@@ -112,7 +112,7 @@ public class DataGenerator {
             subscription1.setSubscriberId(userWithSubscriptionUuid);
             subscription1.setSubscriptionFrom(LocalDate.now().minusDays(10));
             subscription1.setSubscriptionTo(LocalDate.now().plusDays(20));
-            subscription1.setRoads(List.of(a1, a2));
+            subscription1.setRoadsIds(List.of(a1.getId(), a2.getId()));
             ChargeDTO chargeForSubscription1 = new ChargeDTO();
             chargeForSubscription1.setUserId(userWithSubscriptionUuid);
             chargeForSubscription1.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));

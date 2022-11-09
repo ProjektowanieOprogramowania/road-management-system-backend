@@ -10,6 +10,7 @@ import pl.edu.pw.infstos.szsdsr.charges.core.service.PaymentService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
+import pl.edu.pw.infstos.szsdsr.road.services.RoadService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,13 +22,16 @@ public class SubscriptionApiController implements SubscriptionsApi {
     private final SubscriptionService subscriptionService;
     private final PaymentService paymentService;
     private final ChargeService chargeService;
+    private final RoadService roadService;
 
     public SubscriptionApiController(@Autowired SubscriptionService subscriptionService,
                                      @Autowired PaymentService paymentService,
-                                     @Autowired ChargeService chargeService) {
+                                     @Autowired ChargeService chargeService,
+                                     @Autowired RoadService roadService) {
         this.subscriptionService = subscriptionService;
         this.paymentService = paymentService;
         this.chargeService = chargeService;
+        this.roadService = roadService;
     }
 
     @Override
@@ -35,19 +39,18 @@ public class SubscriptionApiController implements SubscriptionsApi {
         return ResponseEntity.ok(subscriptionService.getUserSubscriptions(userUUID));
     }
 
+
     @Override
     public ResponseEntity<SubscriptionDTO> buySubscription(String paymentMethod, SubscriptionDTO subscriptionDTO) {
-
         if (!EnumUtils.isValidEnum(PaymentMethodDTO.class, paymentMethod.toUpperCase())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        System.out.println(subscriptionDTO.getRoads().size());
-        if (subscriptionDTO.getRoads().isEmpty()) {
+        if (subscriptionDTO.getRoadsIds().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        double amount = subscriptionDTO.getRoads().size() * 23.99;
+        double amount = subscriptionDTO.getRoadsIds().size() * 23.99;
 
         PaymentDTO payment = new PaymentDTO();
         payment.setAmount(amount);
@@ -57,8 +60,15 @@ public class SubscriptionApiController implements SubscriptionsApi {
 
         ChargeDTO chargeDTO = new ChargeDTO();
         chargeDTO.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
-        String roadsString = subscriptionDTO.getRoads().stream()
-                .map(RoadDTO::getName)
+        List<Long> ids = subscriptionDTO.getRoadsIds().stream().map(Long::valueOf).toList();
+        List<String> roadsNames = roadService.findNamesByIds(ids);
+
+        if(roadsNames.size() != ids.size()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        String roadsString = roadsNames
+                .stream()
                 .collect(Collectors.joining("/", "[", "]"));
         chargeDTO.setDescription("Opłata za abonament " + roadsString);
         chargeDTO.setPaid(true);
@@ -72,5 +82,4 @@ public class SubscriptionApiController implements SubscriptionsApi {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionDTO);
     }
-
 }
