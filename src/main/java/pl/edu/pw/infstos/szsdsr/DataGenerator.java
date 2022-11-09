@@ -108,7 +108,7 @@ public class DataGenerator {
             chargeForSubscription1.setUserId(userWithSubscriptionUuid);
             chargeForSubscription1.setAmount(49.99);
             chargeForSubscription1.setPaid(false);
-            chargeForSubscription1 = chargeService.addCharge(charge1);
+            chargeForSubscription1 = chargeService.addCharge(chargeForSubscription1);
             subscription1.setCharge(chargeForSubscription1);
             subscription1 = subscriptionService.addSubscription(subscription1);
 
