@@ -12,7 +12,7 @@ public class Charge {
     @GeneratedValue
     private Long id;
     private BigDecimal amount;
-    private Boolean isPayed;
+    private Boolean paid;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
@@ -44,12 +44,12 @@ public class Charge {
         this.amount = amount;
     }
 
-    public Boolean getPayed() {
-        return isPayed;
+    public Boolean getPaid() {
+        return paid;
     }
 
-    public void setPayed(Boolean payed) {
-        isPayed = payed;
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
     public Payment getPayment() {
