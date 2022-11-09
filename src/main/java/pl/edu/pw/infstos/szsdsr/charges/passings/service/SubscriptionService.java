@@ -6,7 +6,9 @@ import pl.edu.pw.infstos.szsdsr.charges.passings.domain.Subscription;
 import pl.edu.pw.infstos.szsdsr.charges.passings.repository.SubscriptionRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SubscriptionService {
@@ -18,10 +20,10 @@ public class SubscriptionService {
         this.objectMapper = objectMapper;
     }
 
-    public SubscriptionDTO getUserSubscription(UUID uuid) {
-        var subscription = subscriptionRepo.findByUser_Uuid(uuid);
+    public List<SubscriptionDTO> getUserSubscriptions(UUID uuid) {
+        var subscription = subscriptionRepo.findAllByUser_Uuid(uuid);
 
-        return mapToDTO(subscription);
+        return subscription.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     private SubscriptionDTO mapToDTO(Subscription subscription) {

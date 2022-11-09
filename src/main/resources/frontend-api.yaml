@@ -54,10 +54,10 @@ paths:
 
   /charges/passing/subscription/{userUUID}:
     get:
-      operationId: getSubscription
+      operationId: getUserSubscriptions
       tags:
         - Subscriptions
-      summary: Get subscription info
+      summary: Get user subscriptions info
       parameters:
         - name: userUUID
           in: path
@@ -71,14 +71,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref:
-                  '#/components/schemas/Subscription'
+                type: array
+                items:
+                  $ref:
+                    '#/components/schemas/Subscription'
   /charges/passing/subscription/payment:
+    get:
+      operationId: getSubscriptionSummary
+      tags:
+        - Subscriptions
+      summary: Get subscription summary for given parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPaymentInfo'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
     post:
       operationId: paySubscription
       tags:
         - Subscriptions
       summary: Pay subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPaymentInfo'
       responses:
         200:
           description: OK
@@ -336,6 +362,28 @@ components:
         - subscriberId
         - from
         - to
+
+    SubscriptionPaymentInfo:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+        roadIds:
+          type: array
+          items:
+            type: integer
+      required:
+        - userId
+        - from
+        - to
+        - roadIds
 
     URL:
       type: object
