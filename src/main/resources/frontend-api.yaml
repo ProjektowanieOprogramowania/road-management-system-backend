@@ -30,7 +30,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PassingCharge'
-  /charges/passing/{passingChargeId}/payment:
+  /charges/passing/{passingChargeId}/payment/{paymentMethod}:
     post:
       operationId: payPassingCharge
       tags:
@@ -44,6 +44,13 @@ paths:
           schema:
             type: integer
             format: int64
+          required: true
+        - name: paymentMethod
+          description: Payment method
+          in: path
+          schema:
+            type: string
+            format: PaymentMethod
           required: true
       responses:
         200:

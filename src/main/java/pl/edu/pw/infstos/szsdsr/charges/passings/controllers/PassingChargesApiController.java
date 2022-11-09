@@ -1,5 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.controllers;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,14 +38,23 @@ public class PassingChargesApiController implements PassingChargesApi {
     }
 
     @Override
-    public ResponseEntity<String> payPassingCharge(Long passingChargeId) {
+    public ResponseEntity<String> payPassingCharge(Long passingChargeId, String paymentMethod) {
         Optional<PassingChargeDTO> maybePassingCharge = passingChargeService.getPassingCharge(passingChargeId);
+
+        if (!EnumUtils.isValidEnum(PaymentMethodDTO.class, paymentMethod.toUpperCase())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         if (maybePassingCharge.isPresent()) {
             PassingChargeDTO passingCharge = maybePassingCharge.get();
+
+            if(passingCharge.getCharge().getPaid()) {
+                return ResponseEntity.badRequest().body("Already paid");
+            }
+
             PaymentDTO payment = new PaymentDTO();
             payment.setAmount(passingCharge.getCharge().getAmount());
-            payment.setPaymentMethod(String.valueOf(PaymentMethodDTO.BLIK));
+            payment.setPaymentMethod(paymentMethod);
             payment.setDateTime(LocalDateTime.now());
             payment = paymentService.addPayment(payment);
 

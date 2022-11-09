@@ -42,6 +42,11 @@ public class SubscriptionApiController implements SubscriptionsApi {
 
         if (maybeSubscription.isPresent()) {
             SubscriptionDTO subscription = maybeSubscription.get();
+
+            if(subscription.getCharge().getPaid()) {
+                return ResponseEntity.badRequest().body("Already paid");
+            }
+
             PaymentDTO payment = new PaymentDTO();
             payment.setAmount(subscription.getCharge().getAmount());
             payment.setPaymentMethod(String.valueOf(PaymentMethodDTO.BLIK));
