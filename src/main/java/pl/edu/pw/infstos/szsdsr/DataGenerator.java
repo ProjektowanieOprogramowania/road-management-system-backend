@@ -43,10 +43,10 @@ public class DataGenerator {
                                       @Autowired RoadService roadService,
                                       @Autowired SubscriptionService subscriptionService) {
         return args -> {
-            AppUser user1 = new AppUser("JanKowalski");
-            UUID user1Uuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
-            user1.setUuid(user1Uuid);
-            user1 = appUserService.create(user1);
+            AppUser userWithPassing = new AppUser("JanKowalski");
+            UUID userWithPassingUuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
+            userWithPassing.setUuid(userWithPassingUuid);
+            userWithPassing = appUserService.create(userWithPassing);
 
             AppUser userWithSubscription = new AppUser("Bob");
             UUID userWithSubscriptionUuid = UUID.fromString("cc2cb489-146c-4482-b290-1b4d00220b08");
@@ -70,7 +70,8 @@ public class DataGenerator {
             passing1 = passingService.addPassing(passing1);
 
             ChargeDTO charge1 = new ChargeDTO();
-            charge1.setUserId(user1Uuid);
+            charge1.setUserId(userWithPassingUuid);
+            charge1.setChargeType(String.valueOf(ChargeTypeDTO.PASSING_CHARGE));
             charge1.setAmount(19.50);
             charge1.setPaid(false);
             charge1 = chargeService.addCharge(charge1);
@@ -82,7 +83,13 @@ public class DataGenerator {
 
             PenaltyChargeDTO penalty1 = new PenaltyChargeDTO();
             penalty1.setPassing(passing1);
-            penalty1.setCharge(charge1);
+            ChargeDTO chargeForPenalty1 = new ChargeDTO();
+            chargeForPenalty1.setUserId(userWithPassingUuid);
+            chargeForPenalty1.setChargeType(String.valueOf(ChargeTypeDTO.PENALTY_CHARGE));
+            chargeForPenalty1.setAmount(975.00);
+            chargeForPenalty1.setPaid(false);
+            chargeForPenalty1 = chargeService.addCharge(chargeForPenalty1);
+            penalty1.setCharge(chargeForPenalty1);
             penalty1.setPaid(false);
             penalty1.setDescription("Kara za nieopłacony przejazd");
             penalty1 = penaltyService.addPenalty(penalty1);
@@ -106,6 +113,7 @@ public class DataGenerator {
             subscription1.setRoads(List.of(a1, a2));
             ChargeDTO chargeForSubscription1 = new ChargeDTO();
             chargeForSubscription1.setUserId(userWithSubscriptionUuid);
+            chargeForSubscription1.setChargeType(String.valueOf(ChargeTypeDTO.SUBSCRIPTION_CHARGE));
             chargeForSubscription1.setAmount(49.99);
             chargeForSubscription1.setPaid(false);
             chargeForSubscription1 = chargeService.addCharge(chargeForSubscription1);

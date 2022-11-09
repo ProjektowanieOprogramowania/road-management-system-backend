@@ -20,6 +20,7 @@ paths:
             type: string
             format: uuid
           required: true
+          example: 4d312962-5bbf-11ed-9b6a-0242ac120002
       responses:
         200:
           description: OK
@@ -68,6 +69,7 @@ paths:
             type: string
             format: uuid
           required: true
+          example: cc2cb489-146c-4482-b290-1b4d00220b08
       responses:
         200:
           description: OK
@@ -315,6 +317,9 @@ components:
         userId:
           type: string
           format: uuid
+        chargeType:
+          type: string
+          format: ChargeType
         amount:
           type: number
           format: double
@@ -327,6 +332,10 @@ components:
         - userId
         - amount
         - paid
+
+    ChargeType:
+      type: string
+      enum: [ penalty_charge, passing_charge, subscription_charge ]
 
     PaymentMethod:
       type: string
