@@ -19,7 +19,7 @@ public class Charge {
     private ChargeTypeDTO chargeType;
     private Boolean paid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "uuid", insertable = false, updatable = false)
     private AppUser appUser;
 

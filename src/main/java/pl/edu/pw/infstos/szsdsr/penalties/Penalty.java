@@ -20,7 +20,8 @@ public class Penalty {
 
     private String description;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "charge_id", nullable = false)
     @NotNull
     private Charge charge;
 

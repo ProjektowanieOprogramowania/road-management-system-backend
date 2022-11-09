@@ -1,23 +1,20 @@
 package pl.edu.pw.infstos.szsdsr.users.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
+@Table(name = "app_users")
 public class AppUser implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name = "uuid", nullable = false, unique = true)
     private UUID uuid = UUID.randomUUID();
     @Column(name = "login", unique = true, nullable = false)
     private String login;
-//    @OneToOne(mappedBy = "user")
-//    private Subscription subscription;
 
     public AppUser(String login) {
         this.login = login;
