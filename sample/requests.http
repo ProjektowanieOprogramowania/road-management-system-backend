@@ -1,25 +1,66 @@
-### pobranie listy taryfikatorów
-GET http://localhost:8080/api/v1/payments/tariff
+### UC: zobacz listę taryfikatorów
+GET http://localhost:8080/tariff
 
-### wyświetlenie szczegółów taryfikatora o ID 3
-GET http://localhost:8080/api/v1/payments/tariff/3
-
-### utworzenie nowego taryfikatora
-POST http://localhost:8080/api/v1/payments/tariff
+### UC: Stwórz taryfikator
+POST http://localhost:8080/tariff
 Content-Type: application/json
 
-{"name": "Nowy taryfikator", "active": false, "prices": {"samochód": 3.50}}
+{
+  "name": "Nowy taryfikator",
+  "active": false,
+  "prices": {
+    "samochód": 3.50
+  }
+}
 
-### modyfikacja taryfikatora o ID 3
-PUT http://localhost:8080/api/v1/payments/tariff/3
+### UC: Edytuj taryfikator (o ID 16)
+PUT http://localhost:8080/tariff/16
 Content-Type: application/json
 
-{"name": "Nowa nazwa", "active": false, "prices": {"cena": 3.00}}
+{
+  "name": "Nowa nazwa",
+  "active": false,
+  "prices": {
+    "cena": 2.00
+  }
+}
 
-### usunięcie taryfikatora o ID 3
-DELETE http://localhost:8080/api/v1/payments/tariff/3
+### UC: Usuń taryfikator (o ID 16)
+DELETE http://localhost:8080/tariff/16
+
+### UC: Wyświetl taryfikator (o ID 15) -- zawiera szczegóły
+GET http://localhost:8080/tariff/15
 
 
+### UC: Opłać przejazd
+POST http://localhost:8080/charges/passing/7/payment/blik
 
-### pobranie listy kar użytkownika o ID 123
-GET http://localhost:8080/api/v1/payments/penalty/123
+### UC: Wykup abonament
+POST http://localhost:8080/charges/passing/subscription/payment/bank_transfer
+Content-Type: application/json
+
+{
+  "subscriberId": "4d312962-5bbf-11ed-9b6a-0242ac120002",
+  "subscriptionFrom": [
+    2022,
+    1,
+    1
+  ],
+  "subscriptionTo": [
+    2022,
+    12,
+    12
+  ],
+  "roads": [
+    {
+      "id": 10,
+      "name": "A1"
+    }
+  ]
+}
+
+### UC: Wyświetl historię opłat
+GET http://localhost:8080/charges/history/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+### UC: Wyświetl historię nałożonych kar
+GET http://localhost:8080/charges/penalty/4d312962-5bbf-11ed-9b6a-0242ac120002
