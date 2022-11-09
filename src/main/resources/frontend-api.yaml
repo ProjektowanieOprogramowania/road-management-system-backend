@@ -73,7 +73,7 @@ paths:
               schema:
                 $ref:
                   '#/components/schemas/Subscription'
-  /charges/passing/subscribtion/payment:
+  /charges/passing/subscription/payment:
     post:
       operationId: paySubscription
       tags:
