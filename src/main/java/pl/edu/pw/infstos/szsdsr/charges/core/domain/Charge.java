@@ -19,8 +19,13 @@ public class Charge {
     private ChargeTypeDTO chargeType;
     private Boolean paid;
 
-    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "uuid", insertable = false, updatable = false)
+    private AppUser appUser;
+
+    @Column(name = "user_id", nullable = false)
     private UUID userId;
+
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
@@ -67,6 +72,14 @@ public class Charge {
 
     public UUID getUserId() {
         return userId;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public void setUserId(UUID userId) {
