@@ -191,23 +191,6 @@ paths:
         404:
           description: Not found
 
-  /tariff:
-    get:
-      operationId: getAllTariffs
-      tags:
-        - Tariffs
-      summary: Get all tariffs
-      description: Get all tariffs
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TariffSimplified'
-
   /roads:
     get:
       operationId: getAllRoads
@@ -224,6 +207,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Road'
+
+  /tariff:
+    get:
+      operationId: getAllTariffs
+      tags:
+        - Tariffs
+      summary: Get all tariffs
+      description: Get all tariffs
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TariffSimplified'
 
     post:
       operationId: addTariff
