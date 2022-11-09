@@ -13,8 +13,7 @@ public interface PassingChargeRepository extends JpaRepository<PassingCharge, Lo
             SELECT pc
             FROM PassingCharge pc
             JOIN pc.charge c
-            JOIN c.user u
-            WHERE c.paid = false AND u.uuid = :userUUID
+            WHERE c.paid = false AND c.userId = :userUUID
             """)
     List<PassingCharge> findNotPaidCharges(UUID userUUID);
 

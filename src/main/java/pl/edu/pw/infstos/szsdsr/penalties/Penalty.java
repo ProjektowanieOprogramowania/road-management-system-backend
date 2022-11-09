@@ -5,7 +5,6 @@ import pl.edu.pw.infstos.szsdsr.passings.Passing;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Entity
 public class Penalty {
@@ -13,9 +12,6 @@ public class Penalty {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
-    @NotNull
-    private UUID userId;
 
     @OneToOne
     @JoinColumn(name = "passing_id", nullable = false)
@@ -37,14 +33,6 @@ public class Penalty {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
     }
 
     public Passing getPassing() {

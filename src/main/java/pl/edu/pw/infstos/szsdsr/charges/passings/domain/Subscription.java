@@ -2,11 +2,11 @@ package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.edu.pw.infstos.szsdsr.road.domain.Road;
-import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Subscription {
@@ -14,9 +14,8 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private AppUser user;
+
+    private UUID subscriberId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate subscriptionFrom;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -32,12 +31,12 @@ public class Subscription {
         this.id = id;
     }
 
-    public AppUser getUser() {
-        return user;
+    public UUID getSubscriberId() {
+        return subscriberId;
     }
 
-    public void setUser(AppUser user) {
-        this.user = user;
+    public void setSubscriberId(UUID subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
     public LocalDate getSubscriptionFrom() {
@@ -54,5 +53,13 @@ public class Subscription {
 
     public void setSubscriptionTo(LocalDate subscriptionTo) {
         this.subscriptionTo = subscriptionTo;
+    }
+
+    public Set<Road> getRoads() {
+        return roads;
+    }
+
+    public void setRoads(Set<Road> roads) {
+        this.roads = roads;
     }
 }

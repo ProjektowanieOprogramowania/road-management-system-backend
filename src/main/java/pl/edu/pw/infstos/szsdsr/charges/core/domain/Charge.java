@@ -3,7 +3,9 @@ package pl.edu.pw.infstos.szsdsr.charges.core.domain;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 public class Charge {
@@ -13,9 +15,9 @@ public class Charge {
     private Long id;
     private BigDecimal amount;
     private Boolean paid;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser user;
+
+    @NotNull
+    private UUID userId;
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
@@ -24,7 +26,7 @@ public class Charge {
     }
 
     public Charge(AppUser user, BigDecimal amount) {
-        this.user = user;
+        this.userId = user.getUuid();
         this.amount = amount;
     }
 
@@ -60,11 +62,11 @@ public class Charge {
         this.payment = payment;
     }
 
-    public AppUser getUser() {
-        return user;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setUser(AppUser user) {
-        this.user = user;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }

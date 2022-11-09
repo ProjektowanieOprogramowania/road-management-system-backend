@@ -21,7 +21,7 @@ public class ChargeService {
     }
 
     public List<ChargeDTO> getUserCharges(UUID userUUID) {
-        return chargeRepository.findChargesByUser_Uuid(userUUID)
+        return chargeRepository.findAllByUserId(userUUID)
                 .stream()
                 .map(this::chargeToDto)
                 .toList();

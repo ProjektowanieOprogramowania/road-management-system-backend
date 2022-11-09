@@ -6,6 +6,7 @@ import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.SubscriptionDTO;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,8 +18,8 @@ public class SubscriptionApiController implements SubscriptionsApi {
     }
 
     @Override
-    public ResponseEntity<SubscriptionDTO> getSubscription(UUID userUUID) {
-        return ResponseEntity.ok(subscriptionService.getUserSubscription(userUUID));
+    public ResponseEntity<List<SubscriptionDTO>> getSubscriptions(UUID userUUID) {
+        return ResponseEntity.ok(subscriptionService.getUserSubscriptions(userUUID));
     }
 
     @Override

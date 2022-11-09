@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface ChargeRepository extends JpaRepository<Charge, Long> {
 
-    List<Charge> findChargesByUser_Uuid(UUID userUUID);
+    List<Charge> findAllByUserId(UUID userId);
 
 }

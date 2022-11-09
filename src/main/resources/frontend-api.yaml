@@ -54,10 +54,10 @@ paths:
 
   /charges/passing/subscription/{userUUID}:
     get:
-      operationId: getSubscription
+      operationId: getSubscriptions
       tags:
         - Subscriptions
-      summary: Get subscription info
+      summary: Get user's subscriptions
       parameters:
         - name: userUUID
           in: path
@@ -71,8 +71,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref:
-                  '#/components/schemas/Subscription'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
   /charges/passing/subscription/payment:
     post:
       operationId: paySubscription
@@ -113,7 +114,7 @@ paths:
 
 
 
-  /penalty/{userUUID}:
+  /charges/penalty/{userUUID}:
     get:
       operationId: getAllPenalties
       tags:
@@ -275,6 +276,9 @@ components:
         id:
           type: integer
           format: int64
+        userId:
+          type: string
+          format: uuid
         amount:
           type: number
           format: double
@@ -284,6 +288,7 @@ components:
         payment:
           $ref: '#/components/schemas/Payment'
       required:
+        - userId
         - amount
         - paid
 
@@ -321,10 +326,10 @@ components:
         subscriberId:
           type: string
           format: uuid
-        from:
+        subscriptionFrom:
           type: string
           format: date
-        to:
+        subscriptionTo:
           type: string
           format: date
         roads:
@@ -345,6 +350,8 @@ components:
       properties:
         id:
           type: integer
+        name:
+          type: string
 
     Localization:
       type: object
@@ -440,9 +447,6 @@ components:
         id:
           type: integer
           format: int64
-        userId:
-          type: string
-          format: uuid
         description:
           type: string
         passing:
@@ -452,7 +456,6 @@ components:
         paid:
           type: boolean
       required:
-        - userId
         - passing
         - charge
         - paid
