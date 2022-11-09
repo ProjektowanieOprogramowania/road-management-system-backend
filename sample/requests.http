@@ -64,3 +64,19 @@ GET http://localhost:8080/charges/history/4d312962-5bbf-11ed-9b6a-0242ac120002
 
 ### UC: Wyświetl historię nałożonych kar
 GET http://localhost:8080/charges/penalty/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+
+###################################################
+### INNE
+
+### Pobranie nieopłaconych opłat za przejazd danego użytkownika
+GET http://localhost:8080/charges/passing/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+### Pobranie abonamentów danego użytkownika
+GET http://localhost:8080/charges/passing/subscription/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+### Pobranie danej płatności
+GET http://localhost:8080/charges/payment/16
+
+### Pobranie wszystkich dróg
+GET http://localhost:8080/roads
