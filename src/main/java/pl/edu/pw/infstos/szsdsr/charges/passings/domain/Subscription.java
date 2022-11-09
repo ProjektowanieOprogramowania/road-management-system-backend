@@ -1,6 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
 import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ public class Subscription {
     private LocalDate subscriptionTo;
     @ManyToMany
     private Set<Road> roads;
+    @OneToOne
+    private Charge charge;
 
     public Long getId() {
         return id;
@@ -61,5 +64,13 @@ public class Subscription {
 
     public void setRoads(Set<Road> roads) {
         this.roads = roads;
+    }
+
+    public Charge getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Charge charge) {
+        this.charge = charge;
     }
 }

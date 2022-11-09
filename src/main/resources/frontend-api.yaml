@@ -50,7 +50,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/URL'
+                type: string
+                description: Payment URL
+        404:
+          description: Not found
 
   /charges/passing/subscription/{userUUID}:
     get:
@@ -74,19 +77,52 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Subscription'
-  /charges/passing/subscription/payment:
+  /charges/passing/subscription/{subscriptionId}/payment:
     post:
       operationId: paySubscription
       tags:
         - Subscriptions
       summary: Pay subscription
+      parameters:
+        - name: subscriptionId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/URL'
+                type: string
+                description: Payment URL
+        400:
+          description: Bad request
+
+  /charges/payment/{paymentId}:
+    get:
+      operationId: getPayment
+      tags:
+        - Charges
+      summary: Get payment
+      parameters:
+        - name: paymentId
+          in: path
+          schema:
+            type: number
+            format: integer
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        400:
+          description: Bad request
 
   /charges/history/{userUUID}:
     get:
@@ -336,14 +372,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Road'
+        charge:
+            $ref: '#/components/schemas/Charge'
       required:
         - id
         - subscriberId
         - from
         - to
-
-    URL:
-      type: object
+        - charge
 
     Road:
       type: object
