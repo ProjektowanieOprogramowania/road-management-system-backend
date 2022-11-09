@@ -1,10 +1,13 @@
 package pl.edu.pw.infstos.szsdsr.charges.core.domain;
 
+import pl.edu.pw.infstos.szsdsr.generated.models.PaymentMethodDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Payment {
@@ -12,16 +15,24 @@ public class Payment {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotNull
     private BigDecimal amount;
-    private Date date;
+
+    @NotNull
+    private LocalDateTime dateTime;
+
+    @NotNull
+    private PaymentMethodDTO paymentMethod;
 
     protected Payment() {
     }
 
-    public Payment(Long id, BigDecimal amount, Date date) {
+    public Payment(Long id, BigDecimal amount, LocalDateTime dateTime, PaymentMethodDTO paymentMethod) {
         this.id = id;
         this.amount = amount;
-        this.date = date;
+        this.dateTime = dateTime;
+        this.paymentMethod = paymentMethod;
     }
 
     public Long getId() {
@@ -40,11 +51,20 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Date getDate() {
-        return date;
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public PaymentMethodDTO getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethodDTO paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

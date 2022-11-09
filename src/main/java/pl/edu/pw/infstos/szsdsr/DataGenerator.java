@@ -99,12 +99,18 @@ public class DataGenerator {
             s8.setName("S8");
             s8 = roadService.addRoad(s8);
 
-            SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
-            subscriptionDTO.setSubscriberId(userWithSubscriptionUuid);
-            subscriptionDTO.setSubscriptionFrom(LocalDate.now().minusDays(10));
-            subscriptionDTO.setSubscriptionTo(LocalDate.now().plusDays(20));
-            subscriptionDTO.setRoads(List.of(a1, a2));
-            subscriptionDTO = subscriptionService.addSubscription(subscriptionDTO);
+            SubscriptionDTO subscription1 = new SubscriptionDTO();
+            subscription1.setSubscriberId(userWithSubscriptionUuid);
+            subscription1.setSubscriptionFrom(LocalDate.now().minusDays(10));
+            subscription1.setSubscriptionTo(LocalDate.now().plusDays(20));
+            subscription1.setRoads(List.of(a1, a2));
+            ChargeDTO chargeForSubscription1 = new ChargeDTO();
+            chargeForSubscription1.setUserId(userWithSubscriptionUuid);
+            chargeForSubscription1.setAmount(49.99);
+            chargeForSubscription1.setPaid(false);
+            chargeForSubscription1 = chargeService.addCharge(charge1);
+            subscription1.setCharge(chargeForSubscription1);
+            subscription1 = subscriptionService.addSubscription(subscription1);
 
             TariffDTO tariff1 = new TariffDTO();
             tariff1.setActive(true);
