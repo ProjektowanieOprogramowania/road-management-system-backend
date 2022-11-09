@@ -7,7 +7,9 @@ import pl.edu.pw.infstos.szsdsr.generated.models.RoadDTO;
 import pl.edu.pw.infstos.szsdsr.road.domain.Road;
 import pl.edu.pw.infstos.szsdsr.road.repositories.RoadRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoadService {
@@ -56,5 +58,12 @@ public class RoadService {
 
     private Road dtoToRoad(RoadDTO roadDto) {
         return objectMapper.convertValue(roadDto, Road.class);
+    }
+
+    public List<RoadDTO> getAllRoads() {
+        return roadRepository.findAll()
+                .stream()
+                .map(this::roadToDto)
+                .collect(Collectors.toList());
     }
 }
