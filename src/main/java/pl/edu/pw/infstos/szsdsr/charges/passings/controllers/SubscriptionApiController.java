@@ -10,8 +10,8 @@ import pl.edu.pw.infstos.szsdsr.charges.core.service.PaymentService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.api.SubscriptionsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
-import pl.edu.pw.infstos.szsdsr.road.domain.Road;
-import pl.edu.pw.infstos.szsdsr.road.services.RoadService;
+import pl.edu.pw.infstos.szsdsr.roads.domain.Road;
+import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.appshared.generators;
 
 import org.springframework.stereotype.Component;
-import pl.edu.pw.infstos.szsdsr.passings.Passing;
+import pl.edu.pw.infstos.szsdsr.driving.passings.Passing;
 
 import java.util.List;
 

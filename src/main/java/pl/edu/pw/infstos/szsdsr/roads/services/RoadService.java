@@ -1,11 +1,11 @@
-package pl.edu.pw.infstos.szsdsr.road.services;
+package pl.edu.pw.infstos.szsdsr.roads.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.RoadDTO;
-import pl.edu.pw.infstos.szsdsr.road.domain.Road;
-import pl.edu.pw.infstos.szsdsr.road.repositories.RoadRepository;
+import pl.edu.pw.infstos.szsdsr.roads.domain.Road;
+import pl.edu.pw.infstos.szsdsr.roads.repositories.RoadRepository;
 
 import java.util.List;
 import java.util.Optional;

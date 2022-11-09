@@ -1,12 +1,12 @@
-package pl.edu.pw.infstos.szsdsr.vehicle.services;
+package pl.edu.pw.infstos.szsdsr.driving.vehicle.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.infstos.szsdsr.driving.vehicle.Vehicle;
 import pl.edu.pw.infstos.szsdsr.generated.models.VehicleDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VehicleTypeDTO;
-import pl.edu.pw.infstos.szsdsr.vehicle.Vehicle;
-import pl.edu.pw.infstos.szsdsr.vehicle.repositories.VehicleRepository;
+import pl.edu.pw.infstos.szsdsr.driving.vehicle.repositories.VehicleRepository;
 
 import java.util.Optional;
 

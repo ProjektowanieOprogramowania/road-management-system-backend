@@ -1,7 +1,7 @@
-package pl.edu.pw.infstos.szsdsr.passings;
+package pl.edu.pw.infstos.szsdsr.driving.passings;
 
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
-import pl.edu.pw.infstos.szsdsr.vehicle.Vehicle;
+import pl.edu.pw.infstos.szsdsr.driving.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

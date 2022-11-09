@@ -1,11 +1,11 @@
-package pl.edu.pw.infstos.szsdsr.penalties.services;
+package pl.edu.pw.infstos.szsdsr.charges.penalties.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.PenaltyChargeDTO;
-import pl.edu.pw.infstos.szsdsr.penalties.Penalty;
-import pl.edu.pw.infstos.szsdsr.penalties.repositories.PenaltyRepository;
+import pl.edu.pw.infstos.szsdsr.charges.penalties.domain.Penalty;
+import pl.edu.pw.infstos.szsdsr.charges.penalties.repositories.PenaltyRepository;
 
 import java.util.List;
 import java.util.Optional;

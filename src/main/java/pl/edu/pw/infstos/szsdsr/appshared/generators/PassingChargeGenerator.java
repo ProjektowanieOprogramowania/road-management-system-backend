@@ -7,7 +7,7 @@ import pl.edu.pw.infstos.szsdsr.charges.passings.domain.PassingCharge;
 import pl.edu.pw.infstos.szsdsr.charges.passings.repository.PassingChargeRepository;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
 import pl.edu.pw.infstos.szsdsr.generated.models.PassingChargeDTO;
-import pl.edu.pw.infstos.szsdsr.passings.Passing;
+import pl.edu.pw.infstos.szsdsr.driving.passings.Passing;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 
 import java.math.BigDecimal;

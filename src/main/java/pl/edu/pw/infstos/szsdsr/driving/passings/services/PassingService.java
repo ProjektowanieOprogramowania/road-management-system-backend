@@ -1,11 +1,11 @@
-package pl.edu.pw.infstos.szsdsr.passings.services;
+package pl.edu.pw.infstos.szsdsr.driving.passings.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.infstos.szsdsr.driving.passings.Passing;
 import pl.edu.pw.infstos.szsdsr.generated.models.PassingDTO;
-import pl.edu.pw.infstos.szsdsr.passings.Passing;
-import pl.edu.pw.infstos.szsdsr.passings.repositories.PassingRepository;
+import pl.edu.pw.infstos.szsdsr.driving.passings.repositories.PassingRepository;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.vehicle;
+package pl.edu.pw.infstos.szsdsr.driving.vehicle;
 
 import pl.edu.pw.infstos.szsdsr.generated.models.VehicleTypeDTO;
 

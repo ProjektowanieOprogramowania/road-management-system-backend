@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.road.domain;
+package pl.edu.pw.infstos.szsdsr.roads.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

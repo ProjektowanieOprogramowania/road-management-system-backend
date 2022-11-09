@@ -1,7 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.charges.passings.domain;
 
 import pl.edu.pw.infstos.szsdsr.charges.core.domain.Charge;
-import pl.edu.pw.infstos.szsdsr.passings.Passing;
+import pl.edu.pw.infstos.szsdsr.driving.passings.Passing;
 
 import javax.persistence.*;
 

@@ -10,13 +10,13 @@ import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.generated.models.*;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
-import pl.edu.pw.infstos.szsdsr.passings.services.PassingService;
-import pl.edu.pw.infstos.szsdsr.penalties.services.PenaltyService;
-import pl.edu.pw.infstos.szsdsr.road.services.RoadService;
+import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
+import pl.edu.pw.infstos.szsdsr.charges.penalties.services.PenaltyService;
+import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
-import pl.edu.pw.infstos.szsdsr.vehicle.services.VehicleService;
+import pl.edu.pw.infstos.szsdsr.driving.vehicle.services.VehicleService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
