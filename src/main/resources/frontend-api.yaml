@@ -6,13 +6,13 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  /tolls/{userUUID}:
+  /charges/passing/{userUUID}:
     get:
-      operationId: getNotPaidTolls
+      operationId: getNotPaidPassingCharges
       tags:
-        - Toll
-      summary: Get users not payed tolls
-      description: Get users not payed tolls
+        - PassingCharges
+      summary: Get users not payed passing charges
+      description: Get users not payed passing charges
       parameters:
         - name: userUUID
           in: path
@@ -20,6 +20,7 @@ paths:
             type: string
             format: uuid
           required: true
+          example: 4d312962-5bbf-11ed-9b6a-0242ac120002
       responses:
         200:
           description: OK
@@ -28,21 +29,28 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/NotPayedToll'
-  /tolls/{tollId}/payments:
+                  $ref: '#/components/schemas/PassingCharge'
+  /charges/passing/{passingChargeId}/payment/{paymentMethod}:
     post:
-      operationId: payToll
+      operationId: payPassingCharge
       tags:
-        - Toll
-      summary: Pay toll
-      description: Pay toll
+        - PassingCharges
+      summary: Pay PassingCharge
+      description: Pay PassingCharge
       parameters:
-        - name: tollId
-          description: toll id
+        - name: passingChargeId
+          description: PassingCharge id
           in: path
           schema:
             type: integer
             format: int64
+          required: true
+        - name: paymentMethod
+          description: Payment method
+          in: path
+          schema:
+            type: string
+            format: PaymentMethod
           required: true
       responses:
         200:
@@ -50,27 +58,92 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/URL'
+                type: string
+                description: Payment URL
+        404:
+          description: Not found
 
-  /tolls/subscription:
+  /charges/passing/subscription/{userUUID}:
     get:
-      operationId: getSubscriptionInfo
+      operationId: getSubscriptions
       tags:
-        - Subscription
-      summary: Get subscription info
+        - Subscriptions
+      summary: Get user's subscriptions
+      parameters:
+        - name: userUUID
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          example: cc2cb489-146c-4482-b290-1b4d00220b08
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref:
-                  '#/components/schemas/Subscription'
-  /fees/history/{userUUID}:
-    get:
-      operationId: getUsersFee
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+  /charges/passing/subscription/payment/{paymentMethod}:
+    post:
+      operationId: buySubscription
       tags:
-        - Fees
+        - Subscriptions
+      summary: Buy subscription
+      parameters:
+        - name: paymentMethod
+          description: Payment method
+          in: path
+          schema:
+            type: string
+            format: PaymentMethod
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        400:
+          description: Bad request
+
+  /charges/payment/{paymentId}:
+    get:
+      operationId: getPayment
+      tags:
+        - Charges
+      summary: Get payment
+      parameters:
+        - name: paymentId
+          in: path
+          schema:
+            type: number
+            format: integer
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        400:
+          description: Bad request
+
+  /charges/history/{userUUID}:
+    get:
+      operationId: getUsersCharges
+      tags:
+        - Charges
       summary: Get fees history
       description: Get fees history
       parameters:
@@ -88,28 +161,238 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Fee'
+                  $ref: '#/components/schemas/Charge'
+
+
+
+  /charges/penalty/{userUUID}:
+    get:
+      operationId: getAllPenalties
+      tags:
+        - Penalties
+      summary: Get user's penalties
+      description: Get user's penalties
+      parameters:
+        - name: userUUID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PenaltyCharge'
+        404:
+          description: Not found
+
+  /roads:
+    get:
+      operationId: getAllRoads
+      tags:
+        - Roads
+      summary: Get all roads
+      description: Get all roads
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Road'
+
+  /tariff:
+    get:
+      operationId: getAllTariffs
+      tags:
+        - Tariffs
+      summary: Get all tariffs
+      description: Get all tariffs
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TariffSimplified'
+
+    post:
+      operationId: addTariff
+      tags:
+        - Tariffs
+      summary: Add tariff
+      description: Add tariff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tariff'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        400:
+          description: Bad request
+
+  /tariff/{tariffId}:
+    get:
+      operationId: getTariff
+      tags:
+        - Tariffs
+      summary: Get particular tariff
+      description: Get particular tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateTariff
+      tags:
+        - Tariffs
+      summary: Update tariff
+      description: Update tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tariff'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteTariff
+      tags:
+        - Tariffs
+      summary: Delete tariff
+      description: Delete tariff
+      parameters:
+        - name: tariffId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
+
 
 components:
   schemas:
-    NotPayedToll:
+    PassingCharge:
       type: object
       properties:
-        tollId:
+        id:
           type: integer
           format: int64
+        passing:
+          $ref: '#/components/schemas/Passing'
+        charge:
+          $ref: '#/components/schemas/Charge'
+      required:
+        - passing
+        - charge
 
-    PayedToll:
-      type: object
-
-    SubscriptionInfo:
+    Charge:
       type: object
       properties:
-        costPerMonth:
-          type:
-            number
-          format:
-            double
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        chargeType:
+          type: string
+          format: ChargeType
+        amount:
+          type: number
+          format: double
+          minimum: 0.0
+        paid:
+          type: boolean
+        payment:
+          $ref: '#/components/schemas/Payment'
+      required:
+        - userId
+        - amount
+        - paid
+
+    ChargeType:
+      type: string
+      enum: [ penalty_charge, passing_charge, subscription_charge ]
+
+    PaymentMethod:
+      type: string
+      enum: [ bank_transfer, blik, postal_order ]
+
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+          minimum: 0.01
+        dateTime:
+          type: string
+          format: date-time
+        paymentMethod:
+          type: string
+          format: PaymentMethod
+      required:
+        - amount
+        - dateTime
+        - paymentMethod
 
     Subscription:
       type: object
@@ -120,33 +403,177 @@ components:
         subscriberId:
           type: string
           format: uuid
-        from:
+        subscriptionFrom:
           type: string
           format: date
-        to:
+        subscriptionTo:
           type: string
           format: date
+        roadsIds:
+          type: array
+          items:
+            type: integer
+        charge:
+          $ref: '#/components/schemas/Charge'
       required:
-        - id
         - subscriberId
         - from
         - to
-    Fee:
+        - roadsIds
+
+    Road:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        subscriptionPriceForOneDay:
+          type: number
+          format: double
+          minimum: 0.00
+      required:
+        - name
+        - subscriptionPriceForOneDay
+
+    Localization:
+      type: object
       properties:
         id:
           type: integer
           format: int64
-        paymentDate:
+        latitude:
           type: string
-          format: date
-        feeAmount:
+        longitude:
+          type: string
+      required:
+        - latitude
+        - longitude
+
+    VehicleType:
+      type: string
+      enum: [ car, truck, motorcycle, other ]
+
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        ownerUserId:
+          type: string
+          format: uuid
+        vehicleType:
+          type: string
+          format: VehicleType
+        make:
+          type: string
+        model:
+          type: string
+        productionYear:
+          type: integer
+          minimum: 1800
+          maximum: 2050
+        registrationNumber:
+          type: string
+        length:
+          description: Length in meters
           type: number
           format: double
+          minimum: 0.0
+        width:
+          description: Width in meters
+          type: number
+          format: double
+          minimum: 0.0
+        height:
+          description: Height in meters
+          type: number
+          format: double
+          minimum: 0.0
+        weight:
+          description: Weight in kilograms
+          type: number
+          format: double
+          minimum: 0.0
+        engineVolumeCm3:
+          type: integer
+          minimum: 0
       required:
-        - id
-        - paymentDate
-        - feeAmount
+        - vehicleType
+        - make
 
-    URL:
+    Passing:
       type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        payable:
+          type: boolean
+        dateTime:
+          type: string
+          format: date-time
+        localization:
+          $ref: '#/components/schemas/Localization'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+      required:
+        - payable
+        - dateTime
+        - localization
+        - vehicle
 
+    PenaltyCharge:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        passing:
+          $ref: '#/components/schemas/Passing'
+        charge:
+          $ref: '#/components/schemas/Charge'
+        paid:
+          type: boolean
+      required:
+        - passing
+        - charge
+        - paid
+
+    Tariff:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+        prices:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+            minimum: 0.0
+      required:
+        - active
+        - name
+        - prices
+
+    TariffSimplified:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+      required:
+        - active
+        - name

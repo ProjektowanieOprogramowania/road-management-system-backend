@@ -25,3 +25,6 @@
 src/main/java/pl/edu/pw/infstos/szsdsr/generated/.openapi-generator
 pom.xml
 README.md
+./../road-management-system-app/src/app/services/generated/git_push.sh
+./../road-management-system-app/src/app/services/generated/README.md
+./../road-management-system-app/src/app/services/generated/.gitignore
