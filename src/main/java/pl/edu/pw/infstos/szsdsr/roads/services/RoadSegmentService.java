@@ -29,6 +29,16 @@ public class RoadSegmentService {
         return roadSegmentToDto(newRoadSegment);
     }
 
+    public List<RoadSegmentDTO> addAllRoadSegments(List<RoadSegmentDTO> roadSegmentDtos) {
+        List<RoadSegment> roadSegments = roadSegmentDtos.stream()
+                .map(this::dtoToRoadSegment).toList();
+
+        roadSegments.forEach(rn -> rn.setId(null));
+
+        List<RoadSegment> savedRoadSegments = roadSegmentRepository.saveAll(roadSegments);
+        return savedRoadSegments.stream().map(this::roadSegmentToDto).toList();
+    }
+
     public List<RoadSegmentDTO> findAllRoadSegments() {
         return roadSegmentRepository.findAll()
                 .stream()
@@ -36,6 +46,13 @@ public class RoadSegmentService {
                 .collect(Collectors.toList());
     }
 
+    public List<RoadSegmentDTO> getAllRoadSegments() {
+        return roadSegmentRepository.findAll()
+                .stream()
+                .map(this::roadSegmentToDto)
+                .collect(Collectors.toList());
+    }
+    
     public Optional<RoadSegmentDTO> getRoadSegment(Long id) {
         return roadSegmentRepository.findById(id).map(this::roadSegmentToDto);
     }

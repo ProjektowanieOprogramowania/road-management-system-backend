@@ -385,6 +385,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoadNode'
+        404:
+          description: Not found
 
     put:
       operationId: updateRoadNode
@@ -425,6 +427,123 @@ paths:
       description: Delete road node
       parameters:
         - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
+
+  /roadsegment:
+    get:
+      operationId: getAllRoadSegments
+      tags:
+        - RoadSegments
+      summary: Get all road segments
+      description: Get all road segments
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadSegment'
+
+    post:
+      operationId: addRoadSegments
+      tags:
+        - RoadSegments
+      summary: Add many road segments
+      description: Add many road segments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoadSegment'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadSegment'
+        400:
+          description: Bad request
+
+  /roadsegment/{roadSegmentId}:
+    get:
+      operationId: getRoadSegment
+      tags:
+        - RoadSegments
+      summary: Get particular road segment
+      description: Get particular road segment
+      parameters:
+        - name: roadSegmentId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadSegment'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateRoadSegment
+      tags:
+        - RoadSegments
+      summary: Update road segment
+      description: Update road segment
+      parameters:
+        - name: roadSegmentId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoadSegment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadSegment'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteRoadSegment
+      tags:
+        - RoadSegments
+      summary: Delete road segment
+      description: Delete road segment
+      parameters:
+        - name: roadSegmentId
           in: path
           schema:
             type: integer

@@ -2,6 +2,7 @@ package pl.edu.pw.infstos.szsdsr.roads.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.RoadNodesApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.RoadNodeDTO;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
@@ -9,6 +10,7 @@ import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class RoadNodeApiController implements RoadNodesApi {
 
     private final RoadNodeService roadNodeService;
