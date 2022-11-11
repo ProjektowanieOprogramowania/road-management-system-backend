@@ -46,6 +46,10 @@ public class RoadSegmentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Integer> findRoadSegmentIdsByNodeId(Long nodeId) {
+        return roadSegmentRepository.findRoadSegmentIdsByNodeId(nodeId);
+    }
+
     public List<RoadSegmentDTO> getAllRoadSegments() {
         return roadSegmentRepository.findAll()
                 .stream()

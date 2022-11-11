@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.RoadNodesApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.RoadNodeDTO;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
+import pl.edu.pw.infstos.szsdsr.roads.services.RoadSegmentService;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,11 @@ import java.util.Optional;
 public class RoadNodeApiController implements RoadNodesApi {
 
     private final RoadNodeService roadNodeService;
+    private final RoadSegmentService roadSegmentService;
 
-    public RoadNodeApiController(RoadNodeService roadNodeService) {
+    public RoadNodeApiController(RoadNodeService roadNodeService, RoadSegmentService roadSegmentService) {
         this.roadNodeService = roadNodeService;
+        this.roadSegmentService = roadSegmentService;
     }
 
     @Override
@@ -30,6 +33,12 @@ public class RoadNodeApiController implements RoadNodesApi {
 
     @Override
     public ResponseEntity<Void> deleteRoadNode(Long roadNodeId) {
+        List<Integer> roadSegmentsContainingNode = roadSegmentService.findRoadSegmentIdsByNodeId(roadNodeId);
+
+        if(!roadSegmentsContainingNode.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
         if (roadNodeService.deleteRoadNode(roadNodeId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

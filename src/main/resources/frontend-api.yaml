@@ -437,6 +437,8 @@ paths:
           description: OK
         404:
           description: Not found
+        409:
+          description: Conflict - there are road segments using this road node. Delete road segments first.
 
   /roadsegment:
     get:
