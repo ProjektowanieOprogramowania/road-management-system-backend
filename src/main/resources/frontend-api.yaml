@@ -321,6 +321,120 @@ paths:
         404:
           description: Not found
 
+  /roadnode/:
+    get:
+      operationId: getAllRoadNodes
+      tags:
+        - RoadNodes
+      summary: Get all road nodes
+      description: Get all road nodes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadNode'
+
+    post:
+      operationId: addRoadNodes
+      tags:
+        - RoadNodes
+      summary: Add many road nodes
+      description: Add many road nodes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoadNode'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadNode'
+        400:
+          description: Bad request
+
+  /roadnode/{roadNodeId}:
+    get:
+      operationId: getRoadNode
+      tags:
+        - RoadNodes
+      summary: Get particular road node
+      description: Get particular road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadNode'
+
+    put:
+      operationId: updateRoadNode
+      tags:
+        - RoadNodes
+      summary: Update road node
+      description: Update road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoadNode'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadNode'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteRoadNode
+      tags:
+        - RoadNodes
+      summary: Delete road node
+      description: Delete road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
 
 components:
   schemas:
@@ -577,3 +691,35 @@ components:
       required:
         - active
         - name
+
+    RoadNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        localization:
+          $ref: '#/components/schemas/Localization'
+      required:
+        - name
+        - localization
+
+    RoadSegment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        startNode:
+          $ref: '#/components/schemas/RoadNode'
+        endNode:
+          $ref: '#/components/schemas/RoadNode'
+        price:
+          type: number
+          format: double
+          minimum: 0.0
+      required:
+        - startNode
+        - endNode
