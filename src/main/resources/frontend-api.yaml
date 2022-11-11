@@ -127,7 +127,6 @@ paths:
           in: path
           schema:
             type: number
-            format: integer
           required: true
       responses:
         200:
