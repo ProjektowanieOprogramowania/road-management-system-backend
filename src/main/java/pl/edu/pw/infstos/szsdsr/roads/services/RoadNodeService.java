@@ -29,7 +29,17 @@ public class RoadNodeService {
         return roadNodeToDto(newRoadNode);
     }
 
-    public List<RoadNodeDTO> findAllRoadNodes() {
+    public List<RoadNodeDTO> addAllRoadNodes(List<RoadNodeDTO> roadNodeDtos) {
+        List<RoadNode> roadNodes = roadNodeDtos.stream()
+                .map(this::dtoToRoadNode).toList();
+
+        roadNodes.forEach(rn -> rn.setId(null));
+
+        List<RoadNode> savedRoadNodes = roadNodeRepository.saveAll(roadNodes);
+        return savedRoadNodes.stream().map(this::roadNodeToDto).toList();
+    }
+
+    public List<RoadNodeDTO> getAllRoadNodes() {
         return roadNodeRepository.findAll()
                 .stream()
                 .map(this::roadNodeToDto)
