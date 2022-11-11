@@ -51,8 +51,11 @@ public class RoadNodeService {
     }
 
     public Optional<RoadNodeDTO> updateRoadNode(RoadNodeDTO roadNodeDto) {
+        // Updates everything except for localization
         RoadNode roadNode = dtoToRoadNode(roadNodeDto);
-        if (roadNodeRepository.existsById(roadNode.getId())) {
+        Optional<RoadNode> maybeExisting = roadNodeRepository.findById(roadNode.getId());
+        if (maybeExisting.isPresent()) {
+            roadNode.setLocalization(maybeExisting.get().getLocalization());
             RoadNode newRoadNode = roadNodeRepository.save(roadNode);
             return Optional.of(roadNodeToDto(newRoadNode));
         } else {

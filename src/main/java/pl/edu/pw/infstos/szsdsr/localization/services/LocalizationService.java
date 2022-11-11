@@ -7,6 +7,7 @@ import pl.edu.pw.infstos.szsdsr.generated.models.LocalizationDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 import pl.edu.pw.infstos.szsdsr.localization.repositories.LocalizationRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,16 @@ public class LocalizationService {
         localization.setId(null);
         Localization newLocalization = localizationRepository.save(localization);
         return localizationToDto(newLocalization);
+    }
+
+    public List<LocalizationDTO> addAllLocalizations(List<LocalizationDTO> localizationDtos) {
+        List<Localization> localizations = localizationDtos.stream()
+                .map(this::dtoToLocalization).toList();
+
+        localizations.forEach(l -> l.setId(null));
+
+        List<Localization> savedLocalizations = localizationRepository.saveAll(localizations);
+        return savedLocalizations.stream().map(this::localizationToDto).toList();
     }
 
     public Optional<LocalizationDTO> getLocalization(Long id) {

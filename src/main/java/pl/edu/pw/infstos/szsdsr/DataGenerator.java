@@ -12,6 +12,8 @@ import pl.edu.pw.infstos.szsdsr.generated.models.*;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.charges.penalties.services.PenaltyService;
+import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
+import pl.edu.pw.infstos.szsdsr.roads.services.RoadSegmentService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
@@ -41,7 +43,9 @@ public class DataGenerator {
                                       @Autowired ChargeService chargeService,
                                       @Autowired PassingChargeService passingChargeService,
                                       @Autowired RoadService roadService,
-                                      @Autowired SubscriptionService subscriptionService) {
+                                      @Autowired SubscriptionService subscriptionService,
+                                      @Autowired RoadNodeService roadNodeService,
+                                      @Autowired RoadSegmentService roadSegmentService) {
         return args -> {
             AppUser userWithPassing = new AppUser("JanKowalski");
             UUID userWithPassingUuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
@@ -138,6 +142,29 @@ public class DataGenerator {
             prices1.put("A4, Ciężarowe", 0.17);
             tariff1.setPrices(prices1);
             tariff1 = tariffService.addTariff(tariff1);
+
+            RoadNodeDTO warszawa = new RoadNodeDTO();
+            warszawa.setName("Warszawa");
+            LocalizationDTO warszawaLocalization = new LocalizationDTO();
+            warszawaLocalization.setLatitude("52°13'49.4\"N");
+            warszawaLocalization.setLongitude("21°00'00.7\"E");
+            warszawaLocalization = localizationService.addLocalization(warszawaLocalization);
+            warszawa.setLocalization(warszawaLocalization);
+            warszawa = roadNodeService.addRoadNode(warszawa);
+
+            RoadNodeDTO poznan = new RoadNodeDTO();
+            poznan.setName("Poznań");
+            LocalizationDTO poznanLocalization = new LocalizationDTO();
+            poznanLocalization.setLatitude("52°24'27.8\"N");
+            poznanLocalization.setLongitude("16°54'46.1\"E");
+            poznanLocalization = localizationService.addLocalization(poznanLocalization);
+            poznan.setLocalization(poznanLocalization);
+            poznan = roadNodeService.addRoadNode(poznan);
+
+            RoadSegmentDTO warsawPoznanSegment = new RoadSegmentDTO();
+            warsawPoznanSegment.setStartNode(warszawa);
+            warsawPoznanSegment.setEndNode(poznan);
+            warsawPoznanSegment = roadSegmentService.addRoadSegment(warsawPoznanSegment);
         };
     }
 

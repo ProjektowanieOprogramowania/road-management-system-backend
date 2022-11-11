@@ -321,7 +321,7 @@ paths:
         404:
           description: Not found
 
-  /roadnode/:
+  /roadnode:
     get:
       operationId: getAllRoadNodes
       tags:

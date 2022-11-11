@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.RoadNodesApi;
+import pl.edu.pw.infstos.szsdsr.generated.models.LocalizationDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.RoadNodeDTO;
+import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadSegmentService;
 
@@ -16,14 +18,23 @@ public class RoadNodeApiController implements RoadNodesApi {
 
     private final RoadNodeService roadNodeService;
     private final RoadSegmentService roadSegmentService;
+    private final LocalizationService localizationService;
 
-    public RoadNodeApiController(RoadNodeService roadNodeService, RoadSegmentService roadSegmentService) {
+    public RoadNodeApiController(RoadNodeService roadNodeService,
+                                 RoadSegmentService roadSegmentService,
+                                 LocalizationService localizationService) {
         this.roadNodeService = roadNodeService;
         this.roadSegmentService = roadSegmentService;
+        this.localizationService = localizationService;
     }
 
     @Override
     public ResponseEntity<List<RoadNodeDTO>> addRoadNodes(List<RoadNodeDTO> roadNodeDTO) {
+        roadNodeDTO.forEach(rn -> {
+            LocalizationDTO l = localizationService.addLocalization(rn.getLocalization());
+            rn.setLocalization(l);
+        });
+
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(roadNodeService.addAllRoadNodes(roadNodeDTO));
         } catch (Exception e) {
@@ -35,7 +46,7 @@ public class RoadNodeApiController implements RoadNodesApi {
     public ResponseEntity<Void> deleteRoadNode(Long roadNodeId) {
         List<Integer> roadSegmentsContainingNode = roadSegmentService.findRoadSegmentIdsByNodeId(roadNodeId);
 
-        if(!roadSegmentsContainingNode.isEmpty()) {
+        if (!roadSegmentsContainingNode.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
