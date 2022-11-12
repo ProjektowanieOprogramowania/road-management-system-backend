@@ -343,7 +343,6 @@ paths:
         400:
           description: Bad request
 
-
   /cameras/by-voivodeship/{voivodeship}:
     get:
       operationId: getCameraStreamsByVoivodeship
@@ -667,3 +666,9 @@ components:
           type: string
         protocol:
           $ref: '#/components/schemas/CameraStreamProtocol'
+      required:
+        - name
+        - localization
+        - voivodeship
+        - url
+        - protocol
