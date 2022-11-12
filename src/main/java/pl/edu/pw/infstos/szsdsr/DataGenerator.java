@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import pl.edu.pw.infstos.szsdsr.camerastreams.services.CameraStreamService;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
 import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
@@ -41,7 +42,8 @@ public class DataGenerator {
                                       @Autowired ChargeService chargeService,
                                       @Autowired PassingChargeService passingChargeService,
                                       @Autowired RoadService roadService,
-                                      @Autowired SubscriptionService subscriptionService) {
+                                      @Autowired SubscriptionService subscriptionService,
+                                      @Autowired CameraStreamService cameraStreamService) {
         return args -> {
             AppUser userWithPassing = new AppUser("JanKowalski");
             UUID userWithPassingUuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
@@ -138,6 +140,18 @@ public class DataGenerator {
             prices1.put("A4, Ciężarowe", 0.17);
             tariff1.setPrices(prices1);
             tariff1 = tariffService.addTariff(tariff1);
+
+            CameraStreamDTO cameraStream1 = new CameraStreamDTO();
+            cameraStream1.setProtocol(CameraStreamProtocolDTO.HTTP);
+            cameraStream1.setUrl("https://y.com.sb/embed/crPl0ITIkS0");
+            cameraStream1.setVoivodeship(VoivodeshipDTO.MAZOWIECKIE);
+            LocalizationDTO cameraStream1Localization = new LocalizationDTO();
+            cameraStream1Localization.setLatitude("52°13'56\"N");
+            cameraStream1Localization.setLongitude("21°00'30\"E");
+            cameraStream1Localization = localizationService.addLocalization(cameraStream1Localization);
+            cameraStream1.setLocalization(cameraStream1Localization);
+            cameraStream1.setName("Warszawa, ul. Marszałkowska");
+            cameraStreamService.addCameraStream(cameraStream1);
         };
     }
 

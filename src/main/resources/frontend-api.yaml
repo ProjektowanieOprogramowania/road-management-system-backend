@@ -320,6 +320,55 @@ paths:
         404:
           description: Not found
 
+  /camera:
+    post:
+      operationId: addCameraStream
+      tags:
+        - CameraStream
+      summary: Add camera stream
+      description: Add camera stream
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CameraStream'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CameraStream'
+        400:
+          description: Bad request
+
+
+  /camera/get/{voivodeship}:
+    get:
+      operationId: getCameraStreamsByVoivodeship
+      tags:
+        - CameraStream
+      summary: Get camera streams by voivodeship
+      description: Get camera streams by voivodeship
+      parameters:
+        - name: voivodeship
+          in: path
+          schema:
+            $ref: '#/components/schemas/Voivodeship'
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CameraStream'
+        400:
+          description: Bad Request
+
 
 components:
   schemas:
@@ -576,3 +625,45 @@ components:
       required:
         - active
         - name
+
+    Voivodeship:
+      type: string
+      enum:
+        - dolnoslaskie
+        - kujawskopomorskie
+        - lubelskie
+        - lubuskie
+        - lodzkie
+        - malopolskie
+        - mazowieckie
+        - opolskie
+        - podkarpackie
+        - podlaskie
+        - pomorskie
+        - slaskie
+        - swietokrzyskie
+        - warminskomazurskie
+        - wielkopolskie
+        - zachodniopomorskie
+
+    CameraStreamProtocol:
+      type: string
+      enum:
+        - http
+
+    CameraStream:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        localization:
+          $ref: '#/components/schemas/Localization'
+        voivodeship:
+          $ref: '#/components/schemas/Voivodeship'
+        url:
+          type: string
+        protocol:
+          $ref: '#/components/schemas/CameraStreamProtocol'
