@@ -63,6 +63,22 @@ GET http://localhost:8080/charges/penalty/4d312962-5bbf-11ed-9b6a-0242ac120002
 ### UC: Wyświetl obraz z kamery monitoringu
 GET http://localhost:8080/cameras/by-voivodeship/MAZOWIECKIE
 
+### UC: Zarejestruj informacje o czujnikach
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+    "name": "Pomiar natężenia ruchu",
+    "localization": {
+        "latitude": "52°13'58\"N",
+        "longitude": "21°00'31\"E"
+    },
+    "voivodeship": "mazowieckie",
+    "serialNumber": "12345679",
+    "sensorType": "traffic",
+    "enabled": true
+}
+
 
 ###################################################
 ### INNE
@@ -78,3 +94,6 @@ GET http://localhost:8080/charges/payment/16
 
 ### Pobranie wszystkich dróg
 GET http://localhost:8080/roads
+
+### Pobranie wszystkich czujników
+GET http://localhost:8080/sensors

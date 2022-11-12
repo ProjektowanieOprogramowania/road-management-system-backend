@@ -368,6 +368,44 @@ paths:
         400:
           description: Bad Request
 
+  /sensors:
+    get:
+      operationId: getAllSensors
+      tags:
+        - Sensors
+      summary: Get all sensors
+      description: Get all sensors
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
+    post:
+      operationId: addSensor
+      tags:
+        - Sensors
+      summary: Add sensor
+      description: Add sensor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sensor'
+        400:
+          description: Bad request
+
 
 components:
   schemas:
@@ -672,3 +710,37 @@ components:
         - voivodeship
         - url
         - protocol
+
+    SensorType:
+      type: string
+      enum:
+        - traffic
+
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        localization:
+          $ref: '#/components/schemas/Localization'
+        voivodeship:
+          $ref: '#/components/schemas/Voivodeship'
+        serialNumber:
+          type: string
+        sensorType:
+          $ref: '#/components/schemas/SensorType'
+        enabled:
+          type: boolean
+        webhookUrl:
+          type: string
+      required:
+        - name
+        - localization
+        - voivodeship
+        - serialNumber
+        - sensorType
+        - enabled
+        # webhookUrl is associated by backend

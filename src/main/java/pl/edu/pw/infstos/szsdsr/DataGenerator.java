@@ -14,6 +14,7 @@ import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.charges.penalties.services.PenaltyService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
+import pl.edu.pw.infstos.szsdsr.sensors.core.services.SensorService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
@@ -43,7 +44,8 @@ public class DataGenerator {
                                       @Autowired PassingChargeService passingChargeService,
                                       @Autowired RoadService roadService,
                                       @Autowired SubscriptionService subscriptionService,
-                                      @Autowired CameraStreamService cameraStreamService) {
+                                      @Autowired CameraStreamService cameraStreamService,
+                                      @Autowired SensorService sensorService) {
         return args -> {
             AppUser userWithPassing = new AppUser("JanKowalski");
             UUID userWithPassingUuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
@@ -152,6 +154,19 @@ public class DataGenerator {
             cameraStream1.setLocalization(cameraStream1Localization);
             cameraStream1.setName("Warszawa, ul. Marszałkowska");
             cameraStreamService.addCameraStream(cameraStream1);
+
+            SensorDTO sensor1 = new SensorDTO();
+            LocalizationDTO sensor1Localization = new LocalizationDTO();
+            sensor1Localization.setLatitude("52°13'57\"N");
+            sensor1Localization.setLongitude("21°00'31\"E");
+            sensor1Localization = localizationService.addLocalization(sensor1Localization);
+            sensor1.setLocalization(sensor1Localization);
+            sensor1.setName("Warszawa, ul. Marszałkowska - natężenie ruchu");
+            sensor1.setEnabled(true);
+            sensor1.setVoivodeship(VoivodeshipDTO.MAZOWIECKIE);
+            sensor1.setSensorType(SensorTypeDTO.TRAFFIC);
+            sensor1.setSerialNumber("12345678");
+            sensorService.addSensor(sensor1);
         };
     }
 
