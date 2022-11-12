@@ -320,7 +320,7 @@ paths:
         404:
           description: Not found
 
-  /camera:
+  /cameras:
     post:
       operationId: addCameraStream
       tags:
@@ -344,7 +344,7 @@ paths:
           description: Bad request
 
 
-  /camera/get/{voivodeship}:
+  /cameras/by-voivodeship/{voivodeship}:
     get:
       operationId: getCameraStreamsByVoivodeship
       tags:

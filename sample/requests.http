@@ -60,6 +60,9 @@ GET http://localhost:8080/charges/history/4d312962-5bbf-11ed-9b6a-0242ac120002
 ### UC: Wyświetl historię nałożonych kar
 GET http://localhost:8080/charges/penalty/4d312962-5bbf-11ed-9b6a-0242ac120002
 
+### UC: Wyświetl obraz z kamery monitoringu
+GET http://localhost:8080/cameras/by-voivodeship/MAZOWIECKIE
+
 
 ###################################################
 ### INNE
