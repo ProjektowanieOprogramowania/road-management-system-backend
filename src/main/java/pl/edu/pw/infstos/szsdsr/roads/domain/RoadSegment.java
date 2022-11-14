@@ -21,7 +21,7 @@ public class RoadSegment {
     @ManyToOne
     private RoadNode endNode;
 
-    private Double price;
+    private Double price = 0.0;
 
     public Long getId() {
         return id;
