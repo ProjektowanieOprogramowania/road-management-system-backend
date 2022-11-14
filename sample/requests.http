@@ -95,5 +95,103 @@ GET http://localhost:8080/charges/payment/16
 ### Pobranie wszystkich dróg
 GET http://localhost:8080/roads
 
-### Pobranie wszystkich czujników
-GET http://localhost:8080/sensors
+
+// Iteracja 2
+
+### Pobranie wszystkich węzłów
+GET http://localhost:8080/roadnode
+
+### Pobranie konkretnego węzła
+GET http://localhost:8080/roadnode/22
+
+### Dodanie nowych węzłów
+POST http://localhost:8080/roadnode
+Content-Type: application/json
+
+[
+  {
+    "name": "Katowice",
+    "localization": {
+      "latitude": "50°13'44.3\"N",
+      "longitude": "18°59'46.3\"E"
+    }
+  }
+]
+
+### Edycja węzła
+PUT http://localhost:8080/roadnode/22
+Content-Type: application/json
+
+{
+  "name": "Katowice (zmienione)",
+  "localization": {
+    "latitude": "Pass any localization, it won't be updated anyway",
+    "longitude": "Pass any localization, it won't be updated anyway"
+  }
+}
+
+### Usunięcie węzła
+DELETE http://localhost:8080/roadnode/22
+
+### Pobranie wszystkich odcinków dróg
+GET http://localhost:8080/roadsegment
+
+### Pobranie konkretnego odcinka drogi
+GET http://localhost:8080/roadsegment/20
+
+### Dodanie nowych odcinków dróg
+POST http://localhost:8080/roadsegment
+Content-Type: application/json
+
+[
+  {
+    "startNode": {
+      "id": 17,
+      "name": "Warszawa",
+      "localization": {
+        "id": 16,
+        "latitude": "52°13'49.4\"N",
+        "longitude": "21°00'00.7\"E"
+      }
+    },
+    "endNode": {
+      "id": 19,
+      "name": "Łódź",
+      "localization": {
+        "id": 18,
+        "latitude": "52°24'27.8\"N",
+        "longitude": "16°54'46.1\"E"
+      }
+    },
+    "price": 18.55
+  }
+]
+
+### Edycja odcinka drogi
+PUT http://localhost:8080/roadsegment/20
+Content-Type: application/json
+
+{
+  "startNode": {
+    "id": 19,
+    "name": "Poznań",
+    "localization": {
+      "id": 18,
+      "latitude": "52°24'27.8\"N",
+      "longitude": "16°54'46.1\"E"
+    }
+  },
+  "endNode": {
+    "id": 17,
+    "name": "Warszawa",
+    "localization": {
+      "id": 16,
+      "latitude": "52°13'49.4\"N",
+      "longitude": "21°00'00.7\"E"
+    }
+  },
+  "price": 18.55
+}
+
+### Usunięcie odcinka drogi
+DELETE http://localhost:8080/roadsegment/20
