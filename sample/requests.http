@@ -60,6 +60,12 @@ GET http://localhost:8080/charges/history/4d312962-5bbf-11ed-9b6a-0242ac120002
 ### UC: Wyświetl historię nałożonych kar
 GET http://localhost:8080/charges/penalty/4d312962-5bbf-11ed-9b6a-0242ac120002
 
+
+
+
+
+// Iteracja 2
+
 ### UC: Wyświetl obraz z kamery monitoringu
 GET http://localhost:8080/cameras/by-voivodeship/MAZOWIECKIE
 
@@ -79,30 +85,11 @@ Content-Type: application/json
     "enabled": true
 }
 
-
-###################################################
-### INNE
-
-### Pobranie nieopłaconych opłat za przejazd danego użytkownika
-GET http://localhost:8080/charges/passing/4d312962-5bbf-11ed-9b6a-0242ac120002
-
-### Pobranie abonamentów danego użytkownika
-GET http://localhost:8080/charges/passing/subscription/4d312962-5bbf-11ed-9b6a-0242ac120002
-
-### Pobranie danej płatności
-GET http://localhost:8080/charges/payment/16
-
-### Pobranie wszystkich dróg
-GET http://localhost:8080/roads
-
-
-// Iteracja 2
-
 ### Pobranie wszystkich węzłów
 GET http://localhost:8080/roadnode
 
 ### Pobranie konkretnego węzła
-GET http://localhost:8080/roadnode/22
+GET http://localhost:8080/roadnode/21
 
 ### Dodanie nowych węzłów
 POST http://localhost:8080/roadnode
@@ -119,7 +106,7 @@ Content-Type: application/json
 ]
 
 ### Edycja węzła
-PUT http://localhost:8080/roadnode/22
+PUT http://localhost:8080/roadnode/28
 Content-Type: application/json
 
 {
@@ -131,13 +118,13 @@ Content-Type: application/json
 }
 
 ### Usunięcie węzła
-DELETE http://localhost:8080/roadnode/22
+DELETE http://localhost:8080/roadnode/28
 
 ### Pobranie wszystkich odcinków dróg
 GET http://localhost:8080/roadsegment
 
 ### Pobranie konkretnego odcinka drogi
-GET http://localhost:8080/roadsegment/20
+GET http://localhost:8080/roadsegment/24
 
 ### Dodanie nowych odcinków dróg
 POST http://localhost:8080/roadsegment
@@ -146,19 +133,19 @@ Content-Type: application/json
 [
   {
     "startNode": {
-      "id": 17,
+      "id": 21,
       "name": "Warszawa",
       "localization": {
-        "id": 16,
+        "id": 20,
         "latitude": "52°13'49.4\"N",
         "longitude": "21°00'00.7\"E"
       }
     },
     "endNode": {
-      "id": 19,
-      "name": "Łódź",
+      "id": 23,
+      "name": "Poznań",
       "localization": {
-        "id": 18,
+        "id": 22,
         "latitude": "52°24'27.8\"N",
         "longitude": "16°54'46.1\"E"
       }
@@ -195,3 +182,19 @@ Content-Type: application/json
 
 ### Usunięcie odcinka drogi
 DELETE http://localhost:8080/roadsegment/20
+
+
+
+// INNE
+
+### Pobranie nieopłaconych opłat za przejazd danego użytkownika
+GET http://localhost:8080/charges/passing/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+### Pobranie abonamentów danego użytkownika
+GET http://localhost:8080/charges/passing/subscription/4d312962-5bbf-11ed-9b6a-0242ac120002
+
+### Pobranie danej płatności
+GET http://localhost:8080/charges/payment/16
+
+### Pobranie wszystkich dróg
+GET http://localhost:8080/roads

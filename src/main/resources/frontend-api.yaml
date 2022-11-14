@@ -406,6 +406,242 @@ paths:
         400:
           description: Bad request
 
+  /roadnode:
+    get:
+      operationId: getAllRoadNodes
+      tags:
+        - RoadNodes
+      summary: Get all road nodes
+      description: Get all road nodes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadNode'
+
+    post:
+      operationId: addRoadNodes
+      tags:
+        - RoadNodes
+      summary: Add many road nodes
+      description: Add many road nodes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoadNode'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadNode'
+        400:
+          description: Bad request
+
+  /roadnode/{roadNodeId}:
+    get:
+      operationId: getRoadNode
+      tags:
+        - RoadNodes
+      summary: Get particular road node
+      description: Get particular road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadNode'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateRoadNode
+      tags:
+        - RoadNodes
+      summary: Update road node
+      description: Update road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoadNode'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadNode'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteRoadNode
+      tags:
+        - RoadNodes
+      summary: Delete road node
+      description: Delete road node
+      parameters:
+        - name: roadNodeId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
+        409:
+          description: Conflict - there are road segments using this road node. Delete road segments first.
+
+  /roadsegment:
+    get:
+      operationId: getAllRoadSegments
+      tags:
+        - RoadSegments
+      summary: Get all road segments
+      description: Get all road segments
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadSegment'
+
+    post:
+      operationId: addRoadSegments
+      tags:
+        - RoadSegments
+      summary: Add many road segments
+      description: Add many road segments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoadSegment'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadSegment'
+        400:
+          description: Bad request
+
+  /roadsegment/{roadSegmentId}:
+    get:
+      operationId: getRoadSegment
+      tags:
+        - RoadSegments
+      summary: Get particular road segment
+      description: Get particular road segment
+      parameters:
+        - name: roadSegmentId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadSegment'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateRoadSegment
+      tags:
+        - RoadSegments
+      summary: Update road segment
+      description: Update road segment
+      parameters:
+        - name: roadSegmentId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoadSegment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadSegment'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteRoadSegment
+      tags:
+        - RoadSegments
+      summary: Delete road segment
+      description: Delete road segment
+      parameters:
+        - name: roadSegmentId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
+
 
 components:
   schemas:
@@ -744,3 +980,35 @@ components:
         - sensorType
         - enabled
         # webhookUrl is associated by backend
+
+    RoadNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        localization:
+          $ref: '#/components/schemas/Localization'
+      required:
+        - name
+        - localization
+
+    RoadSegment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        startNode:
+          $ref: '#/components/schemas/RoadNode'
+        endNode:
+          $ref: '#/components/schemas/RoadNode'
+        price:
+          type: number
+          format: double
+          minimum: 0.0
+      required:
+        - startNode
+        - endNode
