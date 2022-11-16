@@ -1,11 +1,11 @@
-package pl.edu.pw.infstos.szsdsr.sensors.core.services;
+package pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.repositories.SensorRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.SensorDTO;
-import pl.edu.pw.infstos.szsdsr.sensors.core.domain.Sensor;
-import pl.edu.pw.infstos.szsdsr.sensors.core.repositories.SensorRepository;
+import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.domain.Sensor;
 
 import java.util.List;
 import java.util.stream.Collectors;

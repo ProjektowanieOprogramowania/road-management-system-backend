@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.sensors.core.domain;
+package pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.domain;
 
 import pl.edu.pw.infstos.szsdsr.generated.models.SensorTypeDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;

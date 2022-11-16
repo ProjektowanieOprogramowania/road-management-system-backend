@@ -1,10 +1,10 @@
-package pl.edu.pw.infstos.szsdsr.camerastreams.services;
+package pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pw.infstos.szsdsr.camerastreams.domain.CameraStream;
-import pl.edu.pw.infstos.szsdsr.camerastreams.repositories.CameraStreamRepository;
+import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.domain.CameraStream;
+import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.repositories.CameraStreamRepository;
 import pl.edu.pw.infstos.szsdsr.generated.models.CameraStreamDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;
 

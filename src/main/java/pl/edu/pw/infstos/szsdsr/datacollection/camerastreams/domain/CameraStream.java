@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.camerastreams.domain;
+package pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.domain;
 
 import pl.edu.pw.infstos.szsdsr.generated.models.CameraStreamProtocolDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;

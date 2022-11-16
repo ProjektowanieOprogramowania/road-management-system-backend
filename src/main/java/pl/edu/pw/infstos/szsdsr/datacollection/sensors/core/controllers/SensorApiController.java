@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.sensors.core.controllers;
+package pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import pl.edu.pw.infstos.szsdsr.generated.api.SensorsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.LocalizationDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.SensorDTO;
 import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
-import pl.edu.pw.infstos.szsdsr.sensors.core.services.SensorService;
+import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.services.SensorService;
 
 import java.util.List;
 

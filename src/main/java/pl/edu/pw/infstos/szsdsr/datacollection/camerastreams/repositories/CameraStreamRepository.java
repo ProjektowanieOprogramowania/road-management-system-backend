@@ -1,7 +1,7 @@
-package pl.edu.pw.infstos.szsdsr.camerastreams.repositories;
+package pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.edu.pw.infstos.szsdsr.camerastreams.domain.CameraStream;
+import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.domain.CameraStream;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;
 
 import java.util.List;
