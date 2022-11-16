@@ -753,6 +753,10 @@ components:
           type: number
           format: double
           minimum: 0.00
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoadSegment'
       required:
         - name
         - subscriptionPriceForOneDay

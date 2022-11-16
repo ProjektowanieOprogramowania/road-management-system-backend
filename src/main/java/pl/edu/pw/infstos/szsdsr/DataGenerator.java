@@ -172,6 +172,33 @@ public class DataGenerator {
             sensor1.setSerialNumber("12345678");
             sensorService.addSensor(sensor1);
 
+            RoadNodeDTO swiecko = new RoadNodeDTO();
+            swiecko.setName("Świecko");
+            LocalizationDTO swieckoLocalization = new LocalizationDTO();
+            swieckoLocalization.setLatitude("52°19'26.4\"N");
+            swieckoLocalization.setLongitude("14°37'07.7\"E");
+            swieckoLocalization = localizationService.addLocalization(swieckoLocalization);
+            swiecko.setLocalization(swieckoLocalization);
+            swiecko = roadNodeService.addRoadNode(swiecko);
+
+            RoadNodeDTO poznan = new RoadNodeDTO();
+            poznan.setName("Poznań");
+            LocalizationDTO poznanLocalization = new LocalizationDTO();
+            poznanLocalization.setLatitude("52°21'13.9\"N");
+            poznanLocalization.setLongitude("16°54'13.6\"E");
+            poznanLocalization = localizationService.addLocalization(poznanLocalization);
+            poznan.setLocalization(poznanLocalization);
+            poznan = roadNodeService.addRoadNode(poznan);
+
+            RoadNodeDTO lodz = new RoadNodeDTO();
+            lodz.setName("Łódź");
+            LocalizationDTO lodzLocalization = new LocalizationDTO();
+            lodzLocalization.setLatitude("51°54'35.1\"N");
+            lodzLocalization.setLongitude("19°26'23.3\"E");
+            lodzLocalization = localizationService.addLocalization(lodzLocalization);
+            lodz.setLocalization(lodzLocalization);
+            lodz = roadNodeService.addRoadNode(lodz);
+
             RoadNodeDTO warszawa = new RoadNodeDTO();
             warszawa.setName("Warszawa");
             LocalizationDTO warszawaLocalization = new LocalizationDTO();
@@ -181,19 +208,41 @@ public class DataGenerator {
             warszawa.setLocalization(warszawaLocalization);
             warszawa = roadNodeService.addRoadNode(warszawa);
 
-            RoadNodeDTO poznan = new RoadNodeDTO();
-            poznan.setName("Poznań");
-            LocalizationDTO poznanLocalization = new LocalizationDTO();
-            poznanLocalization.setLatitude("52°24'27.8\"N");
-            poznanLocalization.setLongitude("16°54'46.1\"E");
-            poznanLocalization = localizationService.addLocalization(poznanLocalization);
-            poznan.setLocalization(poznanLocalization);
-            poznan = roadNodeService.addRoadNode(poznan);
+            RoadNodeDTO siedlce = new RoadNodeDTO();
+            siedlce.setName("Siedlce");
+            LocalizationDTO siedlceLocalization = new LocalizationDTO();
+            siedlceLocalization.setLatitude("52°10'17.7\"N");
+            siedlceLocalization.setLongitude("22°13'14.6\"E");
+            siedlceLocalization = localizationService.addLocalization(siedlceLocalization);
+            siedlce.setLocalization(siedlceLocalization);
+            siedlce = roadNodeService.addRoadNode(siedlce);
 
-            RoadSegmentDTO warsawPoznanSegment = new RoadSegmentDTO();
-            warsawPoznanSegment.setStartNode(warszawa);
-            warsawPoznanSegment.setEndNode(poznan);
-            warsawPoznanSegment = roadSegmentService.addRoadSegment(warsawPoznanSegment);
+            RoadSegmentDTO swieckoPoznanSegment = new RoadSegmentDTO();
+            swieckoPoznanSegment.setStartNode(swiecko);
+            swieckoPoznanSegment.setEndNode(poznan);
+            swieckoPoznanSegment.setPrice(44.0);
+            swieckoPoznanSegment = roadSegmentService.addRoadSegment(swieckoPoznanSegment);
+
+            RoadSegmentDTO poznanLodzSegment = new RoadSegmentDTO();
+            poznanLodzSegment.setStartNode(poznan);
+            poznanLodzSegment.setEndNode(lodz);
+            poznanLodzSegment.setPrice(52.0);
+            poznanLodzSegment = roadSegmentService.addRoadSegment(poznanLodzSegment);
+
+            RoadSegmentDTO lodzWarszawaSegment = new RoadSegmentDTO();
+            lodzWarszawaSegment.setStartNode(lodz);
+            lodzWarszawaSegment.setEndNode(warszawa);
+            lodzWarszawaSegment.setPrice(39.0);
+            lodzWarszawaSegment = roadSegmentService.addRoadSegment(lodzWarszawaSegment);
+
+            RoadSegmentDTO warszawaSiedlceSegment = new RoadSegmentDTO();
+            warszawaSiedlceSegment.setStartNode(warszawa);
+            warszawaSiedlceSegment.setEndNode(siedlce);
+            warszawaSiedlceSegment.setPrice(44.0);
+            warszawaSiedlceSegment = roadSegmentService.addRoadSegment(warszawaSiedlceSegment);
+
+            a2.setSegments(List.of(swieckoPoznanSegment, poznanLodzSegment, lodzWarszawaSegment, warszawaSiedlceSegment));
+            roadService.updateRoad(a2);
         };
     }
 
