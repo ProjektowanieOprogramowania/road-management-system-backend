@@ -9,6 +9,7 @@ import pl.edu.pw.infstos.szsdsr.generated.models.CameraStreamDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +34,10 @@ public class CameraStreamService {
         cameraStream.setId(null);
         CameraStream createdCameraStream = cameraStreamRepository.save(cameraStream);
         return cameraStreamToDto(createdCameraStream);
+    }
+
+    public Optional<CameraStreamDTO> getCameraStream(Long id) {
+        return cameraStreamRepository.findById(id).map(this::cameraStreamToDto);
     }
 
     private CameraStreamDTO cameraStreamToDto(CameraStream cameraStream) {

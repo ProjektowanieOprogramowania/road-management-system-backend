@@ -26,6 +26,11 @@ public class CameraStreamApiController implements CameraStreamApi {
     }
 
     @Override
+    public ResponseEntity<CameraStreamDTO> getCameraStream(Long cameraId) {
+        return ResponseEntity.of(cameraStreamService.getCameraStream(cameraId));
+    }
+
+    @Override
     public ResponseEntity<CameraStreamDTO> addCameraStream(CameraStreamDTO cameraStreamDTO) {
         CameraStreamDTO createdCamera = cameraStreamService.addCameraStream(cameraStreamDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCamera);

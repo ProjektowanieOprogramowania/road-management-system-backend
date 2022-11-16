@@ -343,6 +343,30 @@ paths:
         400:
           description: Bad request
 
+  /cameras/{cameraId}:
+    get:
+      operationId: getCameraStream
+      tags:
+        - CameraStream
+      summary: Get camera stream by ID
+      description: Get camera stream by ID
+      parameters:
+        - name: cameraId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CameraStream'
+        404:
+          description: Not found
+
   /cameras/by-voivodeship/{voivodeship}:
     get:
       operationId: getCameraStreamsByVoivodeship
