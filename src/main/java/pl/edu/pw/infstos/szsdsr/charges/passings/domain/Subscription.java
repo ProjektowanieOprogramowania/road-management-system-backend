@@ -22,7 +22,7 @@ public class Subscription {
     private LocalDate subscriptionTo;
 
     @ElementCollection
-    public List<Integer> roadsIds;
+    public List<Long> roadsIds;
     @OneToOne
     private Charge charge;
 
@@ -58,11 +58,11 @@ public class Subscription {
         this.subscriptionTo = subscriptionTo;
     }
 
-    public List<Integer> getRoadIds() {
+    public List<Long> getRoadIds() {
         return roadsIds;
     }
 
-    public void setRoadIds(List<Integer> roadIds) {
+    public void setRoadIds(List<Long> roadIds) {
         this.roadsIds = roadIds;
     }
 

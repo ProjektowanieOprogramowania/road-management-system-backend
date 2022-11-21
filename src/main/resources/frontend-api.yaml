@@ -206,6 +206,101 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Road'
+    post:
+      operationId: addRoad
+      tags:
+        - Roads
+      summary: Add road
+      description: Add road
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Road'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Road'
+        400:
+          description: Bad request
+
+  /roads/{roadId}:
+    get:
+      operationId: getRoad
+      tags:
+        - Roads
+      summary: Get particular road
+      description: Get particular road
+      parameters:
+        - name: roadId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Road'
+        404:
+          description: Not found
+
+    put:
+      operationId: updateRoad
+      tags:
+        - Roads
+      summary: Update road
+      description: Update road
+      parameters:
+        - name: roadId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Road'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Road'
+        404:
+          description: Not found
+        400:
+          description: Bad request
+
+    delete:
+      operationId: deleteRoad
+      tags:
+        - Roads
+      summary: Delete road
+      description: Delete road
+      parameters:
+        - name: roadId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not found
 
   /tariff:
     get:
@@ -761,6 +856,7 @@ components:
           type: array
           items:
             type: integer
+            format: int64
         charge:
           $ref: '#/components/schemas/Charge'
       required:
@@ -774,6 +870,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         name:
           type: string
         subscriptionPriceForOneDay:

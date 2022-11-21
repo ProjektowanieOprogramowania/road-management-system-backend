@@ -57,7 +57,9 @@ Content-Type: application/json
     2,
     12
   ],
-  "roadsIds": [10]
+  "roadsIds": [
+    10
+  ]
 }
 
 ### UC: Wyświetl historię opłat
@@ -80,15 +82,15 @@ POST http://localhost:8080/sensors
 Content-Type: application/json
 
 {
-    "name": "Pomiar natężenia ruchu",
-    "localization": {
-        "latitude": "52°13'58\"N",
-        "longitude": "21°00'31\"E"
-    },
-    "voivodeship": "mazowieckie",
-    "serialNumber": "12345679",
-    "sensorType": "traffic",
-    "enabled": true
+  "name": "Pomiar natężenia ruchu",
+  "localization": {
+    "latitude": "52°13'58\"N",
+    "longitude": "21°00'31\"E"
+  },
+  "voivodeship": "mazowieckie",
+  "serialNumber": "12345679",
+  "sensorType": "traffic",
+  "enabled": true
 }
 
 ### Pobranie wszystkich węzłów
@@ -189,9 +191,41 @@ Content-Type: application/json
 ### Usunięcie odcinka drogi
 DELETE http://localhost:8080/roadsegment/20
 
+### Pobranie wszystkich dróg
+GET http://localhost:8080/roads
+
+### Pobranie konkretnej drogi
+GET http://localhost:8080/roads/11
+
+### Dodanie drogi
+POST http://localhost:8080/roads
+Content-Type: application/json
+
+{
+  "name": "Nowa droga",
+  "subscriptionPriceForOneDay": 2.22,
+  "segments": [
+    {
+      "startNode": {
+        "name": "Nowy węzeł 1",
+        "localization": {
+          "latitude": "52°19'26.4\"N",
+          "longitude": "14°37'07.7\"E"
+        }
+      },
+      "endNode": {
+        "name": "Nowy węzeł 2",
+        "localization": {
+          "latitude": "52°21'13.9\"N",
+          "longitude": "16°54'13.6\"E"
+        }
+      }
+    }
+  ]
+}
 
 
-// INNE
+###// INNE
 
 ### Pobranie nieopłaconych opłat za przejazd danego użytkownika
 GET http://localhost:8080/charges/passing/4d312962-5bbf-11ed-9b6a-0242ac120002
@@ -201,6 +235,3 @@ GET http://localhost:8080/charges/passing/subscription/4d312962-5bbf-11ed-9b6a-0
 
 ### Pobranie danej płatności
 GET http://localhost:8080/charges/payment/16
-
-### Pobranie wszystkich dróg
-GET http://localhost:8080/roads

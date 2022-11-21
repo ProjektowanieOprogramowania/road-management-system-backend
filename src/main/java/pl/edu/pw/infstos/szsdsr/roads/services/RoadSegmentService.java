@@ -46,7 +46,7 @@ public class RoadSegmentService {
                 .collect(Collectors.toList());
     }
 
-    public List<Integer> findRoadSegmentIdsByNodeId(Long nodeId) {
+    public List<Long> findRoadSegmentIdsByNodeId(Long nodeId) {
         return roadSegmentRepository.findRoadSegmentIdsByNodeId(nodeId);
     }
 

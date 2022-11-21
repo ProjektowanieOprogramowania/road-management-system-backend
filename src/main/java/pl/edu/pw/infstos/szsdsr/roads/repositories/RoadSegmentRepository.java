@@ -13,5 +13,5 @@ public interface RoadSegmentRepository extends JpaRepository<RoadSegment, Long> 
             FROM RoadSegment rs
             WHERE :nodeId IN (rs.startNode.id, rs.endNode.id)
             """)
-    List<Integer> findRoadSegmentIdsByNodeId(Long nodeId);
+    List<Long> findRoadSegmentIdsByNodeId(Long nodeId);
 }

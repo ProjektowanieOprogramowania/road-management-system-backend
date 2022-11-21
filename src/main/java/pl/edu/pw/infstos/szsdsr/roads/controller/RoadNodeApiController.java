@@ -44,7 +44,7 @@ public class RoadNodeApiController implements RoadNodesApi {
 
     @Override
     public ResponseEntity<Void> deleteRoadNode(Long roadNodeId) {
-        List<Integer> roadSegmentsContainingNode = roadSegmentService.findRoadSegmentIdsByNodeId(roadNodeId);
+        List<Long> roadSegmentsContainingNode = roadSegmentService.findRoadSegmentIdsByNodeId(roadNodeId);
 
         if (!roadSegmentsContainingNode.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
