@@ -218,25 +218,22 @@ public class DataGenerator {
             RoadSegmentDTO swieckoPoznanSegment = new RoadSegmentDTO();
             swieckoPoznanSegment.setStartNode(swiecko);
             swieckoPoznanSegment.setEndNode(poznan);
-            swieckoPoznanSegment.setPrice(44.0);
             swieckoPoznanSegment = roadSegmentService.addRoadSegment(swieckoPoznanSegment);
 
             RoadSegmentDTO poznanLodzSegment = new RoadSegmentDTO();
             poznanLodzSegment.setStartNode(poznan);
             poznanLodzSegment.setEndNode(lodz);
-            poznanLodzSegment.setPrice(52.0);
+            poznanLodzSegment.setTariff(tariff1);
             poznanLodzSegment = roadSegmentService.addRoadSegment(poznanLodzSegment);
 
             RoadSegmentDTO lodzWarszawaSegment = new RoadSegmentDTO();
             lodzWarszawaSegment.setStartNode(lodz);
             lodzWarszawaSegment.setEndNode(warszawa);
-            lodzWarszawaSegment.setPrice(39.0);
             lodzWarszawaSegment = roadSegmentService.addRoadSegment(lodzWarszawaSegment);
 
             RoadSegmentDTO warszawaSiedlceSegment = new RoadSegmentDTO();
             warszawaSiedlceSegment.setStartNode(warszawa);
             warszawaSiedlceSegment.setEndNode(siedlce);
-            warszawaSiedlceSegment.setPrice(44.0);
             warszawaSiedlceSegment = roadSegmentService.addRoadSegment(warszawaSiedlceSegment);
 
             a2.setSegments(List.of(swieckoPoznanSegment, poznanLodzSegment, lodzWarszawaSegment, warszawaSiedlceSegment));

@@ -18,7 +18,7 @@ public class Tariff {
     @NotBlank
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @NotNull
     private Map<String, Double> prices;
 

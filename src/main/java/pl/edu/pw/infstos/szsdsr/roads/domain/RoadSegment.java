@@ -1,5 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.roads.domain;
 
+import pl.edu.pw.infstos.szsdsr.tariffs.Tariff;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +23,8 @@ public class RoadSegment {
     @ManyToOne
     private RoadNode endNode;
 
-    private Double price = 0.0;
+    @ManyToOne
+    private Tariff tariff;
 
     public Long getId() {
         return id;
@@ -47,11 +50,11 @@ public class RoadSegment {
         this.endNode = endNode;
     }
 
-    public Double getPrice() {
-        return price;
+    public Tariff getTariff() {
+        return tariff;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
     }
 }

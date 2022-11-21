@@ -1033,12 +1033,9 @@ components:
           $ref: '#/components/schemas/RoadNode'
         endNode:
           $ref: '#/components/schemas/RoadNode'
-        price:
-          type: number
-          format: double
-          minimum: 0.0
-          default: 0.0
+        tariff:
+          $ref: '#/components/schemas/Tariff'
       required:
         - startNode
         - endNode
-        - price
+        # tariff may be null
