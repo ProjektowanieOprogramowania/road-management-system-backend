@@ -1,5 +1,6 @@
 package pl.edu.pw.infstos.szsdsr.roads.controller;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +31,14 @@ public class RoadSegmentApiController implements RoadSegmentsApi {
 
     @Override
     public ResponseEntity<Void> deleteRoadSegment(Long roadSegmentId) {
-        if (roadSegmentService.deleteRoadSegment(roadSegmentId)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            if (roadSegmentService.deleteRoadSegment(roadSegmentId)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 

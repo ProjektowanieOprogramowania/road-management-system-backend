@@ -2,6 +2,7 @@ package pl.edu.pw.infstos.szsdsr.driving.vehicle.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.driving.vehicle.Vehicle;
 import pl.edu.pw.infstos.szsdsr.generated.models.VehicleDTO;
@@ -44,10 +45,14 @@ public class VehicleService {
     }
 
     public boolean deleteVehicle(Long id) {
-        if (vehicleRepository.existsById(id)) {
-            vehicleRepository.deleteById(id);
-            return true;
-        } else {
+        try {
+            if (vehicleRepository.existsById(id)) {
+                vehicleRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (DataIntegrityViolationException e) {
             return false;
         }
     }

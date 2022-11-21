@@ -1,6 +1,7 @@
 package pl.edu.pw.infstos.szsdsr.tariffs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,10 +39,14 @@ public class TariffApiController implements TariffsApi {
 
     @Override
     public ResponseEntity<Void> deleteTariff(Long tariffId) {
-        if (tariffService.deleteTariff(tariffId)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            if (tariffService.deleteTariff(tariffId)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 

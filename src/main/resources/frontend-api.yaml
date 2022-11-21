@@ -319,6 +319,8 @@ paths:
           description: OK
         404:
           description: Not found
+        409:
+          description: Conflict - there are objects using this object
 
   /cameras:
     post:
@@ -665,7 +667,8 @@ paths:
           description: OK
         404:
           description: Not found
-
+        409:
+          description: Conflict - there are objects using this object
 
 components:
   schemas:
