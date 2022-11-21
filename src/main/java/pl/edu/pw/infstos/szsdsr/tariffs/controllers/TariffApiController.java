@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.TariffsApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.TariffDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.TariffSimplifiedDTO;
+import pl.edu.pw.infstos.szsdsr.generated.models.VehicleTypeDTO;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,10 @@ public class TariffApiController implements TariffsApi {
 
     @Override
     public ResponseEntity<TariffDTO> addTariff(TariffDTO tariffDTO) {
+        if (!pricesValid(tariffDTO)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(tariffService.addTariff(tariffDTO));
         } catch (Exception e) {
@@ -56,6 +62,10 @@ public class TariffApiController implements TariffsApi {
 
     @Override
     public ResponseEntity<TariffDTO> updateTariff(Long tariffId, TariffDTO tariffDTO) {
+        if (!pricesValid(tariffDTO)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             tariffDTO.setId(tariffId);
             Optional<TariffDTO> tdto = tariffService.updateTariff(tariffDTO);
@@ -67,5 +77,26 @@ public class TariffApiController implements TariffsApi {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private boolean pricesValid(TariffDTO tariffDTO) {
+        List<VehicleTypeDTO> typesPresentInRequest = new ArrayList<>();
+        VehicleTypeDTO type;
+
+        for (String vehicleType : tariffDTO.getPrices().keySet()) {
+            try {
+                type = VehicleTypeDTO.valueOf(vehicleType.toUpperCase());
+                if (typesPresentInRequest.contains(type)) {
+                    return false; // Duplicated key in map
+                } else {
+                    typesPresentInRequest.add(type);
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        // Price must be specified for all vehicleTypes
+        return typesPresentInRequest.size() == VehicleTypeDTO.values().length;
     }
 }

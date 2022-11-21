@@ -136,14 +136,12 @@ public class DataGenerator {
 
             TariffDTO tariff1 = new TariffDTO();
             tariff1.setActive(true);
-            tariff1.setName("Taryfikator opłat za przejazd autostradami");
+            tariff1.setName("Taryfikator opłat za przejazd autostradą A2");
             Map<String, Double> prices1 = new HashMap<>();
-            prices1.put("A1/A2, Motocykle", 0.05);
-            prices1.put("A1/A2, Osobowe", 0.10);
-            prices1.put("A1/A2, Ciężarowe", 0.15);
-            prices1.put("A4, Motocykle", 0.07);
-            prices1.put("A4, Osobowe", 0.12);
-            prices1.put("A4, Ciężarowe", 0.17);
+            prices1.put(VehicleTypeDTO.MOTORCYCLE.getValue(), 0.05);
+            prices1.put(VehicleTypeDTO.CAR.getValue(), 0.10);
+            prices1.put(VehicleTypeDTO.TRUCK.getValue(), 0.15);
+            prices1.put(VehicleTypeDTO.OTHER.getValue(), 0.15);
             tariff1.setPrices(prices1);
             tariff1 = tariffService.addTariff(tariff1);
 

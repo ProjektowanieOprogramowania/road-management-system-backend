@@ -9,7 +9,10 @@ Content-Type: application/json
   "name": "Nowy taryfikator",
   "active": false,
   "prices": {
-    "samochód": 3.50
+    "car": 3.50,
+    "motorcycle": 2.00,
+    "truck": 4.80,
+    "other": 6.00
   }
 }
 
@@ -18,10 +21,13 @@ PUT http://localhost:8080/tariff/16
 Content-Type: application/json
 
 {
-  "name": "Nowa nazwa",
+  "name": "Zmieniony taryfikator",
   "active": false,
   "prices": {
-    "cena": 2.00
+    "car": 1.50,
+    "motorcycle": 0.00,
+    "truck": 5.00,
+    "other": 7.00
   }
 }
 
