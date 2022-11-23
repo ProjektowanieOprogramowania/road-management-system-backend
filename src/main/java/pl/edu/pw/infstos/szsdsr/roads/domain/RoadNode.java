@@ -2,10 +2,7 @@ package pl.edu.pw.infstos.szsdsr.roads.domain;
 
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +17,7 @@ public class RoadNode {
     private String name;
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Localization localization;
 
     public Long getId() {
