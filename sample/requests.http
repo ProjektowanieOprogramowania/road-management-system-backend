@@ -224,6 +224,33 @@ Content-Type: application/json
   ]
 }
 
+### Aktualizacja drogi
+PUT http://localhost:8080/roads/39
+Content-Type: application/json
+
+{
+  "name": "Zmieniona droga",
+  "subscriptionPriceForOneDay": 5.55,
+  "segments": [
+    {
+      "startNode": {
+        "name": "Inny węzeł 1",
+        "localization": {
+          "latitude": 2.324000,
+          "longitude": -4.618806
+        }
+      },
+      "endNode": {
+        "name": "Inny węzeł 2",
+        "localization": {
+          "latitude": 5.353861,
+          "longitude": -1.903778
+        }
+      }
+    }
+  ]
+}
+
 
 ###// INNE
 

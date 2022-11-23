@@ -42,7 +42,31 @@ public class RoadService {
     @Transactional
     public RoadDTO addRoad(RoadDTO roadDto) {
         Road road = dtoToRoad(roadDto);
+        roadCascade(road);
 
+        road.setId(null);
+        Road newRoad = roadRepository.save(road);
+        return roadToDto(newRoad);
+    }
+
+    public Optional<RoadDTO> getRoad(Long id) {
+        return roadRepository.findById(id).map(this::roadToDto);
+    }
+
+    public Optional<RoadDTO> updateRoad(RoadDTO roadDto) {
+        Road road = dtoToRoad(roadDto);
+        Optional<Road> maybeExisting = roadRepository.findById(roadDto.getId());
+
+        if (maybeExisting.isPresent()) {
+            roadCascade(road);
+            Road updatedRoad = roadRepository.save(road);
+            return Optional.of(roadToDto(updatedRoad));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private void roadCascade(Road road) {
         List<RoadSegment> segments = road.getSegments();
         List<RoadNode> uniqueNodes = new ArrayList<>();
         List<Localization> uniqueLocalizations = new ArrayList<>();
@@ -71,24 +95,6 @@ public class RoadService {
                     rs = roadSegmentRepository.save(rs);
                 }
             }
-        }
-
-        road.setId(null);
-        Road newRoad = roadRepository.save(road);
-        return roadToDto(newRoad);
-    }
-
-    public Optional<RoadDTO> getRoad(Long id) {
-        return roadRepository.findById(id).map(this::roadToDto);
-    }
-
-    public Optional<RoadDTO> updateRoad(RoadDTO roadDto) {
-        Road road = dtoToRoad(roadDto);
-        if (roadRepository.existsById(road.getId())) {
-            Road newRoad = roadRepository.save(road);
-            return Optional.of(roadToDto(newRoad));
-        } else {
-            return Optional.empty();
         }
     }
 

@@ -60,7 +60,6 @@ public class RoadsApiController implements RoadsApi {
 
     @Override
     public ResponseEntity<RoadDTO> updateRoad(Long roadId, RoadDTO roadDTO) {
-        /*
         try {
             roadDTO.setId(roadId);
             Optional<RoadDTO> rdto = roadService.updateRoad(roadDTO);
@@ -72,7 +71,5 @@ public class RoadsApiController implements RoadsApi {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-         */
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }

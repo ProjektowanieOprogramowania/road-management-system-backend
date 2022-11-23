@@ -18,7 +18,7 @@ public class Road {
     @NotNull
     private Double subscriptionPriceForOneDay = 0.0;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoadSegment> segments;
 
     public Long getId() {
