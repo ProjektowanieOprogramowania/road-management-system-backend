@@ -64,8 +64,8 @@ public class DataGenerator {
             PassingDTO passing1 = new PassingDTO();
             passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
             LocalizationDTO localization1 = new LocalizationDTO();
-            localization1.setLatitude("52°25'18.0\"N");
-            localization1.setLongitude("21°13'21.3\"E");
+            localization1.setLatitude(52.142154);
+            localization1.setLongitude(19.482726);
             localization1 = localizationService.addLocalization(localization1);
             passing1.setLocalization(localization1);
             passing1.setPayable(true);
@@ -150,8 +150,8 @@ public class DataGenerator {
             cameraStream1.setUrl("https://y.com.sb/embed/crPl0ITIkS0");
             cameraStream1.setVoivodeship(VoivodeshipDTO.MAZOWIECKIE);
             LocalizationDTO cameraStream1Localization = new LocalizationDTO();
-            cameraStream1Localization.setLatitude("52°13'56\"N");
-            cameraStream1Localization.setLongitude("21°00'30\"E");
+            cameraStream1Localization.setLatitude(52.232222);
+            cameraStream1Localization.setLongitude(21.008333);
             cameraStream1Localization = localizationService.addLocalization(cameraStream1Localization);
             cameraStream1.setLocalization(cameraStream1Localization);
             cameraStream1.setName("Warszawa, ul. Marszałkowska");
@@ -159,8 +159,8 @@ public class DataGenerator {
 
             SensorDTO sensor1 = new SensorDTO();
             LocalizationDTO sensor1Localization = new LocalizationDTO();
-            sensor1Localization.setLatitude("52°13'57\"N");
-            sensor1Localization.setLongitude("21°00'31\"E");
+            sensor1Localization.setLatitude(52.232222);
+            sensor1Localization.setLongitude(21.008333);
             sensor1Localization = localizationService.addLocalization(sensor1Localization);
             sensor1.setLocalization(sensor1Localization);
             sensor1.setName("Warszawa, ul. Marszałkowska - natężenie ruchu");
@@ -173,8 +173,8 @@ public class DataGenerator {
             RoadNodeDTO swiecko = new RoadNodeDTO();
             swiecko.setName("Świecko");
             LocalizationDTO swieckoLocalization = new LocalizationDTO();
-            swieckoLocalization.setLatitude("52°19'26.4\"N");
-            swieckoLocalization.setLongitude("14°37'07.7\"E");
+            swieckoLocalization.setLatitude(52.324000);
+            swieckoLocalization.setLongitude(14.618806);
             swieckoLocalization = localizationService.addLocalization(swieckoLocalization);
             swiecko.setLocalization(swieckoLocalization);
             swiecko = roadNodeService.addRoadNode(swiecko);
@@ -182,8 +182,8 @@ public class DataGenerator {
             RoadNodeDTO poznan = new RoadNodeDTO();
             poznan.setName("Poznań");
             LocalizationDTO poznanLocalization = new LocalizationDTO();
-            poznanLocalization.setLatitude("52°21'13.9\"N");
-            poznanLocalization.setLongitude("16°54'13.6\"E");
+            poznanLocalization.setLatitude(52.353861);
+            poznanLocalization.setLongitude(16.903778);
             poznanLocalization = localizationService.addLocalization(poznanLocalization);
             poznan.setLocalization(poznanLocalization);
             poznan = roadNodeService.addRoadNode(poznan);
@@ -191,8 +191,8 @@ public class DataGenerator {
             RoadNodeDTO lodz = new RoadNodeDTO();
             lodz.setName("Łódź");
             LocalizationDTO lodzLocalization = new LocalizationDTO();
-            lodzLocalization.setLatitude("51°54'35.1\"N");
-            lodzLocalization.setLongitude("19°26'23.3\"E");
+            lodzLocalization.setLatitude(51.909750);
+            lodzLocalization.setLongitude(19.439806);
             lodzLocalization = localizationService.addLocalization(lodzLocalization);
             lodz.setLocalization(lodzLocalization);
             lodz = roadNodeService.addRoadNode(lodz);
@@ -200,8 +200,8 @@ public class DataGenerator {
             RoadNodeDTO warszawa = new RoadNodeDTO();
             warszawa.setName("Warszawa");
             LocalizationDTO warszawaLocalization = new LocalizationDTO();
-            warszawaLocalization.setLatitude("52°13'49.4\"N");
-            warszawaLocalization.setLongitude("21°00'00.7\"E");
+            warszawaLocalization.setLatitude(52.230389);
+            warszawaLocalization.setLongitude(21.000194);
             warszawaLocalization = localizationService.addLocalization(warszawaLocalization);
             warszawa.setLocalization(warszawaLocalization);
             warszawa = roadNodeService.addRoadNode(warszawa);
@@ -209,8 +209,8 @@ public class DataGenerator {
             RoadNodeDTO siedlce = new RoadNodeDTO();
             siedlce.setName("Siedlce");
             LocalizationDTO siedlceLocalization = new LocalizationDTO();
-            siedlceLocalization.setLatitude("52°10'17.7\"N");
-            siedlceLocalization.setLongitude("22°13'14.6\"E");
+            siedlceLocalization.setLatitude(52.171583);
+            siedlceLocalization.setLongitude(22.220722);
             siedlceLocalization = localizationService.addLocalization(siedlceLocalization);
             siedlce.setLocalization(siedlceLocalization);
             siedlce = roadNodeService.addRoadNode(siedlce);

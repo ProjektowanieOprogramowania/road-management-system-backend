@@ -84,8 +84,8 @@ Content-Type: application/json
 {
   "name": "Pomiar natężenia ruchu",
   "localization": {
-    "latitude": "52°13'58\"N",
-    "longitude": "21°00'31\"E"
+    "latitude": 52.232222,
+    "longitude": 21.008333
   },
   "voivodeship": "mazowieckie",
   "serialNumber": "12345679",
@@ -107,21 +107,21 @@ Content-Type: application/json
   {
     "name": "Katowice",
     "localization": {
-      "latitude": "50°13'44.3\"N",
-      "longitude": "18°59'46.3\"E"
+      "latitude": 50.228972,
+      "longitude": 18.996194
     }
   }
 ]
 
-### Edycja węzła
+### Edycja węzła (lokalizacja się nie nadpisuje, bo w scenopisie nie ma opcji zmiany lokalizacji)
 PUT http://localhost:8080/roadnode/28
 Content-Type: application/json
 
 {
   "name": "Katowice (zmienione)",
   "localization": {
-    "latitude": "Pass any localization, it won't be updated anyway",
-    "longitude": "Pass any localization, it won't be updated anyway"
+    "latitude": 1.234,
+    "longitude": 1.234
   }
 }
 
@@ -145,8 +145,8 @@ Content-Type: application/json
       "name": "Warszawa",
       "localization": {
         "id": 20,
-        "latitude": "52°13'49.4\"N",
-        "longitude": "21°00'00.7\"E"
+        "latitude": 52.230389,
+        "longitude": 21.000194
       }
     },
     "endNode": {
@@ -154,8 +154,8 @@ Content-Type: application/json
       "name": "Poznań",
       "localization": {
         "id": 22,
-        "latitude": "52°24'27.8\"N",
-        "longitude": "16°54'46.1\"E"
+        "latitude": 52.353861,
+        "longitude": 16.903778
       }
     },
     "price": 18.55
@@ -172,8 +172,8 @@ Content-Type: application/json
     "name": "Poznań",
     "localization": {
       "id": 18,
-      "latitude": "52°24'27.8\"N",
-      "longitude": "16°54'46.1\"E"
+      "latitude": 52.353861,
+      "longitude": 16.903778
     }
   },
   "endNode": {
@@ -181,8 +181,8 @@ Content-Type: application/json
     "name": "Warszawa",
     "localization": {
       "id": 16,
-      "latitude": "52°13'49.4\"N",
-      "longitude": "21°00'00.7\"E"
+      "latitude": 52.230389,
+      "longitude": 21.000194
     }
   },
   "price": 18.55
@@ -209,15 +209,15 @@ Content-Type: application/json
       "startNode": {
         "name": "Nowy węzeł 1",
         "localization": {
-          "latitude": "52°19'26.4\"N",
-          "longitude": "14°37'07.7\"E"
+          "latitude": 52.324000,
+          "longitude": 14.618806
         }
       },
       "endNode": {
         "name": "Nowy węzeł 2",
         "localization": {
-          "latitude": "52°21'13.9\"N",
-          "longitude": "16°54'13.6\"E"
+          "latitude": 52.353861,
+          "longitude": 16.903778
         }
       }
     }

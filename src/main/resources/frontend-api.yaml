@@ -892,9 +892,11 @@ components:
           type: integer
           format: int64
         latitude:
-          type: string
+          type: number
+          format: double
         longitude:
-          type: string
+          type: number
+          format: double
       required:
         - latitude
         - longitude
