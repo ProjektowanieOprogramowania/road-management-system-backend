@@ -4,7 +4,10 @@ import pl.edu.pw.infstos.szsdsr.generated.models.SensorTypeDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.VoivodeshipDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +22,7 @@ public class Sensor {
     private String name;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     private Localization localization;
 
     @NotNull

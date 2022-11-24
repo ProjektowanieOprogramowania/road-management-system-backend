@@ -19,7 +19,7 @@ public class CameraStream {
     private String name;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     private Localization localization;
 
     @NotNull
