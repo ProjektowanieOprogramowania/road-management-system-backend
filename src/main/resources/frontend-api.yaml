@@ -764,6 +764,99 @@ paths:
           description: Not found
         409:
           description: Conflict - there are objects using this object
+  /tenders:
+    get:
+      operationId: getAllTenders
+      tags:
+        - Tenders
+      description: Returns all tenders
+      summary: Returns all tenders
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tender'
+    post:
+      operationId: createTender
+      tags:
+        - Tenders
+      description: Creates tender
+      summary: Creates tender
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tender'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tender'
+    put:
+      operationId: updateTender
+      tags:
+        - Tenders
+      description: Update tender
+      summary: Update tender
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tender'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tender'
+  /tenders/{tenderId}:
+    get:
+      operationId: getTenderById
+      tags:
+        - Tenders
+      description: Get tender
+      summary: Get tender
+      parameters:
+        - name: tenderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tender'
+
+  /tenders/offers:
+    post:
+      operationId: createOffer
+      tags:
+        - TenderOffer
+      description: Create offer
+      summary: Create offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenderOffer'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenderOffer'
 
 components:
   schemas:
@@ -1141,3 +1234,38 @@ components:
         - startNode
         - endNode
         # tariff may be null
+    Tender:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        isOpen:
+          type: boolean
+        staringPrice:
+          type: number
+          format: double
+        localization:
+          $ref: '#/components/schemas/Localization'
+        name:
+          type: string
+        number:
+          type: integer
+        dueDate:
+          type: integer
+          format: int64
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenderOffer'
+      required:
+        - isOpen
+    TenderOffer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
