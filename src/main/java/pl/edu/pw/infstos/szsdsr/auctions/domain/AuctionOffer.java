@@ -1,9 +1,9 @@
-package pl.edu.pw.infstos.szsdsr.tenders.domain;
+package pl.edu.pw.infstos.szsdsr.auctions.domain;
 
 import javax.persistence.*;
 
 @Entity
-public class TenderOffer {
+public class AuctionOffer {
 
     @Id
     @GeneratedValue
@@ -12,8 +12,8 @@ public class TenderOffer {
     private Double amount;
 
     @ManyToOne
-    @JoinColumn(name = "tender_id")
-    private Tender tender;
+    @JoinColumn(name = "auction_id")
+    private Auction auction;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class TenderOffer {
         this.amount = amount;
     }
 
-    public Tender getTender() {
-        return tender;
+    public Auction getAuction() {
+        return auction;
     }
 
-    public void setTender(Tender tender) {
-        this.tender = tender;
+    public void setAuction(Auction auction) {
+        this.auction = auction;
     }
 }

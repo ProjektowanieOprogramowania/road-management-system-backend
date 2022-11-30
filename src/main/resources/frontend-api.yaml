@@ -764,13 +764,13 @@ paths:
           description: Not found
         409:
           description: Conflict - there are objects using this object
-  /tenders:
+  /auctions:
     get:
-      operationId: getAllTenders
+      operationId: getAllAuctions
       tags:
-        - Tenders
-      description: Returns all tenders
-      summary: Returns all tenders
+        - Auctions
+      description: Returns all auctions
+      summary: Returns all auctions
       responses:
         200:
           description: OK
@@ -779,52 +779,52 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tender'
+                  $ref: '#/components/schemas/Auction'
     post:
-      operationId: createTender
+      operationId: createAuction
       tags:
-        - Tenders
-      description: Creates tender
-      summary: Creates tender
+        - Auctions
+      description: Creates auction
+      summary: Creates auction
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tender'
+              $ref: '#/components/schemas/Auction'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tender'
+                $ref: '#/components/schemas/Auction'
     put:
-      operationId: updateTender
+      operationId: updateAuction
       tags:
-        - Tenders
-      description: Update tender
-      summary: Update tender
+        - Auctions
+      description: Update auction
+      summary: Update auction
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tender'
+              $ref: '#/components/schemas/Auction'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tender'
-  /tenders/{tenderId}:
+                $ref: '#/components/schemas/Auction'
+  /auctions/{auctionId}:
     get:
-      operationId: getTenderById
+      operationId: getAuctionById
       tags:
-        - Tenders
-      description: Get tender
-      summary: Get tender
+        - Auctions
+      description: Get auction
+      summary: Get auction
       parameters:
-        - name: tenderId
+        - name: auctionId
           in: path
           required: true
           schema:
@@ -836,27 +836,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tender'
+                $ref: '#/components/schemas/Auction'
 
-  /tenders/offers:
+  /auctions/offers:
     post:
       operationId: createOffer
       tags:
-        - TenderOffer
+        - AuctionOffer
       description: Create offer
       summary: Create offer
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TenderOffer'
+              $ref: '#/components/schemas/AuctionOffer'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TenderOffer'
+                $ref: '#/components/schemas/AuctionOffer'
 
 components:
   schemas:
@@ -1234,7 +1234,7 @@ components:
         - startNode
         - endNode
         # tariff may be null
-    Tender:
+    Auction:
       type: object
       properties:
         id:
@@ -1259,10 +1259,10 @@ components:
         offers:
           type: array
           items:
-            $ref: '#/components/schemas/TenderOffer'
+            $ref: '#/components/schemas/AuctionOffer'
       required:
         - isOpen
-    TenderOffer:
+    AuctionOffer:
       type: object
       properties:
         id:

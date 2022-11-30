@@ -1,14 +1,12 @@
-package pl.edu.pw.infstos.szsdsr.tenders.domain;
+package pl.edu.pw.infstos.szsdsr.auctions.domain;
 
-import pl.edu.pw.infstos.szsdsr.generated.models.LocalizationDTO;
-import pl.edu.pw.infstos.szsdsr.generated.models.TenderOfferDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Tender {
+public class Auction {
 
     @Id
     @GeneratedValue
@@ -24,8 +22,8 @@ public class Tender {
     @JoinColumn(name = "localization_id")
     private Localization localization;
 
-    @OneToMany(mappedBy = "tender")
-    private List<TenderOffer> offers = null;
+    @OneToMany(mappedBy = "auction")
+    private List<AuctionOffer> offers = null;
 
 
     public void setId(Long id) {
@@ -84,11 +82,11 @@ public class Tender {
         this.localization = localization;
     }
 
-    public List<TenderOffer> getOffers() {
+    public List<AuctionOffer> getOffers() {
         return offers;
     }
 
-    public void setOffers(List<TenderOffer> offers) {
+    public void setOffers(List<AuctionOffer> offers) {
         this.offers = offers;
     }
 
