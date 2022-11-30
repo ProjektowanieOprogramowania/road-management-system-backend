@@ -839,6 +839,21 @@ paths:
                 $ref: '#/components/schemas/Auction'
 
   /auctions/offers:
+    get:
+      operationId: getAllOffers
+      tags:
+        - AuctionOffer
+      description: Returns all AuctionOffers
+      summary: Returns all AuctionOffers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuctionOffer'
     post:
       operationId: createOffer
       tags:
