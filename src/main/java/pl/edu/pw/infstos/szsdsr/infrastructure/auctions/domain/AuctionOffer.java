@@ -1,6 +1,10 @@
-package pl.edu.pw.infstos.szsdsr.auctions.domain;
+package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain;
+
+import pl.edu.pw.infstos.szsdsr.generated.models.CurrencyDTO;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 public class AuctionOffer {
@@ -9,11 +13,17 @@ public class AuctionOffer {
     @GeneratedValue
     private Long id;
 
+    @NotNull
+    private UUID userId;
+
     private Double amount;
 
     @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
+
+    @NotNull
+    private CurrencyDTO currency = CurrencyDTO.PLN;
 
     public Long getId() {
         return id;
@@ -37,5 +47,21 @@ public class AuctionOffer {
 
     public void setAuction(Auction auction) {
         this.auction = auction;
+    }
+
+    public CurrencyDTO getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(CurrencyDTO currency) {
+        this.currency = currency;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }

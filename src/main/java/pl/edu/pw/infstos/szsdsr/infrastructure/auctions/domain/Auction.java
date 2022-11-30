@@ -1,4 +1,4 @@
-package pl.edu.pw.infstos.szsdsr.auctions.domain;
+package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain;
 
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 

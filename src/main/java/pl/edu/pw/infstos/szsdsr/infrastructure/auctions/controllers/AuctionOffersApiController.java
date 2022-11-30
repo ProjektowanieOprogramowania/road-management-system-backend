@@ -1,10 +1,10 @@
-package pl.edu.pw.infstos.szsdsr.auctions.controllers;
+package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.AuctionOfferApi;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionOfferDTO;
-import pl.edu.pw.infstos.szsdsr.auctions.services.AuctionOfferService;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services.AuctionOfferService;
 
 @RestController
 public class AuctionOffersApiController implements AuctionOfferApi {

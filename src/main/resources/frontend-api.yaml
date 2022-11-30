@@ -1268,6 +1268,16 @@ components:
         id:
           type: integer
           format: int64
+        userId:
+          type: string
+          format: uuid
         amount:
           type: number
           format: double
+        currency:
+          type: string
+          format: Currency
+
+    Currency:
+      type: string
+      enum: [ pln, usd, eur ]

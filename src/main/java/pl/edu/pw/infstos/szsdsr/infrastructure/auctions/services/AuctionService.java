@@ -1,10 +1,10 @@
-package pl.edu.pw.infstos.szsdsr.auctions.services;
+package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionDTO;
-import pl.edu.pw.infstos.szsdsr.auctions.domain.Auction;
-import pl.edu.pw.infstos.szsdsr.auctions.repo.AuctionRepo;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.Auction;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.repo.AuctionRepo;
 
 import java.util.List;
 
