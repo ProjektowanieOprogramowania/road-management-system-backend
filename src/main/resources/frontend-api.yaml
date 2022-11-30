@@ -1249,6 +1249,8 @@ components:
           $ref: '#/components/schemas/Localization'
         name:
           type: string
+        description:
+          type: string
         number:
           type: integer
         dueDate:

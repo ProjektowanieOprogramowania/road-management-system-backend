@@ -16,6 +16,7 @@ public class Tender {
     private Boolean isOpen;
     private Double staringPrice;
     private String name;
+    private String description;
     private Integer number;
     private Long dueDate;
 
@@ -89,5 +90,13 @@ public class Tender {
 
     public void setOffers(List<TenderOffer> offers) {
         this.offers = offers;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
