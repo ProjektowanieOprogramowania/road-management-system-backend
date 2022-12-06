@@ -36,4 +36,9 @@ public class AuctionsApiController implements AuctionsApi {
         return ResponseEntity.ok(auctionService.updateAuction(auctionDTO));
     }
 
+    @Override
+    public ResponseEntity<AuctionDTO> closeAuction(AuctionDTO auctionDTO) {
+        return ResponseEntity.ok(auctionService.closeAuction(auctionDTO));
+    }
+
 }

@@ -816,6 +816,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Auction'
+  /auctions/close:
+    put:
+      operationId: closeAuction
+      tags:
+        - Auctions
+      description: Close auction
+      summary: Close auction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auction'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auction'
   /auctions/{auctionId}:
     get:
       operationId: getAuctionById
@@ -837,7 +856,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Auction'
-
   /auctions/offers:
     get:
       operationId: getAllOffers

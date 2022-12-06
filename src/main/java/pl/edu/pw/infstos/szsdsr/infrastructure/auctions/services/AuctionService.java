@@ -42,5 +42,12 @@ public class AuctionService {
         return mapper.convertValue(auction, AuctionDTO.class);
     }
 
+    public AuctionDTO closeAuction(AuctionDTO auctionDTO) {
+        auctionDTO.setIsOpen(false);
+        var auction = mapper.convertValue(auctionDTO, Auction.class);
+        auction = auctionRepo.save(auction);
+        return mapper.convertValue(auction, AuctionDTO.class);
+    }
+
 
 }
