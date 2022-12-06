@@ -890,6 +890,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuctionOffer'
+    put:
+      operationId: updateOffer
+      tags:
+        - AuctionOffer
+      description: Update offer
+      summary: Update offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionOffer'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionOffer'
   /auctions/{auctionId}/offers:
     get:
       operationId: getAuctionOffers
@@ -1334,6 +1352,9 @@ components:
         currency:
           type: string
           format: Currency
+        score:
+          type: integer
+          format: int16
 
     Currency:
       type: string

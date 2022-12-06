@@ -3,6 +3,7 @@ package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.infstos.szsdsr.generated.api.AuctionOfferApi;
+import pl.edu.pw.infstos.szsdsr.generated.models.AuctionDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionOfferDTO;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services.AuctionOfferService;
 
@@ -29,6 +30,11 @@ public class AuctionOffersApiController implements AuctionOfferApi {
     @Override
     public ResponseEntity<List<AuctionOfferDTO>> getAuctionOffers(Long auctionId) {
         return ResponseEntity.ok(offerService.getAuctionOffers(auctionId));
+    }
+
+    @Override
+    public ResponseEntity<AuctionOfferDTO> updateOffer(AuctionOfferDTO auctionOfferDTO) {
+        return ResponseEntity.ok(offerService.updateOffer(auctionOfferDTO));
     }
 
 }

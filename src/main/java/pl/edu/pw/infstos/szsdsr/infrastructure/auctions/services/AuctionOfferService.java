@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionOfferDTO;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.Auction;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.AuctionOffer;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.repo.AuctionOfferRepo;
 
@@ -39,4 +40,9 @@ public class AuctionOfferService {
                 .toList();
     }
 
+    public AuctionOfferDTO updateOffer(AuctionOfferDTO auctionOfferDTO) {
+        var offer = mapper.convertValue(auctionOfferDTO, AuctionOffer.class);
+        offer = auctionOfferRepo.save(offer);
+        return mapper.convertValue(offer, AuctionOfferDTO.class);
+    }
 }

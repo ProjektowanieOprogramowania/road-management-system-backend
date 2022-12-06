@@ -18,6 +18,8 @@ public class AuctionOffer {
 
     private Double amount;
 
+    private Integer score;
+
     @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
@@ -32,6 +34,10 @@ public class AuctionOffer {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Integer getScore() { return score; }
+
+    public void setScore(Integer score) { this.score = score; }
 
     public Double getAmount() {
         return amount;
