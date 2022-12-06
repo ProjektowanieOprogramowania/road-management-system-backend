@@ -908,6 +908,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuctionOffer'
+  /auctions/offers/score:
+    put:
+      operationId: updateOfferScore
+      tags:
+        - AuctionOffer
+      description: Update offer score
+      summary: Update offer score
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionOffer'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionOffer'
   /auctions/{auctionId}/offers:
     get:
       operationId: getAuctionOffers
