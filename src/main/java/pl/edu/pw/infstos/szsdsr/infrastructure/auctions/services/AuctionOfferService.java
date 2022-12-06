@@ -32,4 +32,11 @@ public class AuctionOfferService {
                 .toList();
     }
 
+    public List<AuctionOfferDTO> getAuctionOffers(Long auctionId) {
+        return auctionOfferRepo.findByAuctionId(auctionId)
+                .stream()
+                .map(t -> mapper.convertValue(t, AuctionOfferDTO.class))
+                .toList();
+    }
+
 }

@@ -872,7 +872,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuctionOffer'
-
+  /auctions/{auctionId}/offers:
+    get:
+      operationId: getAuctionOffers
+      tags:
+        - AuctionOffer
+      summary: Get offers by auction
+      description: Get offers by auction
+      parameters:
+        - name: auctionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuctionOffer'
+        400:
+          description: Bad Request
 components:
   schemas:
     PassingCharge:

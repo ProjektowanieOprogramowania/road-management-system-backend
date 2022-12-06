@@ -26,5 +26,9 @@ public class AuctionOffersApiController implements AuctionOfferApi {
         return ResponseEntity.ok(offerService.getAllOffers());
     }
 
+    @Override
+    public ResponseEntity<List<AuctionOfferDTO>> getAuctionOffers(Long auctionId) {
+        return ResponseEntity.ok(offerService.getAuctionOffers(auctionId));
+    }
 
 }
