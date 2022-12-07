@@ -4,27 +4,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
+import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
-import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
-import pl.edu.pw.infstos.szsdsr.generated.models.*;
-import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
-import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.charges.penalties.services.PenaltyService;
+import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
+import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.services.SensorService;
+import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
+import pl.edu.pw.infstos.szsdsr.driving.vehicle.services.VehicleService;
+import pl.edu.pw.infstos.szsdsr.generated.models.*;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services.AuctionOfferService;
+import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services.AuctionService;
+import pl.edu.pw.infstos.szsdsr.localization.services.LocalizationService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadNodeService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadSegmentService;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
-import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.services.SensorService;
 import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
-import pl.edu.pw.infstos.szsdsr.driving.vehicle.services.VehicleService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class DataGenerator {
@@ -49,7 +54,9 @@ public class DataGenerator {
                                       @Autowired CameraStreamService cameraStreamService,
                                       @Autowired SensorService sensorService,
                                       @Autowired RoadNodeService roadNodeService,
-                                      @Autowired RoadSegmentService roadSegmentService) {
+                                      @Autowired RoadSegmentService roadSegmentService,
+                                      @Autowired AuctionService auctionService,
+                                      @Autowired AuctionOfferService auctionOfferService) {
         return args -> {
             AppUser userWithPassing = new AppUser("JanKowalski");
             UUID userWithPassingUuid = UUID.fromString("4d312962-5bbf-11ed-9b6a-0242ac120002");
@@ -238,6 +245,24 @@ public class DataGenerator {
 
             a2.setSegments(List.of(swieckoPoznanSegment, poznanLodzSegment, lodzWarszawaSegment, warszawaSiedlceSegment));
             roadService.updateRoad(a2);
+
+            AuctionDTO auction1 = new AuctionDTO();
+            auction1.setName("Przetarg na prace konserwatorskie obwodnicy Warszawy");
+            auction1.setDescription("Opis przetargu na prace konserwatorskie obwodnicy Warszawy.");
+            auction1.setLocalization(warszawaLocalization);
+            auction1.setNumber(107);
+            auction1.setDueDate(17L);
+            auction1.setIsOpen(true);
+            auction1.setStaringPrice(100000.0);
+
+            auction1 = auctionService.createAuction(auction1);
+
+            AuctionOfferDTO auctionOffer1 = new AuctionOfferDTO();
+            auctionOffer1.setAmount(95000.0);
+            auctionOffer1.setCurrency("pln");
+            auctionOffer1.setUserId(userWithPassingUuid);
+            auctionOffer1.setAuction(auction1);
+            auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
     }
 

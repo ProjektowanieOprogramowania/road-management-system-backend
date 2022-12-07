@@ -1386,6 +1386,8 @@ components:
         userId:
           type: string
           format: uuid
+        auction:
+          $ref: '#/components/schemas/Auction'
         amount:
           type: number
           format: double

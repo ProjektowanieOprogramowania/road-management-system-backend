@@ -50,6 +50,11 @@ public class AuctionOfferService {
 
     public AuctionOfferDTO getWinningOffer(Long auctionId) {
         List<AuctionOffer> auctionOffers = auctionOfferRepo.findByAuctionId(auctionId);
+
+        if(auctionOffers.isEmpty()) {
+            return null;
+        }
+
         AuctionOffer winningOffer = Collections.max(auctionOffers, new Comparator() {
             public int compare(Object o1,  Object o2) {
                 AuctionOffer offer1 = (AuctionOffer) o1;
