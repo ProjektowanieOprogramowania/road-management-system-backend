@@ -4,8 +4,6 @@ import pl.edu.pw.infstos.szsdsr.generated.models.CurrencyDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -26,7 +24,7 @@ public class Auction {
     @JoinColumn(name = "localization_id")
     private Localization localization;
 
-    @OneToMany(mappedBy = "auction")
+    @OneToMany(mappedBy = "auctionId")
     private List<AuctionOffer> offers = null;
 
     public Auction() {
@@ -127,7 +125,7 @@ public class Auction {
 
     public void setOffers(List<AuctionOffer> offers) {
         if(offers != null) {
-            offers.forEach(offer -> offer.setAuction(this));
+            offers.forEach(offer -> offer.setAuctionId(this.id));
         }
         this.offers = offers;
     }

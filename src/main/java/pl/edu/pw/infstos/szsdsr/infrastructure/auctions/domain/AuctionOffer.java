@@ -20,9 +20,7 @@ public class AuctionOffer {
 
     private Integer score;
 
-    @ManyToOne
-    @JoinColumn(name = "auction_id")
-    private Auction auction;
+    private Long auctionId;
 
     @NotNull
     private CurrencyDTO currency = CurrencyDTO.PLN;
@@ -47,12 +45,12 @@ public class AuctionOffer {
         this.amount = amount;
     }
 
-    public Auction getAuction() {
-        return auction;
+    public Long getAuctionId() {
+        return auctionId;
     }
 
-    public void setAuction(Auction auction) {
-        this.auction = auction;
+    public void setAuctionId(Long auctionId) {
+        this.auctionId = auctionId;
     }
 
     public CurrencyDTO getCurrency() {
