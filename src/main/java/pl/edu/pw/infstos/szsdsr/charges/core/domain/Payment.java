@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 public class Payment {
@@ -20,7 +21,7 @@ public class Payment {
     private BigDecimal amount;
 
     @NotNull
-    private LocalDateTime dateTime;
+    private OffsetDateTime dateTime;
 
     @NotNull
     private PaymentMethodDTO paymentMethod;
@@ -28,7 +29,7 @@ public class Payment {
     protected Payment() {
     }
 
-    public Payment(Long id, BigDecimal amount, LocalDateTime dateTime, PaymentMethodDTO paymentMethod) {
+    public Payment(Long id, BigDecimal amount, OffsetDateTime dateTime, PaymentMethodDTO paymentMethod) {
         this.id = id;
         this.amount = amount;
         this.dateTime = dateTime;
@@ -52,11 +53,11 @@ public class Payment {
     }
 
 
-    public LocalDateTime getDateTime() {
+    public OffsetDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(OffsetDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

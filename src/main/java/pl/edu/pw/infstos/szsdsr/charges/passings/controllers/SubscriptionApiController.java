@@ -14,6 +14,7 @@ import pl.edu.pw.infstos.szsdsr.roads.domain.Road;
 import pl.edu.pw.infstos.szsdsr.roads.services.RoadService;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -72,7 +73,7 @@ public class SubscriptionApiController implements SubscriptionsApi {
         PaymentDTO payment = new PaymentDTO();
         payment.setAmount(amount);
         payment.setPaymentMethod(paymentMethod);
-        payment.setDateTime(LocalDateTime.now());
+        payment.setDateTime(OffsetDateTime.now());
         payment = paymentService.addPayment(payment);
 
         ChargeDTO chargeDTO = new ChargeDTO();

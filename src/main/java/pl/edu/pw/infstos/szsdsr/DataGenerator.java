@@ -3,13 +3,13 @@ package pl.edu.pw.infstos.szsdsr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
+import org.springframework.stereotype.Component;
+import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
 import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.SubscriptionService;
 import pl.edu.pw.infstos.szsdsr.charges.penalties.services.PenaltyService;
-import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
 import pl.edu.pw.infstos.szsdsr.datacollection.sensors.core.services.SensorService;
 import pl.edu.pw.infstos.szsdsr.driving.passings.services.PassingService;
 import pl.edu.pw.infstos.szsdsr.driving.vehicle.services.VehicleService;
@@ -24,9 +24,7 @@ import pl.edu.pw.infstos.szsdsr.tariffs.services.TariffService;
 import pl.edu.pw.infstos.szsdsr.users.domain.AppUser;
 import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +68,7 @@ public class DataGenerator {
             userWithSubscription = appUserService.create(userWithSubscription);
 
             PassingDTO passing1 = new PassingDTO();
-            passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
+            passing1.setDateTime(OffsetDateTime.of(2022, 10, 15, 15, 55, 7, 0, ZoneOffset.UTC));
             LocalizationDTO localization1 = new LocalizationDTO();
             localization1.setLatitude(52.142154);
             localization1.setLongitude(19.482726);

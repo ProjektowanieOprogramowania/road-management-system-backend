@@ -6,6 +6,7 @@ import pl.edu.pw.infstos.szsdsr.driving.vehicle.Vehicle;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 public class Passing {
@@ -18,7 +19,7 @@ public class Passing {
     private boolean payable;
 
     @NotNull
-    private LocalDateTime dateTime;
+    private OffsetDateTime dateTime;
 
     @NotNull
     @ManyToOne
@@ -46,11 +47,11 @@ public class Passing {
         this.payable = payable;
     }
 
-    public LocalDateTime getDateTime() {
+    public OffsetDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(OffsetDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

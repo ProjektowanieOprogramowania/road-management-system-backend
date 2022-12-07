@@ -4,6 +4,8 @@ import pl.edu.pw.infstos.szsdsr.generated.models.CurrencyDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity

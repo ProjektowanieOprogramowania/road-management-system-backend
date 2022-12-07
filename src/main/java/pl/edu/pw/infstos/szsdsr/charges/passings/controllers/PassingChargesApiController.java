@@ -14,6 +14,7 @@ import pl.edu.pw.infstos.szsdsr.generated.models.PaymentDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.PaymentMethodDTO;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,7 +56,7 @@ public class PassingChargesApiController implements PassingChargesApi {
             PaymentDTO payment = new PaymentDTO();
             payment.setAmount(passingCharge.getCharge().getAmount());
             payment.setPaymentMethod(paymentMethod);
-            payment.setDateTime(LocalDateTime.now());
+            payment.setDateTime(OffsetDateTime.now());
             payment = paymentService.addPayment(payment);
 
             passingCharge.getCharge().setPaid(true);

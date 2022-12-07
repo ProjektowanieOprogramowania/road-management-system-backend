@@ -92,7 +92,6 @@
                                 <requestMappingMode>api_interface</requestMappingMode>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useTags>true</useTags>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
                             </configOptions>
                         </configuration>
                     </execution>
