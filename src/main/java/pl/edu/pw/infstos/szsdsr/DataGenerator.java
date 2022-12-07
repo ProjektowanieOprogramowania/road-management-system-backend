@@ -276,6 +276,7 @@ public class DataGenerator {
             auctionOffer1.setUserId(userWithAuctionOfferUuid1);
             auctionOffer1.setCompanyName(userWithAuctionOffer1.getCompanyName());
             auctionOffer1.setAuctionId(auction1.getId());
+            auctionOffer1.setScore(95000);
             auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
     }
