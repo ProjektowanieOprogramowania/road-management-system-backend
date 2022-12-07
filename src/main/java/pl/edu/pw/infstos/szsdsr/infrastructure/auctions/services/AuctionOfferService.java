@@ -8,6 +8,8 @@ import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.Auction;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.AuctionOffer;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.repo.AuctionOfferRepo;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -44,5 +46,26 @@ public class AuctionOfferService {
         var offer = mapper.convertValue(auctionOfferDTO, AuctionOffer.class);
         offer = auctionOfferRepo.save(offer);
         return mapper.convertValue(offer, AuctionOfferDTO.class);
+    }
+
+    public AuctionOfferDTO getWinningOffer(Long auctionId) {
+        List<AuctionOffer> auctionOffers = auctionOfferRepo.findByAuctionId(auctionId);
+        AuctionOffer winningOffer = Collections.max(auctionOffers, new Comparator() {
+            public int compare(Object o1,  Object o2) {
+                AuctionOffer offer1 = (AuctionOffer) o1;
+                AuctionOffer offer2 = (AuctionOffer) o2;
+                Integer score1 = offer1.getScore();
+                Integer score2 = offer2.getScore();
+                if (score1 == null && score2 == null) {
+                    return 0;
+                } else if (score1 == null && score2 != null) {
+                    return -1;
+                } else if(score1 != null && score2 == null) {
+                    return 1;
+                }
+                return offer1.getScore().compareTo(offer2.getScore());
+            }
+        });
+        return mapper.convertValue(winningOffer, AuctionOfferDTO.class);
     }
 }
