@@ -1,8 +1,11 @@
 package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain;
 
+import pl.edu.pw.infstos.szsdsr.generated.models.CurrencyDTO;
 import pl.edu.pw.infstos.szsdsr.localization.Localization;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -13,10 +16,11 @@ public class Auction {
     private Long id;
     private Boolean isOpen;
     private Double staringPrice;
+    private CurrencyDTO staringPriceCurrency;
     private String name;
     private String description;
     private Integer number;
-    private Long dueDate;
+    private LocalDateTime dueDate;
 
     @OneToOne
     @JoinColumn(name = "localization_id")
@@ -25,6 +29,25 @@ public class Auction {
     @OneToMany(mappedBy = "auction")
     private List<AuctionOffer> offers = null;
 
+    public Auction() {
+    }
+
+    public Auction(Double staringPrice,
+                   CurrencyDTO staringPriceCurrency,
+                   String name,
+                   String description,
+                   Integer number,
+                   LocalDateTime dueDate,
+                   Localization localization
+    ) {
+        this.staringPrice = staringPrice;
+        this.staringPriceCurrency = staringPriceCurrency;
+        this.name = name;
+        this.description = description;
+        this.number = number;
+        this.dueDate = dueDate;
+        this.localization = localization;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -66,11 +89,27 @@ public class Auction {
         this.number = number;
     }
 
-    public Long getDueDate() {
+    public Boolean getOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(Boolean open) {
+        isOpen = open;
+    }
+
+    public CurrencyDTO getStaringPriceCurrency() {
+        return staringPriceCurrency;
+    }
+
+    public void setStaringPriceCurrency(CurrencyDTO staringPriceCurrency) {
+        this.staringPriceCurrency = staringPriceCurrency;
+    }
+
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Long dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -87,6 +126,9 @@ public class Auction {
     }
 
     public void setOffers(List<AuctionOffer> offers) {
+        if(offers != null) {
+            offers.forEach(offer -> offer.setAuction(this));
+        }
         this.offers = offers;
     }
 
