@@ -261,7 +261,7 @@ public class DataGenerator {
             auctionOffer1.setAmount(95000.0);
             auctionOffer1.setCurrency("pln");
             auctionOffer1.setUserId(userWithPassingUuid);
-            auctionOffer1.setAuction(auction1);
+            auctionOffer1.setAuctionId(auction1.getId());
             auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
     }

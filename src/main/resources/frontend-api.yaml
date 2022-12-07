@@ -1388,8 +1388,9 @@ components:
         userId:
           type: string
           format: uuid
-        auction:
-          $ref: '#/components/schemas/Auction'
+        auctionId:
+          type: integer
+          format: int64
         amount:
           type: number
           format: double
@@ -1398,7 +1399,7 @@ components:
           format: Currency
         score:
           type: integer
-          format: int16
+          format: int32
 
     Currency:
       type: string
