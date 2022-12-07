@@ -1360,6 +1360,8 @@ components:
         staringPrice:
           type: number
           format: double
+        staringPriceCurrency:
+          $ref: '#/components/schemas/Currency'
         localization:
           $ref: '#/components/schemas/Localization'
         name:
@@ -1369,8 +1371,8 @@ components:
         number:
           type: integer
         dueDate:
-          type: integer
-          format: int64
+          type: string
+          format: date-time
         offers:
           type: array
           items:

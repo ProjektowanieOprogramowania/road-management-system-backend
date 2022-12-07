@@ -2,6 +2,7 @@ package pl.edu.pw.infstos.szsdsr.infrastructure.auctions.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionDTO;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionOfferDTO;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.Auction;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@Transactional
 public class AuctionOfferService {
     private final AuctionOfferRepo auctionOfferRepo;
     private final ObjectMapper mapper;

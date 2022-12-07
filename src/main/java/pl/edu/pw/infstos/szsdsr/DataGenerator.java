@@ -3,7 +3,7 @@ package pl.edu.pw.infstos.szsdsr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
 import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
@@ -251,7 +251,7 @@ public class DataGenerator {
             auction1.setDescription("Opis przetargu na prace konserwatorskie obwodnicy Warszawy.");
             auction1.setLocalization(warszawaLocalization);
             auction1.setNumber(107);
-            auction1.setDueDate(17L);
+            auction1.setDueDate(LocalDateTime.of(2022, 12, 30, 23, 59, 59));
             auction1.setIsOpen(true);
             auction1.setStaringPrice(100000.0);
 
