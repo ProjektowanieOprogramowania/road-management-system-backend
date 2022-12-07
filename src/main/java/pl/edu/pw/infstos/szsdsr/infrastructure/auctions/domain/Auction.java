@@ -20,7 +20,7 @@ public class Auction {
     private String name;
     private String description;
     private Integer number;
-    private LocalDateTime dueDate;
+    private Long dueDate;
 
     @OneToOne
     @JoinColumn(name = "localization_id")
@@ -37,7 +37,7 @@ public class Auction {
                    String name,
                    String description,
                    Integer number,
-                   LocalDateTime dueDate,
+                   Long dueDate,
                    Localization localization
     ) {
         this.staringPrice = staringPrice;
@@ -105,11 +105,11 @@ public class Auction {
         this.staringPriceCurrency = staringPriceCurrency;
     }
 
-    public LocalDateTime getDueDate() {
+    public Long getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(Long dueDate) {
         this.dueDate = dueDate;
     }
 

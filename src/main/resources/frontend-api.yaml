@@ -1371,8 +1371,8 @@ components:
         number:
           type: integer
         dueDate:
-          type: string
-          format: date-time
+          type: integer
+          format: int64
         offers:
           type: array
           items:

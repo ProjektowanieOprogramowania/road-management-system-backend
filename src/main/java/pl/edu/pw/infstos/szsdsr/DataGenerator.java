@@ -26,6 +26,7 @@ import pl.edu.pw.infstos.szsdsr.users.service.AppUserService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,7 +252,7 @@ public class DataGenerator {
             auction1.setDescription("Opis przetargu na prace konserwatorskie obwodnicy Warszawy.");
             auction1.setLocalization(warszawaLocalization);
             auction1.setNumber(107);
-            auction1.setDueDate(LocalDateTime.of(2022, 12, 30, 23, 59, 59));
+            auction1.setDueDate(createTimestamp(LocalDateTime.of(2022, 12, 30, 23, 59, 59)));
             auction1.setIsOpen(true);
             auction1.setStaringPrice(100000.0);
 
@@ -264,6 +265,11 @@ public class DataGenerator {
             auctionOffer1.setAuctionId(auction1.getId());
             auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
+    }
+
+    public static long createTimestamp(LocalDateTime ldt) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        return ldt.atZone(zoneId).toEpochSecond();
     }
 
 }
