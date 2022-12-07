@@ -262,3 +262,14 @@ GET http://localhost:8080/charges/passing/subscription/4d312962-5bbf-11ed-9b6a-0
 
 ### Pobranie danej płatności
 GET http://localhost:8080/charges/payment/16
+
+
+
+
+// Iteracja 3
+
+### UC: Wyświetl listę przetargów
+GET http://localhost:8080/auctions
+
+### Pobranie wszystkich ofert
+GET http://localhost:8080/auctions/offers
