@@ -284,3 +284,6 @@ Content-Type: application/json
   "amount": 95000.0,
   "currency": "pln"
 }
+
+### Pobranie oferty wygrywającej
+GET http://localhost:8080/auctions/36/offers/won

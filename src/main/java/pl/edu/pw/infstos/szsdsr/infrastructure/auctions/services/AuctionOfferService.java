@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -63,27 +64,13 @@ public class AuctionOfferService {
 
     public AuctionOfferDTO getWinningOffer(Long auctionId) {
         List<AuctionOffer> auctionOffers = auctionOfferRepo.findByAuctionId(auctionId);
+        auctionOffers = auctionOffers.stream().filter(ao -> ao.getScore() != null).collect(Collectors.toList());
 
         if (auctionOffers.isEmpty()) {
             return null;
         }
 
-        AuctionOffer winningOffer = Collections.max(auctionOffers, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                AuctionOffer offer1 = (AuctionOffer) o1;
-                AuctionOffer offer2 = (AuctionOffer) o2;
-                Integer score1 = offer1.getScore();
-                Integer score2 = offer2.getScore();
-                if (score1 == null && score2 == null) {
-                    return 0;
-                } else if (score1 == null && score2 != null) {
-                    return -1;
-                } else if (score1 != null && score2 == null) {
-                    return 1;
-                }
-                return offer1.getScore().compareTo(offer2.getScore());
-            }
-        });
+        AuctionOffer winningOffer = auctionOffers.stream().max(Comparator.comparing(AuctionOffer::getScore)).orElse(null);
         return mapper.convertValue(winningOffer, AuctionOfferDTO.class);
     }
 }
