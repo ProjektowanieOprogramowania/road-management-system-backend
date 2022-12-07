@@ -3,7 +3,7 @@ package pl.edu.pw.infstos.szsdsr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;import pl.edu.pw.infstos.szsdsr.datacollection.camerastreams.services.CameraStreamService;
+import org.springframework.stereotype.Component;
 import pl.edu.pw.infstos.szsdsr.appshared.generators.AppUserGenerator;
 import pl.edu.pw.infstos.szsdsr.charges.core.service.ChargeService;
 import pl.edu.pw.infstos.szsdsr.charges.passings.service.PassingChargeService;
@@ -69,11 +69,17 @@ public class DataGenerator {
             userWithSubscription.setUuid(userWithSubscriptionUuid);
             userWithSubscription = appUserService.create(userWithSubscription);
 
-            AppUser userWithAuctionOffer = new AppUser("PawelNowak");
-            UUID userWithAuctionOfferUuid = UUID.fromString("7049caf9-4803-4e47-9cd0-8cc08e59aa30");
-            userWithAuctionOffer.setUuid(userWithAuctionOfferUuid);
-            userWithAuctionOffer.setCompanyName("Firma sp. z o.o.");
-            userWithAuctionOffer = appUserService.create(userWithAuctionOffer);
+            AppUser userWithAuctionOffer1 = new AppUser("PawelNowak");
+            UUID userWithAuctionOfferUuid1 = UUID.fromString("777d2a36-c835-4f09-a7aa-22fd709f4968");
+            userWithAuctionOffer1.setUuid(userWithAuctionOfferUuid1);
+            userWithAuctionOffer1.setCompanyName("Firma sp. z o.o.");
+            userWithAuctionOffer1 = appUserService.create(userWithAuctionOffer1);
+
+            AppUser userWithAuctionOffer2 = new AppUser("krzysztofibisz");
+            UUID userWithAuctionOfferUuid2 = UUID.fromString("7049caf9-4803-4e47-9cd0-8cc08e59aa30");
+            userWithAuctionOffer2.setUuid(userWithAuctionOfferUuid2);
+            userWithAuctionOffer2.setCompanyName("Usługi drogowe sp. j.");
+            userWithAuctionOffer2 = appUserService.create(userWithAuctionOffer2);
 
             PassingDTO passing1 = new PassingDTO();
             passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
@@ -267,8 +273,8 @@ public class DataGenerator {
             AuctionOfferDTO auctionOffer1 = new AuctionOfferDTO();
             auctionOffer1.setAmount(95000.0);
             auctionOffer1.setCurrency("pln");
-            auctionOffer1.setUserId(userWithAuctionOfferUuid);
-            auctionOffer1.setCompanyName(userWithAuctionOffer.getCompanyName());
+            auctionOffer1.setUserId(userWithAuctionOfferUuid1);
+            auctionOffer1.setCompanyName(userWithAuctionOffer1.getCompanyName());
             auctionOffer1.setAuctionId(auction1.getId());
             auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
