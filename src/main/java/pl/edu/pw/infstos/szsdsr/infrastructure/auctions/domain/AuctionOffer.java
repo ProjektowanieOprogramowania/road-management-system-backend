@@ -27,6 +27,8 @@ public class AuctionOffer {
     @NotNull
     private CurrencyDTO currency = CurrencyDTO.PLN;
 
+    private String companyName;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class AuctionOffer {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

@@ -273,3 +273,14 @@ GET http://localhost:8080/auctions
 
 ### Pobranie wszystkich ofert
 GET http://localhost:8080/auctions/offers
+
+### Utworzenie oferty
+POST http://localhost:8080/auctions/offers
+Content-Type: application/json
+
+{
+  "userId": "7049caf9-4803-4e47-9cd0-8cc08e59aa30",
+  "auctionId": 35,
+  "amount": 95000.0,
+  "currency": "pln"
+}

@@ -16,6 +16,8 @@ public class AppUser implements Serializable {
     @Column(name = "login", unique = true, nullable = false)
     private String login;
 
+    private String companyName;
+
     public AppUser(String login) {
         this.login = login;
     }
@@ -39,4 +41,11 @@ public class AppUser implements Serializable {
         this.uuid = uuid;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }

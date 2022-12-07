@@ -1388,6 +1388,8 @@ components:
         userId:
           type: string
           format: uuid
+        companyName:
+          type: string
         auctionId:
           type: integer
           format: int64

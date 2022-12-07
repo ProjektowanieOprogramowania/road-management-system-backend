@@ -69,6 +69,12 @@ public class DataGenerator {
             userWithSubscription.setUuid(userWithSubscriptionUuid);
             userWithSubscription = appUserService.create(userWithSubscription);
 
+            AppUser userWithAuctionOffer = new AppUser("PawelNowak");
+            UUID userWithAuctionOfferUuid = UUID.fromString("7049caf9-4803-4e47-9cd0-8cc08e59aa30");
+            userWithAuctionOffer.setUuid(userWithAuctionOfferUuid);
+            userWithAuctionOffer.setCompanyName("Firma sp. z o.o.");
+            userWithAuctionOffer = appUserService.create(userWithAuctionOffer);
+
             PassingDTO passing1 = new PassingDTO();
             passing1.setDateTime(LocalDateTime.of(2022, 10, 15, 15, 55, 7));
             LocalizationDTO localization1 = new LocalizationDTO();
@@ -261,7 +267,8 @@ public class DataGenerator {
             AuctionOfferDTO auctionOffer1 = new AuctionOfferDTO();
             auctionOffer1.setAmount(95000.0);
             auctionOffer1.setCurrency("pln");
-            auctionOffer1.setUserId(userWithPassingUuid);
+            auctionOffer1.setUserId(userWithAuctionOfferUuid);
+            auctionOffer1.setCompanyName(userWithAuctionOffer.getCompanyName());
             auctionOffer1.setAuctionId(auction1.getId());
             auctionOffer1 = auctionOfferService.createOffer(auctionOffer1);
         };
