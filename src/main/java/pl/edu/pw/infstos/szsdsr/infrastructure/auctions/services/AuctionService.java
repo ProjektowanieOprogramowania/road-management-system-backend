@@ -5,21 +5,25 @@ import org.springframework.stereotype.Service;
 import pl.edu.pw.infstos.szsdsr.generated.models.AuctionDTO;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.domain.Auction;
 import pl.edu.pw.infstos.szsdsr.infrastructure.auctions.repo.AuctionRepo;
+import pl.edu.pw.infstos.szsdsr.localization.repositories.LocalizationRepository;
 
 import java.util.List;
 
 @Service
 public class AuctionService {
     private final AuctionRepo auctionRepo;
+    private final LocalizationRepository localizationRepo;
     private final ObjectMapper mapper;
 
-    public AuctionService(AuctionRepo auctionRepo, ObjectMapper mapper) {
+    public AuctionService(AuctionRepo auctionRepo, LocalizationRepository localizationRepo, ObjectMapper mapper) {
         this.auctionRepo = auctionRepo;
+        this.localizationRepo = localizationRepo;
         this.mapper = mapper;
     }
 
     public AuctionDTO createAuction(AuctionDTO auctionDTO) {
         var auction = mapper.convertValue(auctionDTO, Auction.class);
+        auction.setLocalization(localizationRepo.save(auction.getLocalization()));
         auction = auctionRepo.save(auction);
         return mapper.convertValue(auction, AuctionDTO.class);
     }
