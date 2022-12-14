@@ -62,7 +62,7 @@ public class PassingChargesApiController implements PassingChargesApi {
             passingCharge.getCharge().setPayment(payment);
             chargeService.updateCharge(passingCharge.getCharge());
 
-            return ResponseEntity.ok("/charges/payment/" + payment.getId());
+            return ResponseEntity.ok(String.format("\"/charges/payment/%d\"", payment.getId()));
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
